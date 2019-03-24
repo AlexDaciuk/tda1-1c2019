@@ -10,7 +10,7 @@ players = ["Juan", "Jose", "Ana", "Helena", "Martin", "Virginia", "Julia",
 numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13",
            "14", "15", "16", "17", "18", "19", "20"]
 
-numbers_mod = list(numbers)
+players_mod = list(players)
 numbers_shuffled = list(numbers)
 
 file = open("../../assets/txt/20_jugadores.rank", "w+")
@@ -18,10 +18,10 @@ file = open("../../assets/txt/20_jugadores.rank", "w+")
 # Ordeno el array alfabeticamente
 players.sort()
 
-for name in players:
+for number_tmp in numbers:
 
-    # Elijo un numero random, se va a usar para el ranking principal
-    number_tmp = random.choice(numbers_mod)
+    # Elijo un nombre random, se va a usar para el ranking principal
+    name_tmp = random.choice(players_mod)
 
     # Mezclo los numeros para crear las preferencias aleatorias
     # Elimino el numero propio del jugador en cuestion, ya que nunca
@@ -36,19 +36,16 @@ for name in players:
     pref_file = open("../../assets/txt/" + pref_file_tmp, "w+")
 
     for name2 in players:
-        if name2 != name:
+        if name2 != name_tmp:
             pref_jug_tmp = name2 + "," + numbers_shuffled.pop() + "\n"
             pref_file.write(pref_jug_tmp)
 
     # Cierro el archivo de preferencias del jugador number_tmp
     pref_file.close()
 
-    player_string = number_tmp + "," + name + "," + pref_file_tmp + "\n"
+    player_string = number_tmp + "," + name_tmp + "," + pref_file_tmp + "\n"
 
-    print(numbers)
-    print(numbers_mod)
-
-    numbers_mod.remove(number_tmp)
+    players_mod.remove(name_tmp)
 
     file.write(player_string)
 
