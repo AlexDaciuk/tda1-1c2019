@@ -21,7 +21,7 @@ players.sort()
 for number_tmp in numbers:
 
     # Elijo un nombre random, se va a usar para el ranking principal
-    name_tmp = random.choice(players_mod)
+    player_tmp = random.choice(players_mod)
 
     # Mezclo los numeros para crear las preferencias aleatorias
     # Elimino el numero propio del jugador en cuestion, ya que nunca
@@ -36,16 +36,16 @@ for number_tmp in numbers:
     pref_file = open("../../assets/txt/" + pref_file_tmp, "w+")
 
     for name2 in players:
-        if name2 != name_tmp:
+        if name2 != player_tmp:
             pref_jug_tmp = name2 + "," + numbers_shuffled.pop() + "\n"
             pref_file.write(pref_jug_tmp)
 
     # Cierro el archivo de preferencias del jugador number_tmp
     pref_file.close()
 
-    player_string = number_tmp + "," + name_tmp + "," + pref_file_tmp + "\n"
+    player_string = number_tmp + "," + player_tmp + "," + pref_file_tmp + "\n"
 
-    players_mod.remove(name_tmp)
+    players_mod.remove(player_tmp)
 
     file.write(player_string)
 
