@@ -32,7 +32,7 @@ def leer_archivo(file_path, players_quantity):
 class Players:
     def __init__(self, name, pref_file):
         self.name = name
-        self.pref_list = []
+        self.pref_list = [None] * 19
         self.load_pref(pref_file)
 
     def load_pref(self, pref_file):
@@ -48,7 +48,7 @@ class Players:
             name_tmp = splitted_pref[0]
             pref_number = int(splitted_pref[1])
 
-            self.pref_list.insert(pref_number, name_tmp)
+            self.pref_list[pref_number-1] = name_tmp
 
 
 def main():
