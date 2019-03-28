@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 
-file_path = "../../assets/txt/" + sys.argv[1]
+file_path = sys.argv[1]
 
 number_list = []
 
@@ -39,7 +39,7 @@ def moda(number_list):
     number_list.sort()
 
     if (len(number_list) % 2) == 0:  # Largo de lista par
-        
+
 
 
 
