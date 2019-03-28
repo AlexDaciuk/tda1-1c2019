@@ -48,21 +48,11 @@ class Players:
             name_tmp = splitted_pref[0]
             pref_number = int(splitted_pref[1])
 
-            self.pref_list[pref_number-1] = name_tmp
+            self.pref_list[pref_number - 1] = name_tmp
 
 
 def main():
     leer_archivo(file_path, players_quantity)
-
-    for person in best_10:
-        print(person.name)
-        for pref in person.pref_list:
-            print(person.pref_list.index(pref) + 1, pref)
-
-    for person in worse_10:
-        print(person.name)
-        for pref in person.pref_list:
-            print(person.pref_list.index(pref) + 1, pref)
 
 
 main()
