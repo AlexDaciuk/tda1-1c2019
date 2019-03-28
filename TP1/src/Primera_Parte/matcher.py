@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 
-file_path = "../../assets/txt/" + sys.argv[2]
+file_path = sys.argv[2]
 players_quantity = sys.argv[1]
 
 best_10 = []
@@ -19,7 +19,7 @@ def leer_archivo(file_path, players_quantity):
 
         rank = int(splitted_line[0])
         name = splitted_line[1]
-        pref_file = "../../assets/txt/" + splitted_line[2].rstrip()
+        pref_file = splitted_line[2].rstrip()
 
         player_tmp = Players(name, pref_file)
 

@@ -17,5 +17,5 @@ Para correr el programa que genera las parejas
 
 ```
 cd src/Primera_Parte
-python3 matcher.py 20 20_jugadores.rank
+python3 matcher.py 20 ../../assets/txt/20_jugadores.rank
 ```
