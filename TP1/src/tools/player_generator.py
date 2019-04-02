@@ -49,12 +49,12 @@ worse_10_copia = list(worse_10)
 worse_10_copia.sort()
 
 for player in best_10:
-    pref_file_tmp = "jugador_" + str(best_10.index(player)) + ".pref"
+    pref_file_tmp = "jugador_" + str(best_10.index(player) + 1) + ".pref"
 
     # Abro el archivo
     pref_file = open("../../assets/txt/" + pref_file_tmp, "w+")
 
-    numbers = list(range(1, 21, 1))*4
+    numbers = list(range(1, 21, 1)) * 4
     random.shuffle(numbers)
 
     for player_w in worse_10_copia:
@@ -63,16 +63,19 @@ for player in best_10:
 
     pref_file.close()
 
+
 best_10_copia = list(best_10)
 best_10_copia.sort()
 
 for player in worse_10:
-    pref_file_tmp = "jugador_" + str(worse_10.index(player)) + ".pref"
+    pref_file_tmp = "jugador_" + str(worse_10.index(player) + 11) + ".pref"
+
+    print("Entre a worse 10")
 
     # Abro el archivo
     pref_file = open("../../assets/txt/" + pref_file_tmp, "w+")
 
-    numbers = list(range(1, 21, 1))*4
+    numbers = list(range(1, 21, 1)) * 4
     random.shuffle(numbers)
 
     for player_w in best_10_copia:
