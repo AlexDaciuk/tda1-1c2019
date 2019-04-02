@@ -54,11 +54,11 @@ for player in best_10:
     # Abro el archivo
     pref_file = open("../../assets/txt/" + pref_file_tmp, "w+")
 
-    numbers_10 = list(range(1, 11, 1))
-    random.shuffle(numbers_10)
+    numbers = list(range(1, 21, 1))*4
+    random.shuffle(numbers)
 
     for player_w in worse_10_copia:
-        pref_jug_tmp = player_w + "," + str(numbers_10.pop()) + "\n"
+        pref_jug_tmp = player_w + "," + str(numbers.pop()) + "\n"
         pref_file.write(pref_jug_tmp)
 
     pref_file.close()
@@ -72,11 +72,11 @@ for player in worse_10:
     # Abro el archivo
     pref_file = open("../../assets/txt/" + pref_file_tmp, "w+")
 
-    numbers_10 = list(range(1, 11, 1))
-    random.shuffle(numbers_10)
+    numbers = list(range(1, 21, 1))*4
+    random.shuffle(numbers)
 
     for player_w in best_10_copia:
-        pref_jug_tmp = player_w + "," + str(numbers_10.pop()) + "\n"
+        pref_jug_tmp = player_w + "," + str(numbers.pop()) + "\n"
         pref_file.write(pref_jug_tmp)
 
     pref_file.close()
