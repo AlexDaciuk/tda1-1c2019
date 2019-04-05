@@ -51,26 +51,27 @@ class Players:
 
             self.pref_list.append([name_tmp, pref_number])
 
-    def eval_match_change(self,new_proposal):
+    def eval_match_change(self, new_proposal):
         current_match_pref = 0
 
         for player in self.pref_list:
             if player[0] == new_proposal:
                 new_proposal_pref = player[1]
-            elif (self.current_match is not None and
-                  player[0] == self.current_match):
+            elif (self.current_match is not None
+                  and player[0] == self.current_match):
                 current_match_pref = player[1]
 
         if new_proposal_pref > current_match_pref:
             self.current_match = new_proposal
             return True
-        elif (new_proposal_pref == current_match_pref or
-              new_proposal_pref < current_match_pref):
+        elif (new_proposal_pref == current_match_pref
+              or new_proposal_pref < current_match_pref):
             return False
 
 
 def matcher(best_10, worse_10):
     None
+
 
 def main():
     leer_archivo(file_path, players_quantity)
