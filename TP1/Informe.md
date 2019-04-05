@@ -24,6 +24,4 @@ Se podria escribir mejor esto o si alguno le parece lo contrario, se puede habla
 
 ## Desarrolle un algoritmo que dado una pareo y las preferencias determina si el mismo es matching estable. ¿Qué complejidad algorítmica tiene?
 
-*Hay que implementarlo y ver que onda* 
-
-## Desarrolle un algoritmo que dado una pareo y las preferencias determina si el mismo es matching estable. ¿Qué complejidad algorítmica tiene?
+*Hay que implementarlo y ver que onda*
