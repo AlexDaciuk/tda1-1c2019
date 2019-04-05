@@ -51,9 +51,9 @@ class Players:
 
             self.pref_list.append([name_tmp, pref_number])
 
-        self.pref_list.sort(key=lambda x: x[1])
-
     def eval_match_change(new_proposal):
+        current_match_pref = 0
+
         for player in self.pref_list:
             if player[0] == new_proposal:
                 new_proposal_pref = player[1]
