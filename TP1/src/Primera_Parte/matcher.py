@@ -51,7 +51,7 @@ class Players:
 
             self.pref_list.append([name_tmp, pref_number])
 
-    def eval_match_change(new_proposal):
+    def eval_match_change(self,new_proposal):
         current_match_pref = 0
 
         for player in self.pref_list:
@@ -70,7 +70,7 @@ class Players:
 
 
 def matcher(best_10, worse_10):
-
+    None
 
 def main():
     leer_archivo(file_path, players_quantity)
