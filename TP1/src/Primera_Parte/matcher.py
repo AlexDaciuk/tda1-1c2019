@@ -34,6 +34,7 @@ class Players:
         self.name = name
         self.pref_list = []
         self.load_pref(pref_file)
+        self.current_match = None
 
     def load_pref(self, pref_file):
         file = open(pref_file, "r")
@@ -51,6 +52,24 @@ class Players:
             self.pref_list.append([name_tmp, pref_number])
 
         self.pref_list.sort(key=lambda x: x[1])
+
+    def eval_match_change(new_proposal):
+        for player in self.pref_list:
+            if player[0] == new_proposal:
+                new_proposal_pref = player[1]
+            elif (self.current_match is not None and
+                  player[0] == self.current_match):
+                current_match_pref = player[1]
+
+        if new_proposal_pref > current_match_pref:
+            self.current_match = new_proposal
+            return True
+        elif (new_proposal_pref == current_match_pref or
+              new_proposal_pref < current_match_pref):
+            return False
+
+
+def matcher(best_10, worse_10):
 
 
 def main():
