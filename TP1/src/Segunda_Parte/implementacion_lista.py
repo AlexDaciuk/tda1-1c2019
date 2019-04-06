@@ -37,10 +37,10 @@ def media(number_list):
 
 
 def moda(number_list):
-    number_list.sort()
-
-    if (len(number_list) % 2) == 0:  # Largo de lista par
-        None
+     # Aca se obtiene el elemento que mayor frecuencia tiene
+     frecuente = max(list(map(number_list.count, number_list )))
+     # En caso de que alla mas de 1 valor de maxima frecuencia:
+     return list(set(filter(lambda x: number_list.count(x) == frecuente, number_list))) 
 
 
 def mediana(number_list): 
