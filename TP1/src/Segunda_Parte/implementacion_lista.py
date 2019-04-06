@@ -43,8 +43,16 @@ def moda(number_list):
         None
 
 
-def mediana(number_list):
-    None
+def mediana(number_list): 
+     number_list.sort()
+     pos = (number_list - 1) // 2
+     # Si el largo de la lista es par devuelvo el promedio 
+     # de los 2 valores medios de la lista
+     if (len(number_list) % 2) == 0:
+         return (number_list[pos] + number_list[pos + 1]) / 2.0
+     # Sino devuelvo el valor medio
+     return number_list[pos]
+
 
 
 def desviacion_estandar(number_list):
