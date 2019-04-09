@@ -10,7 +10,7 @@ number_list = []
 def cargar_numeros(file_path):
     file = open(file_path, "r")
 
-    lines = file.readline()
+    lines = file.readlines()
 
     for line in lines:
         number_tmp = line.rstrip()
@@ -37,22 +37,22 @@ def media(number_list):
 
 
 def moda(number_list):
-     # Aca se obtiene el elemento que mayor frecuencia tiene
-     frecuente = max(list(map(number_list.count, number_list )))
-     # En caso de que alla mas de 1 valor de maxima frecuencia:
-     return list(set(filter(lambda x: number_list.count(x) == frecuente, number_list))) 
+    # Aca se obtiene el elemento que mayor frecuencia tiene
+    frecuente = max(list(map(number_list.count, number_list)))
+    # En caso de que alla mas de 1 valor de maxima frecuencia:
+    return list(set(filter(lambda x: number_list.count(x) == frecuente,
+                           number_list)))
 
 
-def mediana(number_list): 
-     number_list.sort()
-     pos = (len(number_list) - 1) // 2
-     # Si el largo de la lista es par devuelvo el promedio 
-     # de los 2 valores medios de la lista
-     if (len(number_list) % 2) == 0:
-         return (number_list[pos] + number_list[pos + 1]) / 2.0
-     # Sino devuelvo el valor medio
-     return number_list[pos]
-
+def mediana(number_list):
+    number_list.sort()
+    pos = (len(number_list) - 1) // 2
+    # Si el largo de la lista es par devuelvo el promedio
+    # de los 2 valores medios de la lista
+    if (len(number_list) % 2) == 0:
+        return (number_list[pos] + number_list[pos + 1]) / 2.0
+    # Sino devuelvo el valor medio
+    return number_list[pos]
 
 
 def desviacion_estandar(number_list):
