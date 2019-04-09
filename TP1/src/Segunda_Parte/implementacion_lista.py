@@ -4,6 +4,8 @@ import math
 
 file_path = sys.argv[1]
 
+operation = sys.argv[2]
+
 number_list = []
 
 
@@ -16,6 +18,24 @@ def cargar_numeros(file_path):
         number_tmp = line.rstrip()
         number_list.append(number_tmp)
 
+    file.close()
+
+
+def archivo_resultados(resultados):
+
+    file_path = "resultados.txt"
+
+    file = open(file_path, 'w+')
+
+    if isinstance(resultados, str):
+        file.write(resultados)
+    else:
+        file.write(str(resultados))
+
+    file.close()
+
+    raise SystemExit
+
 
 def maximo(number_list):
     maximo = None
@@ -23,7 +43,7 @@ def maximo(number_list):
         if number > maximo:
             maximo = number
 
-    return maximo
+    archivo_resultados(maximo)
 
 
 def media(number_list):
@@ -33,15 +53,17 @@ def media(number_list):
 
     media = suma / len(number_list)
 
-    return media
+    archivo_resultados(media)
 
 
 def moda(number_list):
     # Aca se obtiene el elemento que mayor frecuencia tiene
     frecuente = max(list(map(number_list.count, number_list)))
     # En caso de que alla mas de 1 valor de maxima frecuencia:
-    return list(set(filter(lambda x: number_list.count(x) == frecuente,
-                           number_list)))
+    archivo_resultados(
+        list(set(filter(lambda x: number_list.count(x) == frecuente,
+                        number_list)))
+    )
 
 
 def mediana(number_list):
@@ -52,7 +74,7 @@ def mediana(number_list):
     if (len(number_list) % 2) == 0:
         return (number_list[pos] + number_list[pos + 1]) / 2.0
     # Sino devuelvo el valor medio
-    return number_list[pos]
+    archivo_resultados(number_list[pos])
 
 
 def desviacion_estandar(number_list):
@@ -65,7 +87,7 @@ def desviacion_estandar(number_list):
 
     media_de_suma = suma_distancias / len(number_list)
 
-    return math.sqrt(media_de_suma)
+    archivo_resultados(math.sqrt(media_de_suma))
 
 
 def permutaciones(number_list):
@@ -96,3 +118,23 @@ def variaciones_r_elementos_sin_repeticion(number_list, r):
 
 def variaciones_r_elementos(number_list, r):
     None
+
+
+def main():
+    cargar_numeros(file_path)
+
+    switch = {
+        "maximo": "maximo",
+        "media": "media",
+        "moda": "moda",
+        "mediana": "mediana",
+        "desviacion_estandar": "desviacion_estandar",
+        "permutaciones": "permutaciones",
+        "variaciones": "variaciones_r_elementos_sin_repeticion",
+        "variaciones_con_repeticion": "variaciones_con_repeticion"
+
+    }
+
+    func = switch.get(operation, lambda: "Operacion invalida")
+
+    func()
