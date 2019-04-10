@@ -89,6 +89,10 @@ def desviacion_estandar(number_list):
 
     archivo_resultados(math.sqrt(media_de_suma))
 
+# Entran todos los elementos del array
+# Importa el orden
+# No se repiten los elementos
+
 
 def permutaciones(number_list):
     def swap(n1, n2):
@@ -112,8 +116,16 @@ def permutaciones(number_list):
         generar_permutaciones(k - 1, lista)
 
 
+# No entran todos los elementos, entran r
+# Si importa el orden
+# No se repiten elementos
+
 def variaciones_r_elementos_sin_repeticion(number_list, r):
     None
+
+# No entran todos los elementos, entran r
+# Si importa el orden
+# Se repiten elementos
 
 
 def variaciones_r_elementos(number_list, r):
