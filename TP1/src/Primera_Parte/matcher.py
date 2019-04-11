@@ -72,6 +72,12 @@ class Players:
             # con sublistas de preferencias
             self.pref_list.append([name_tmp, pref_number])
 
+    def change_match(self, new_match):
+        self.current_match = new_match
+
+    # Si la nueva propuesta es mejor que la anterior y el cambio se
+    # materializa, el metodo eval_match_change devuelve True, sino
+    # devuelve False
     def eval_match_change(self, new_proposal):
         # Inicializo current_match_pref en 0, por si no tiene una pareja
         current_match_pref = 0
@@ -81,17 +87,17 @@ class Players:
         for player in self.pref_list:
             if player[0] == new_proposal:
                 new_proposal_pref = player[1]
-            elif (self.current_match is not None
-                  and player[0] == self.current_match):
+            elif (self.current_match is not None and
+                  player[0] == self.current_match):
                 current_match_pref = player[1]
 
         # Solo actualizo la pareaja si la nueva propuesta tiene preferencia
         # estrictamente mayor que la actual
         if new_proposal_pref > current_match_pref:
-            self.current_match = new_proposal
+            self.change_match(new_proposal)
             return True
-        elif (new_proposal_pref == current_match_pref
-              or new_proposal_pref < current_match_pref):
+        elif (new_proposal_pref == current_match_pref or
+              new_proposal_pref < current_match_pref):
             return False
 
 
