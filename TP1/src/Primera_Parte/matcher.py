@@ -4,8 +4,12 @@ import sys
 file_path = sys.argv[2]
 players_quantity = sys.argv[1]
 
+# Las listas best_10 y worse_10 tienen referencias a las instancias
+# de esos jugadores
+
 best_10 = []
 worse_10 = []
+
 matches = []
 
 
