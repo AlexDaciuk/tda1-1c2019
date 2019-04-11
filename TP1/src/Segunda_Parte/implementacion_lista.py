@@ -124,23 +124,6 @@ def variaciones_r_elementos_sin_repeticion(number_list, r):
     if r >= len(number_list):
         raise SystemExit
 
-    variaciones = []
-
-    for r_tmp in range(1, len(number_list) + 1, 1):
-
-        for r2_tmp in range(1, len(number_list), 1):
-
-            for r3_tmp in range(1, r - 1, 1):
-                number_list_duplicate = list(number_list)
-
-                variaciones_tmp = []
-                variaciones_tmp[0] = number_list_duplicate[r_tmp - 1]
-                number_list_duplicate.remove(variaciones_tmp[0])
-
-
-
-
-
     archivo_resultados(variaciones)
 
 
