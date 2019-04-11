@@ -158,7 +158,11 @@ def variaciones_r_elementos_sin_repeticion(number_list, r):
 
 
 def variaciones_r_elementos(number_list, r):
-    None
+    n = len(number_list)
+
+    if r >= n:
+        print("Numero invalido.")
+        raise SystemExit
 
 
 def main():
@@ -179,3 +183,6 @@ def main():
     func = switch.get(operation, lambda: "Operacion invalida")
 
     func()
+
+
+main()
