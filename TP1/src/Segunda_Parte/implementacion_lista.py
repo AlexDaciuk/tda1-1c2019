@@ -9,7 +9,7 @@ operation = sys.argv[2]
 number_list = []
 
 
-def cargar_numeros(file_path):
+def cargar_numeros(file_path):  # O(n)
     file = open(file_path, "r")
 
     lines = file.readlines()
@@ -21,7 +21,7 @@ def cargar_numeros(file_path):
     file.close()
 
 
-def archivo_resultados(resultados):
+def archivo_resultados(resultados):  # O(1)
 
     file_path = "resultados.txt"
 
@@ -37,7 +37,7 @@ def archivo_resultados(resultados):
     raise SystemExit
 
 
-def maximo(number_list):
+def maximo(number_list):  # O(n)
     maximo = None
     for number in number_list:
         if number > maximo:
@@ -46,7 +46,7 @@ def maximo(number_list):
     archivo_resultados(maximo)
 
 
-def media(number_list):
+def media(number_list):  # O(n)
     suma = 0
     for number in number_list:
         suma += number
@@ -66,8 +66,8 @@ def moda(number_list):
     )
 
 
-def mediana(number_list):
-    number_list.sort()
+def mediana(number_list):   # O(n log n)
+    number_list.sort()  # O(n log n), usa Timsort
     pos = (len(number_list) - 1) // 2
     # Si el largo de la lista es par devuelvo el promedio
     # de los 2 valores medios de la lista
@@ -77,17 +77,17 @@ def mediana(number_list):
     archivo_resultados(number_list[pos])
 
 
-def desviacion_estandar(number_list):
-    media_tmp = media(number_list)
+def desviacion_estandar(number_list):  # O(n + log n)
+    media_tmp = media(number_list)  # O(n)
     suma_distancias = 0
 
-    for number in number_list:
+    for number in number_list:  # O(n)
         distancia_media = number - media_tmp
         suma_distancias = + distancia_media
 
     media_de_suma = suma_distancias / len(number_list)
 
-    archivo_resultados(math.sqrt(media_de_suma))
+    archivo_resultados(math.sqrt(media_de_suma))  # sqrt O(log n)
 
 # Entran todos los elementos del array
 # Importa el orden
@@ -121,8 +121,33 @@ def permutaciones(number_list):
 # No se repiten elementos
 
 def variaciones_r_elementos_sin_repeticion(number_list, r):
-    if r >= len(number_list):
+    n = len(number_list)
+
+    if r >= n:
+        print("Numero invalido.")
         raise SystemExit
+
+    variaciones = []
+
+    # Mi lista de indices va a tener las posiciones de la proxima
+    # variacion
+    indices = list(range(r))
+
+    # Trivial, los primeros r elementos de la lista
+    variaciones.append(list(number_list[i] for i in indices))
+
+    while True:
+        for i in reversed(range(r)):
+            if indices[i] != i + n - r:
+                break
+        else:
+            return
+
+        indices[i] += 1
+
+        for j in range(i + 1, r):
+            indices[j] = indices[j - 1] + 1
+            variaciones.append(list(number_list[i] for i in indices))
 
     archivo_resultados(variaciones)
 
