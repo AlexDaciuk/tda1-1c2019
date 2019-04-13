@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import random
+from pathlib import Path
 
 
 players = ["Juan", "Jose", "Ana", "Helena", "Martin", "Virginia", "Julia",
@@ -11,7 +12,7 @@ numbers = list(range(1, 21, 1))
 
 players_mod = list(players)
 
-file = open("../../assets/txt/20_jugadores.rank", "w+")
+file = open(Path("../../assets/txt/20_jugadores.rank"), "w+")
 
 # Ordeno el array alfabeticamente
 players.sort()
