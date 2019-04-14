@@ -29,3 +29,27 @@ def maximo(maxHeap):
     if (len(maxHeap) != 0):
         maxi = maxHeap[0].val
     return maxi
+
+
+
+def main():
+    cargar_numeros(file_path)
+
+    switch = {
+        "maximo": "maximo",
+        "media": "media",
+        "moda": "moda",
+        "mediana": "mediana",
+        "desviacion_estandar": "desviacion_estandar",
+        "permutaciones": "permutaciones",
+        "variaciones": "variaciones_r_elementos_sin_repeticion",
+        "variaciones_con_repeticion": "variaciones_con_repeticion"
+
+    }
+
+    func = switch.get(operation, lambda: "Operacion invalida")
+
+    func()
+
+
+main()

@@ -1,3 +1,11 @@
+import sys
+import math
+
+file_path = sys.argv[1]
+
+operation = sys.argv[2]
+
+modecount = 0
 
 # Clase de Nodo                                     
 class newNode:  
@@ -74,12 +82,12 @@ def counNodes(root):
 # Tarda O(log N) (caso normal)
 # Tarda O(N) en el peor caso
 # El mejor caso es O(1) (la raiz es el maximo)
-maximo(node) :
-    current = node; 
-    while (current->right != None):  
-        current = current->right; 
+def maximo(node):
+    current = node
+    while (current.right != None):  
+        current = current.right; 
       
-    return (current->data); 
+    return (current.data); 
 
 
 
@@ -140,6 +148,64 @@ def mediana(root):
                 prev = current 
                 current = current.right 
 
+
+# complejidad temporal: O(N) (?)
+# complejidad espacial: O(N) (?)
+# ver peor y mejor caso
+def Moda(root):
+    first(root)
+    mode = int(modecount)
+    curcount = 0
+    modecount = 0
+    second(root)
+    return mode
+
+
+def first(root):
+    if (root == None):
+         return
+    first(root.left)
+    val = root.val
+    if (curval != val):
+        curval = val
+        curcount = 0
+    curcount += 1
+    if (curcount > maxcount):
+        maxcount = curcount
+        modecount = 1
+    elif (curcount == maxcount):
+        modecount += 1
+    first(root.right)
+
+
+def second(root):
+
+    if (root == None): 
+        return
+    second(root.left)
+    val = root.val
+    if (curval != val):
+        curval = val
+        curcount = 0
+    curcount += 1
+    if (curcount == maxcount):
+        mode[modecount] = curval
+        modecount += 1
+    second(root.right)
+
+
+
+def cargar_numeros(file_path):  # O(n)
+    file = open(file_path, "r")
+
+    lines = file.readlines()
+
+    for line in lines: # ver esto root deberia estar fuera del ciclo 
+        number_tmp = line.rstrip()
+        root = newNode(number_tmp)
+        insert(root, number_tmp) 
+
+    file.close()
 
 
 def main():
