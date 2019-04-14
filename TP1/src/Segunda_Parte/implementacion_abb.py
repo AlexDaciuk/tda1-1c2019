@@ -23,17 +23,14 @@ class newNode:
   
 # funcion para insertar en el nodo 
 def insert(node,key): 
-  
     # Si el abb esta vacio, retorna un nuevo nodo 
     if (node == None): 
         return newNode(key) 
-  
     # de otra forma, recorre el arbol
     if (key < node.data): 
         node.left = insert(node.left, key) 
     elif (key > node.data): 
         node.right = insert(node.right, key) 
-  
     # devuelve el puntero al nodo
     return node 
   
@@ -48,9 +45,9 @@ def counNodes(root):
     current = root 
     while (current != None): 
         if (current.left == None): 
-            # Count node if its left is None 
+            # Cuenta el nodo si el hijo izq es None
             count+=1
-            # Move to its right 
+            # Se mueve a la derecha
             current = current.right 
         else:      
             # Encuentra el predecesor inorder de la actual.
@@ -78,9 +75,9 @@ def counNodes(root):
 def maximo(node):
     current = node
     while (current.right != None):  
-        current = current.right; 
-      
-    return (current.data); 
+        current = current.right 
+
+    archivo_resultados(current.data)
 
 
 
@@ -93,51 +90,35 @@ def maximo(node):
 def mediana(root): 
     if (root == None): 
         return 0
-    count = counNodes(root) 
+    count     = counNodes(root) 
     currCount = 0
-    current = root 
-  
+    current   = root 
     while (current != None): 
-      
         if (current.left == None): 
-          
             # contador del nodo actual
             currCount += 1
-  
             # se fija si el nodo actual es la mediana
             if (count % 2 != 0 and currCount == (count + 1)//2): 
                 return prev.data 
-  
             elif (count % 2 == 0 and currCount == (count//2)+1): 
                 return (prev.data + current.data)//2
-  
-
             prev = current 
             current = current.right 
-          
         else: 
-
             pre = current.left 
-            while (pre.right != None and 
-                    pre.right != current): 
+            while (pre.right != None and pre.right != current): 
                 pre = pre.right 
-  
             if (pre.right == None): 
-              
                 pre.right = current 
                 current = current.left 
             else: 
-              
                 pre.right = None
                 prev = pre 
                 currCount+= 1
-  
                 if (count % 2 != 0 and currCount == (count + 1) // 2 ): 
                     return current.data 
-  
                 elif (count%2 == 0 and currCount == (count // 2) + 1): 
                     return (prev.data+current.data)//2
-  
                 prev = current 
                 current = current.right 
 
@@ -148,10 +129,10 @@ def mediana(root):
 def moda(root):
     first(root)
     mode = int(modecount)
-    curcount = 0
+    curcount  = 0
     modecount = 0
     second(root)
-    return mode
+    archivo_resultados(mode)
 
 
 def first(root):
@@ -160,11 +141,11 @@ def first(root):
     first(root.left)
     val = root.val
     if (curval != val):
-        curval = val
+        curval   = val
         curcount = 0
     curcount += 1
     if (curcount > maxcount):
-        maxcount = curcount
+        maxcount  = curcount
         modecount = 1
     elif (curcount == maxcount):
         modecount += 1
@@ -172,7 +153,6 @@ def first(root):
 
 
 def second(root):
-
     if (root == None): 
         return
     second(root.left)
@@ -186,27 +166,22 @@ def second(root):
         modecount += 1
     second(root.right)
 
-def Media(root):    # O(N) + O(log N)
-    suma = suma(root)
-    cont = counNodes(root)
+def media(root):    # O(N) + O(log N)
+    suma     = suma(root)
+    cont     = counNodes(root)
     promedio = suma / cont
     return promedio
 
 def desviacion_estandar(root):
-    suma = suma(root)
-     
-    cont = counNodes(root)
+    suma  = suma(root)
+    cont  = counNodes(root)
     media = suma / cont 
-
     print("Mi media es : " + str(media))
     suma_distancias = 0
-
     suma_distancias = aux_desviacion(root, media)
-    media_de_suma = suma_distancias / cont 
-
+    media_de_suma   = suma_distancias / cont 
     print("Mi media de suma es :" + str(media_de_suma))
-
-    return math.sqrt(media_de_suma)                 # sqrt O(log n)
+    archivo_resultados(math.sqrt(media_de_suma))                 # sqrt O(log n)
 
 # Es la misma idea que suma 
 def aux_desviacion(root, media):
@@ -251,8 +226,8 @@ def variaciones_r_elementos_sin_repeticion(root, r):
             indices[j] = indices[j - 1] + 1
             variaciones.append(list(lista[i] for i in indices))
 
-    return variaciones 
-    #archivo_resultados(variaciones)
+    #return variaciones 
+    archivo_resultados(variaciones)
 
 # devuelve una lista de los valores
 # de los nodos usando recorrido inorder
@@ -287,6 +262,11 @@ def listNodes(root):
                 current = current.right 
     return lista
       
+def permutaciones(root):
+    return 0
+
+def variaciones_r_elementos(root, r):
+    return 0     
 
 # encuentra la suma de todos los elementos.
 # ehh ponele que esto tarda O(log N) en caso normal
@@ -303,32 +283,38 @@ def cargar_numeros(file_path):  # O(n)
 
     lines = file.readlines()
 
+
     for line in lines: # ver esto root deberia estar fuera del ciclo 
         number_tmp = line.rstrip()
         root = newNode(number_tmp)
         insert(root, number_tmp) 
 
     file.close()
-
+    return root
 
 def main():
-    cargar_numeros(file_path)
+    root = cargar_numeros(file_path)
 
-    switch = {
-        "maximo": "maximo",
-        "media": "media",
-        "moda": "moda",
-        "mediana": "mediana",
-        "desviacion_estandar": "desviacion_estandar",
-        "permutaciones": "permutaciones",
-        "variaciones": "variaciones_r_elementos_sin_repeticion",
-        "variaciones_con_repeticion": "variaciones_con_repeticion"
-
+    operations_without_r = {
+        "maximo": maximo,
+        "media": media,
+        "moda": moda,
+        "mediana": mediana,
+        "desviacion_estandar": desviacion_estandar,
+        "permutaciones": permutaciones
     }
 
-    func = switch.get(operation, lambda: "Operacion invalida")
+    operations_with_r = {
+        "variaciones": variaciones_r_elementos_sin_repeticion,
+        "variaciones_con_repeticion": variaciones_r_elementos
+    }
 
-    func()
+    if hay_r and operation in operations_with_r:
+        operations_with_r[operation](root, r)
+    elif not hay_r and operation in operations_without_r:
+        operations_without_r[operation](root)
+    else:
+        print("Argumentos invalidos")
 
 
 main()
