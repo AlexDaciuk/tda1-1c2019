@@ -88,7 +88,7 @@ def mediana(number_list):   # O(n log n)
     archivo_resultados(resultado)
 
 
-def desviacion_estandar(number_list):  # O(n + log n)
+def desviacion_estandar(number_list):  # O(n^2)
     suma = 0
     for number in number_list:
         suma += number
@@ -110,26 +110,31 @@ def desviacion_estandar(number_list):  # O(n + log n)
 # No se repiten los elementos
 
 
-def permutaciones(number_list):
+def permutaciones(lista):
+    permutaciones = []
+
     def swap(n1, n2):
-        tmp = number_list[n1]
-        number_list[n1] = number_list[n2]
-        number_list[n2] = tmp
+        tmp = lista[n1]
+        lista[n1] = lista[n2]
+        lista[n2] = tmp
 
     def generar_permutaciones(k, lista):
         if k == 1:
-            print(lista)
-        else:
+            permutaciones.append(lista)
+            return
+
+        for i in range(0, k - 1):
             generar_permutaciones(k - 1, lista)
 
-        for i in range(1, k):
-            if (i % 2) == 0:
-                swap(lista[i], lista[k])
+            if i % 2 == 0:
+                swap(i, k - 1)
             else:
-                swap(lista[1], lista[k])
+                swap(0, k - 1)
 
-        print(lista)
-        generar_permutaciones(k - 1, lista)
+    # Llamo a la funcion posta
+    generar_permutaciones(len(lista), lista)
+
+    archivo_resultados(permutaciones)
 
 
 # No entran todos los elementos, entran r
