@@ -7,7 +7,8 @@ file_path = sys.argv[1]
 operation = sys.argv[2]
 
 try:
-    r = sys.argv[3]
+    r = int(sys.argv[3])
+    hay_r = True
 except IndexError:
     hay_r = False
 
@@ -136,6 +137,7 @@ def permutaciones(number_list):
 # No se repiten elementos
 
 def variaciones_r_elementos_sin_repeticion(number_list, r):
+    print("entre a variaciones_r_elementos_sin_repeticion")
     n = len(number_list)
 
     if r >= n:
@@ -156,7 +158,7 @@ def variaciones_r_elementos_sin_repeticion(number_list, r):
             if indices[i] != i + n - r:
                 break
         else:
-            return
+            break
 
         indices[i] += 1
 
