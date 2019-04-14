@@ -92,16 +92,13 @@ def desviacion_estandar(number_list):  # O(n + log n)
 
     media = suma / len(number_list)
 
-    print("Mi media es : " + str(media))
     suma_distancias = 0
 
     for number in number_list:  # O(n)
-        distancia_media = number - media
-        suma_distancias = + (distancia_media ** 2)
+        distancia_media = (number - media) ** 2
+        suma_distancias += distancia_media
 
     media_de_suma = suma_distancias / len(number_list)
-
-    print("Mi media de suma es :" + str(media_de_suma))
 
     archivo_resultados(math.sqrt(media_de_suma))  # sqrt O(log n)
 
