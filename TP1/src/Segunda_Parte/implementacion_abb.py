@@ -5,6 +5,11 @@ file_path = sys.argv[1]
 
 operation = sys.argv[2]
 
+try:
+    r = sys.argv[3]
+except IndexError:
+    hay_r = False
+
 modecount = 0
 
 # Clase de Nodo                                     
@@ -215,6 +220,74 @@ def aux_desviacion(root, media):
 
 
  
+def variaciones_r_elementos_sin_repeticion(root, r):
+    n = counNodes(root)
+
+    if r >= n:
+        print("Numero invalido.")
+        raise SystemExit
+
+    variaciones = []
+
+    # Mi lista de indices va a tener las posiciones de la proxima
+    # variacion
+    indices = list(range(r))    # genera una lista asi:
+                                # lista = [0,1,2,3,...,r]
+    # Trivial, los primeros r elementos de la lista
+    lista = listNodes(root)
+    # VER DE CAMBIAR DE ACA PARA ABAJO
+    variaciones.append(list(lista[i] for i in indices))
+
+    while True:
+        for i in reversed(range(r)):
+            if indices[i] != i + n - r:
+                break
+        else:
+            return
+
+        indices[i] += 1
+
+        for j in range(i + 1, r):
+            indices[j] = indices[j - 1] + 1
+            variaciones.append(list(lista[i] for i in indices))
+
+    return variaciones 
+    #archivo_resultados(variaciones)
+
+# devuelve una lista de los valores
+# de los nodos usando recorrido inorder
+# por ser inorder tarda O(N)
+# No tengo pruebas de que esto anda, 
+# pero tampoco dudas (mentira)
+def listNodes(root):  
+    lista = []
+    if (root == None): 
+        return count 
+    current = root 
+    while (current != None):
+        lista.append(current.data) 
+        if (current.left == None): 
+            # se mueve a la derecha si el 
+            # hijo izq no existe 
+            current = current.right 
+        else:      
+            # Encuentra el predecesor inorder de la actual.
+            pre = current.left 
+            while (pre.right != None and pre.right != current): 
+                pre = pre.right 
+            # Hace al actual como hijo derecho del 
+            # predecesor inorder
+            if(pre.right == None): 
+                pre.right = current 
+                current = current.left 
+            else: 
+                pre.right = None
+                # Aumenta el contador si el nodo                
+                # actual tiene que ser visitado
+                current = current.right 
+    return lista
+      
+
 # encuentra la suma de todos los elementos.
 # ehh ponele que esto tarda O(log N) en caso normal
 # y en el peor caso es O(N)
