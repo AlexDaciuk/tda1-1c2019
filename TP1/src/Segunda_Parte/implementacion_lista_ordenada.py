@@ -2,72 +2,81 @@
 import sys
 
 file_path = sys.argv[1]
-
 operation = sys.argv[2]
 
-lista = []
-lista.sort(reverse=True)
+number_lista = []
 
 
+# O(n*logn)
 def cargar_numeros(file_path):
     file = open(file_path, "r")
-
-    lines = file.readline()
-
+    lines = file.readlines()
     for line in lines:
         number_tmp = line.rstrip()
-        lista.append(number_tmp)
-        lista.sort(reverse=True)
+        number_lista.append(number_tmp)
+    file.close()
 
-# Como es un heap de maximo es tan facil como devolver el primer elemento
-# si este existe
 
-#O(1)
+# O(1)
+def archivo_resultados(resultados):
+    file_path = "resultados.txt"
+    file = open(file_path, 'w+')
+    if isinstance(resultados, str):
+        file.write(resultados)
+    else:
+        file.write(str(resultados))
+    file.close()
+    raise SystemExit
+
+
+# O(1)
 def maximo(lista):
-    maxi = None
-    if (len(lista) != 0):
-        maxi = lista[0]
-
-    print('maximo:')
-    print(maxi)
-    return maxi
-
-# No veo por que esta funcion deberia ser distinta a la de la lista desordenada
-# Salvo en el precondicion de que aca la lista ya llega ordenada
+    archivo_resultados(lista[0])
 
 
+# O(1)
 def mediana(lista):
     pos = (len(lista) - 1) // 2
-    # Si el largo de la lista es par devuelvo el promedio
-    # de los 2 valores medios de la lista
-    print('mediana' )
     if (len(lista) % 2) == 0:
-        return (lista[pos] + lista[pos + 1]) / 2.0
-    # Sino devuelvo el valor medio
-    return lista[pos]
+        archivo_resultados((lista[pos] + lista[pos + 1]) / 2.0)
+    else:
+        archivo_resultados(lista[pos])
+
+
+# O(n)
+def media(lista):
+    suma = 0
+    for number in lista:
+        suma += number
+    archivo_resultados(suma / len(lista))
+
+
+# O(n)
+def moda(lista):
+    mas_frecuentes = [lista[0]]
+    frecuencia = 0
+    actual = lista[0]
+    frecuencia_actual = 0
+    
+    for numero in lista:
+
+        if numero != actual:
+            actual = numero
+            frecuencia_actual = 0
+
+        frecuencia_actual += 1
+        
+        if frecuencia_actual > frecuencia:
+            frecuencia = frecuencia_actual
+            mas_frecuentes = [actual]
+        elif frecuencia_actual == frecuencia:
+            mas_frecuentes.append(actual)
+    
+    archivo_resultados(mas_frecuentes)
 
 
 def main():
     cargar_numeros(file_path)
-
-    switch = {
-        "maximo": "maximo",
-        "media": "media",
-        "moda": "moda",
-        "mediana": "mediana",
-        "desviacion_estandar": "desviacion_estandar",
-        "permutaciones": "permutaciones",
-        "variaciones": "variaciones_r_elementos_sin_repeticion",
-        "variaciones_con_repeticion": "variaciones_con_repeticion"
-
-    }
-
-    maximo(lista)
-    result = mediana(lista)
-    print(str(result))
-    func = switch.get(operation, lambda: "Operacion invalida")
-
-    func()
 
 
 main()
