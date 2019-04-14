@@ -168,21 +168,22 @@ def variaciones_r_elementos(number_list, r):
 def main():
     cargar_numeros(file_path)
 
-    switch = {
-        "maximo": "maximo",
-        "media": "media",
-        "moda": "moda",
-        "mediana": "mediana",
-        "desviacion_estandar": "desviacion_estandar",
-        "permutaciones": "permutaciones",
-        "variaciones": "variaciones_r_elementos_sin_repeticion",
-        "variaciones_con_repeticion": "variaciones_con_repeticion"
-
+    operations_without_r = {
+        "maximo": maximo,
+        "media": media,
+        "moda": moda,
+        "mediana": mediana,
+        "desviacion_estandar": desviacion_estandar,
+        "permutaciones": permutaciones
     }
 
-    func = switch.get(operation, lambda: "Operacion invalida")
+    operations_with_r = {
+        "variaciones": variaciones_r_elementos_sin_repeticion,
+        "variaciones_con_repeticion": variaciones_r_elementos
+    }
 
-    func()
+
+    if operation in operations_with_r:
 
 
 main()
