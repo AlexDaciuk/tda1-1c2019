@@ -74,14 +74,16 @@ def moda(number_list):
 
 def mediana(number_list):   # O(n log n)
     number_list.sort()  # O(n log n), usa Timsort
+
     pos = (len(number_list) - 1) // 2
     resultado = number_list[pos]
+
     # Si el largo de la lista es par devuelvo el promedio
     # de los 2 valores medios de la lista
     if (len(number_list) % 2) == 0:
         resultado = (number_list[pos] + number_list[pos + 1]) / 2.0
-    # Sino devuelvo el valor medio
 
+    # Sino devuelvo el valor medio
     archivo_resultados(resultado)
 
 
