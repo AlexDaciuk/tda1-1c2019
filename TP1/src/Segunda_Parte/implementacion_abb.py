@@ -36,46 +36,33 @@ def insert(node,key):
 # usando recorrido inorder
 # por ser inorder tarda O(N)
 def counNodes(root): 
-  
     # Inicializa el contador en 0 
     count = 0
-  
     if (root == None): 
         return count 
-  
     current = root 
     while (current != None): 
-      
         if (current.left == None): 
-          
             # Count node if its left is None 
             count+=1
-  
             # Move to its right 
             current = current.right 
-          
         else:      
             # Encuentra el predecesor inorder de la actual.
             pre = current.left 
-  
             while (pre.right != None and pre.right != current): 
                 pre = pre.right 
-  
             # Hace al actual como hijo derecho del 
             # predecesor inorder
             if(pre.right == None): 
-              
                 pre.right = current 
                 current = current.left 
             else: 
-              
                 pre.right = None
-  
                 # Aumenta el contador si el nodo                
                 # actual tiene que ser visitado
                 count += 1
                 current = current.right 
-  
     return count 
   
 # Implementacion:
@@ -153,7 +140,7 @@ def mediana(root):
 # complejidad temporal: O(N) (?)
 # complejidad espacial: O(N) (?)
 # ver peor y mejor caso
-def Moda(root):
+def moda(root):
     first(root)
     mode = int(modecount)
     curcount = 0
@@ -199,6 +186,34 @@ def Media(root):    # O(N) + O(log N)
     cont = counNodes(root)
     promedio = suma / cont
     return promedio
+
+def desviacion_estandar(root):
+    suma = suma(root)
+     
+    cont = counNodes(root)
+    media = suma / cont 
+
+    print("Mi media es : " + str(media))
+    suma_distancias = 0
+
+    suma_distancias = aux_desviacion(root, media)
+    media_de_suma = suma_distancias / cont 
+
+    print("Mi media de suma es :" + str(media_de_suma))
+
+    return math.sqrt(media_de_suma)                 # sqrt O(log n)
+
+# Es la misma idea que suma 
+def aux_desviacion(root, media):
+    if (root == None):
+        return 0
+    dist_media = root.key - media  
+    suma_dist  = + (dist_media ** 2)
+    return (suma_dist + 
+            aux_desviacion(root.left, media) + 
+            aux_desviacion(root.right, media))
+
+
  
 # encuentra la suma de todos los elementos.
 # ehh ponele que esto tarda O(log N) en caso normal
