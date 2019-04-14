@@ -23,7 +23,7 @@ def cargar_numeros(file_path):
 # Como es un heap de maximo es tan facil como devolver el primer elemento si
 # este existe
 
-
+# O(1)
 def maximo(maxHeap):
     maxi = None
     if (len(maxHeap) != 0):
