@@ -131,7 +131,7 @@ def permutaciones(lista):
             else:
                 swap(0, k - 1)
 
-    # Llamo a la funcion posta
+    # Llamo a la funcion
     generar_permutaciones(len(lista), lista)
 
     archivo_resultados(permutaciones)
