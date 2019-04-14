@@ -22,13 +22,12 @@ def cargar_numeros(file_path):  # O(n)
 
     for line in lines:
         number_tmp = line.rstrip()
-        number_list.append(number_tmp)
+        number_list.append(int(number_tmp))
 
     file.close()
 
 
 def archivo_resultados(resultados):  # O(1)
-
     file_path = "resultados.txt"
 
     file = open(file_path, 'w+')
@@ -62,10 +61,11 @@ def media(number_list):  # O(n)
     archivo_resultados(media)
 
 
+# Si no se repite ningun elemento, devuelve todo el vector
 def moda(number_list):
     # Aca se obtiene el elemento que mayor frecuencia tiene
     frecuente = max(list(map(number_list.count, number_list)))
-    # En caso de que alla mas de 1 valor de maxima frecuencia:
+    # En caso de que haya mas de 1 valor de maxima frecuencia:
     archivo_resultados(
         list(set(filter(lambda x: number_list.count(x) == frecuente,
                         number_list)))
@@ -75,23 +75,33 @@ def moda(number_list):
 def mediana(number_list):   # O(n log n)
     number_list.sort()  # O(n log n), usa Timsort
     pos = (len(number_list) - 1) // 2
+    resultado = number_list[pos]
     # Si el largo de la lista es par devuelvo el promedio
     # de los 2 valores medios de la lista
     if (len(number_list) % 2) == 0:
-        return (number_list[pos] + number_list[pos + 1]) / 2.0
+        resultado = (number_list[pos] + number_list[pos + 1]) / 2.0
     # Sino devuelvo el valor medio
-    archivo_resultados(number_list[pos])
+
+    archivo_resultados(resultado)
 
 
 def desviacion_estandar(number_list):  # O(n + log n)
-    media_tmp = media(number_list)  # O(n)
+    suma = 0
+    for number in number_list:
+        suma += number
+
+    media = suma / len(number_list)
+
+    print("Mi media es : " + str(media))
     suma_distancias = 0
 
     for number in number_list:  # O(n)
-        distancia_media = number - media_tmp
-        suma_distancias = + distancia_media
+        distancia_media = number - media
+        suma_distancias = + (distancia_media ** 2)
 
     media_de_suma = suma_distancias / len(number_list)
+
+    print("Mi media de suma es :" + str(media_de_suma))
 
     archivo_resultados(math.sqrt(media_de_suma))  # sqrt O(log n)
 
