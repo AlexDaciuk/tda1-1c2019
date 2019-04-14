@@ -142,7 +142,6 @@ def permutaciones(lista):
 # No se repiten elementos
 
 def variaciones_r_elementos_sin_repeticion(number_list, r):
-    print("entre a variaciones_r_elementos_sin_repeticion")
     n = len(number_list)
 
     if r >= n:
