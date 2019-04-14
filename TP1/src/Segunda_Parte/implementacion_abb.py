@@ -32,8 +32,9 @@ def insert(node,key):
     # devuelve el puntero al nodo
     return node 
   
-# funcion para contar nodo en el abb
+# funcion para contar nodos en el abb
 # usando recorrido inorder
+# por ser inorder tarda O(N)
 def counNodes(root): 
   
     # Inicializa el contador en 0 
@@ -192,6 +193,20 @@ def second(root):
         mode[modecount] = curval
         modecount += 1
     second(root.right)
+
+def Media(root):    # O(N) + O(log N)
+    suma = suma(root)
+    cont = counNodes(root)
+    promedio = suma / cont
+    return promedio
+ 
+# encuentra la suma de todos los elementos.
+# ehh ponele que esto tarda O(log N) en caso normal
+# y en el peor caso es O(N)
+def suma(root):  
+    if (root == None): 
+        return 0
+    return (root.key + suma(root.left) +  suma(root.right))  
 
 
 
