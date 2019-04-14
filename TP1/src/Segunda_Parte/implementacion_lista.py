@@ -6,6 +6,12 @@ file_path = sys.argv[1]
 
 operation = sys.argv[2]
 
+try:
+    r = sys.argv[3]
+except IndexError:
+    hay_r = False
+
+
 number_list = []
 
 
@@ -38,7 +44,7 @@ def archivo_resultados(resultados):  # O(1)
 
 
 def maximo(number_list):  # O(n)
-    maximo = None
+    maximo = number_list[1]
     for number in number_list:
         if number > maximo:
             maximo = number
@@ -182,8 +188,12 @@ def main():
         "variaciones_con_repeticion": variaciones_r_elementos
     }
 
-
-    if operation in operations_with_r:
+    if hay_r and operation in operations_with_r:
+        operations_with_r[operation](number_list, r)
+    elif not hay_r and operation in operations_without_r:
+        operations_without_r[operation](number_list)
+    else:
+        print("Argumentos invalidos")
 
 
 main()
