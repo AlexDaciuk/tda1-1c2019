@@ -1,10 +1,11 @@
+#!/usr/bin/env python3
+
 import sys
 from pathlib import Path
 from Jugador import Jugador
 
 #devuelve lista de objetos jugador con la preferencias cargadas
-def cargarJugadores(nombre_archivo_jugadores):
-    
+def cargarJugadores(nombre_archivo_jugadores):    
     archivoJugadores = open(Path("../../assets/txt/" + nombre_archivo_jugadores),"r")    
     lineasJugadores = archivoJugadores.read().splitlines()
     
@@ -23,8 +24,7 @@ def cargarJugadores(nombre_archivo_jugadores):
     return jugadores
 
 #Funcíon para cargar pareo del punto 1.5
-def armarParejas(jugadores, nombre_archivo_pareo):
-    
+def armarParejas(jugadores, nombre_archivo_pareo):    
     grupoA = jugadores[slice(0,len(jugadores)//2)]
     grupoB = jugadores[slice(len(jugadores)//2,len(jugadores))]
 
@@ -32,8 +32,8 @@ def armarParejas(jugadores, nombre_archivo_pareo):
     lineas_pareo = archivo_pareo.read().splitlines()
 
     for pareo in lineas_pareo:
-        jugador1 = next(filter(lambda x: x.nombre == pareo.split(',')[0],jugadores))
-        jugador2 = next(filter(lambda x: x.nombre == pareo.split(',')[1],jugadores))
+        jugador1 = next(filter(lambda x: x.nombre == pareo.split(',')[0].strip(),jugadores))
+        jugador2 = next(filter(lambda x: x.nombre == pareo.split(',')[1].strip(),jugadores))
         jugador1.formarPareja(jugador2)
 
     return grupoA, grupoB
@@ -43,8 +43,7 @@ def armarParejas(jugadores, nombre_archivo_pareo):
 # --- Recibe la lista de jugadores con sus preferencias 
 # --- y devuelve los dos grupos con las parejas asgignas en cada caso
 # --- mediante una varación del Algoritmo de Gale-Shapley 
-def armarParejasEstables(jugadores):
-    
+def armarParejasEstables(jugadores):    
     grupoA = jugadores[slice(0,len(jugadores)//2)]
     grupoB = jugadores[slice(len(jugadores)//2,len(jugadores))]
 
@@ -71,9 +70,17 @@ def parejasEstables(grupoA, grupoB):
                 return False
     return True         
 
-#Ejecución: arma e imprime parejas
-if __name__ == "__main__":    
+#Guardar pareo
+def guardarPareo(grupo):
+    archivo = open(Path("../../assets/txt/parejas.txt"), "w+")
+
+    for jugador in grupo:
+        archivo.write(jugador.nombre + ", " + jugador.pareja.nombre + "\n")
     
+    archivo.close()
+
+#Ejecución: arma e imprime parejas
+if __name__ == "__main__":       
     punto = sys.argv[1]
     nombre_archivo_jugadores = sys.argv[2]
     grupoA, grupoB = (None,None)
@@ -81,16 +88,16 @@ if __name__ == "__main__":
     jugadores = cargarJugadores(nombre_archivo_jugadores)    
     
     if punto == "1.1":
-        print('Parejas por Gale-Shapley:') 
-        grupoA, grupoB = armarParejasEstables(jugadores)          
+        print('Parejas por Gale-Shapley con indiferencias:') 
+        grupoA, grupoB = armarParejasEstables(jugadores)  
+        guardarPareo(grupoA)        
     
     if punto == "1.5":
         print('Parejas por archivo de pareo:') 
         nombre_archivo_pareo = sys.argv[3]        
         grupoA, grupoB = armarParejas(jugadores, nombre_archivo_pareo)
 
-    if grupoA != None:
-           
+    if grupoA != None:           
         for jugador in grupoA:
             print(jugador.nombre + ", " + jugador.pareja.nombre)
         print ('Es estable?:', parejasEstables(grupoA,grupoB))

@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 class Jugador:
 
     def __init__(self, ranking, nombre, archivoPrefs):
@@ -11,20 +13,6 @@ class Jugador:
     def asignarPreferencias(self,prefs):
         prefs.sort(key=lambda x : x['nPref'])
         self.preferencias = prefs
-
-    # Asignación alternativa de lista de preferencias
-    # con formato [{"nPref": int(npref), "Jugadores":[Jugador()]}]
-    #def asignarPreferenciasAlt(self,prefs):
-    #    nPrefs = []
-    #    prefs.sort(key=lambda x : x['nPref'])
-    #
-    #    #armo lista con preferencias sin repeticion
-    #    for pref in prefs:
-    #        if pref["nPref"] not in nPrefs:
-    #            nPrefs.append(pref["nPref"])        
-    #    #creo la lista [{"nPref": int(npref), "Jugadores":[Jugador()]}]
-    #    self.preferencias = [{"nPref": x, "jugadores": [y['jugador'] for y in prefs if y["nPref"]==x]} for x in nPrefs]
-
 
     def proximoCandidato(self):
         if (self._indexPreferencia < len(self.preferencias)):
