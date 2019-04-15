@@ -309,6 +309,39 @@ def listNodes(root):
 def permutaciones(root):
     return 0
 
+# Entran todos los elementos del arbol
+# Importa el orden
+# No se repiten los elementos
+# Temporal : O(n!)
+# Espacial : O(n!)
+def permutaciones(root):  # O(n!)
+    permutaciones = []
+    lista = listNodes(root)
+    def swap(n1, n2):
+        tmp = lista[n1]
+        lista[n1] = lista[n2]
+        lista[n2] = tmp
+
+    def generar_permutaciones(k, lista):
+        if k == 1:
+            permutaciones.append(lista)
+            return
+
+        for i in range(0, k - 1):
+            generar_permutaciones(k - 1, lista)
+
+            if i % 2 == 0:
+                swap(i, k - 1)
+            else:
+                swap(0, k - 1)
+
+    # Llamo a la funcion
+    generar_permutaciones(len(lista), lista)
+
+    archivo_resultados(permutaciones)
+
+
+
 # encuentra la suma de todos los elementos.
 # ehh ponele que esto tarda O(log N) en caso normal
 # y en el peor caso es O(N)
