@@ -83,21 +83,6 @@ def moda(lista):
     archivo_resultados(mas_frecuentes)
 
 
-def mediana(number_list):   # O(n log n)
-    number_list.sort()  # O(n log n), usa Timsort
-
-    pos = (len(number_list) - 1) // 2
-    resultado = number_list[pos]
-
-    # Si el largo de la lista es par devuelvo el promedio
-    # de los 2 valores medios de la lista
-    if (len(number_list) % 2) == 0:
-        resultado = (number_list[pos] + number_list[pos + 1]) / 2.0
-
-    # Sino devuelvo el valor medio
-    archivo_resultados(resultado)
-
-
 def desviacion_estandar(number_list):  # O(n^2)
     suma = 0
     for number in number_list:
