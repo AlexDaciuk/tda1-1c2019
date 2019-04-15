@@ -15,6 +15,9 @@ except IndexError:
 
 number_list = []
 
+# Temporal : O(n)
+# Espacial :  O(4 + n) => O(n)
+
 
 def cargar_numeros(file_path):  # O(n)
     file = open(file_path, "r")
@@ -28,7 +31,9 @@ def cargar_numeros(file_path):  # O(n)
     file.close()
 
 
-def archivo_resultados(resultados):  # O(1)
+# Temporal : O(1)
+# Espacial : O(1)
+def archivo_resultados(resultados):
     file_path = "resultados.txt"
 
     file = open(file_path, 'w+')
@@ -43,8 +48,10 @@ def archivo_resultados(resultados):  # O(1)
     raise SystemExit
 
 
+# Temporal : O(n)
+# Espacial : O(n)
 def maximo(number_list):  # O(n)
-    maximo = number_list[1]
+    maximo = number_list[0]
     for number in number_list:
         if number > maximo:
             maximo = number
@@ -52,7 +59,9 @@ def maximo(number_list):  # O(n)
     archivo_resultados(maximo)
 
 
-def media(number_list):  # O(n)
+# Temporal : O(n)
+# Espacial : O(n)
+def media(number_list):
     suma = 0
     for number in number_list:
         suma += number
@@ -62,10 +71,11 @@ def media(number_list):  # O(n)
     archivo_resultados(media)
 
 
+# Temporal : O(n)
+# Espacial : O(n)
 # Si no se repite ningun elemento, devuelve todo el vector
 def moda(lista):
     mas_frecuentes = [lista[0]]
-    
     frecuencia = 0
     actual = lista[0]
     frecuencia_actual = 0
@@ -87,8 +97,10 @@ def moda(lista):
     archivo_resultados(mas_frecuentes)
 
 
-def mediana(number_list):   # O(n log n)
-    number_list.sort()  # O(n log n), usa Timsort
+# Temporal : O(n log n)
+# Espacial :  O(n)
+def mediana(number_list):
+    number_list.sort()
 
     pos = (len(number_list) - 1) // 2
     resultado = number_list[pos]
@@ -102,6 +114,8 @@ def mediana(number_list):   # O(n log n)
     archivo_resultados(resultado)
 
 
+# Temporal : O(n^2)
+# Espacial : O(n)
 def desviacion_estandar(number_list):  # O(n^2)
     suma = 0
     for number in number_list:
@@ -119,11 +133,12 @@ def desviacion_estandar(number_list):  # O(n^2)
 
     archivo_resultados(math.sqrt(media_de_suma))  # sqrt O(log n)
 
+
 # Entran todos los elementos del array
 # Importa el orden
 # No se repiten los elementos
-
-
+# Temporal : O(n!)
+# Espacial : O(n!)
 def permutaciones(lista):  # O(n!)
     permutaciones = []
 
@@ -154,7 +169,8 @@ def permutaciones(lista):  # O(n!)
 # No entran todos los elementos, entran r
 # Si importa el orden
 # No se repiten elementos
-
+# Temporal : O(n!)
+# Espacial : O(n!)
 def variaciones_r_elementos_sin_repeticion(number_list, r):  # O(nr)
     n = len(number_list)
 
@@ -190,8 +206,8 @@ def variaciones_r_elementos_sin_repeticion(number_list, r):  # O(nr)
 # No entran todos los elementos, entran r
 # Si importa el orden
 # Se repiten elementos
-
-
+# Temporal : O(n!)
+# Espacial : O(n!)
 def variaciones_r_elementos(number_list, r):
     n = len(number_list)
 
