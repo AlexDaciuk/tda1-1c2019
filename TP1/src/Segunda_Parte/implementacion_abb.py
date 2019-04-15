@@ -4,6 +4,9 @@ import math
 file_path = sys.argv[1]
 
 operation = sys.argv[2]
+curval = 0
+maxcount = 0
+modecount = 0
 
 try:
     r = sys.argv[3]
@@ -138,6 +141,7 @@ def mediana(root):
 # complejidad espacial: O(N) (?)
 # ver peor y mejor caso
 def moda(root):
+    curval = 0
     first(root)
     mode = int(modecount)
     curcount = 0
@@ -150,7 +154,7 @@ def first(root):
     if (root == None):
         return
     first(root.left)
-    val = root.val
+    val = root.data
     if (curval != val):
         curval = val
         curcount = 0
@@ -167,7 +171,7 @@ def second(root):
     if (root == None):
         return
     second(root.left)
-    val = root.val
+    val = root.data
     if (curval != val):
         curval = val
         curcount = 0
