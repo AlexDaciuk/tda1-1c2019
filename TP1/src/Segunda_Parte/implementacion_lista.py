@@ -65,6 +65,7 @@ def media(number_list):  # O(n)
 # Si no se repite ningun elemento, devuelve todo el vector
 def moda(lista):
     mas_frecuentes = [lista[0]]
+    
     frecuencia = 0
     actual = lista[0]
     frecuencia_actual = 0
@@ -210,11 +211,13 @@ def variaciones_r_elementos(number_list, r):
             if indices[i] != n - 1:
                 break
         else:
-            return
+            break
 
         indices[i:] = [indices[i] + 1] * (r - i)
 
         variaciones.append(list(number_list[i] for i in indices))
+
+    archivo_resultados(variaciones)
 
 
 def main():
