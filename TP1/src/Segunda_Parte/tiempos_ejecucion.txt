@@ -1,0 +1,80 @@
+promedio 10 ejecuciones
+
+Lista de 1 numero, n = 1
+
+lista:
+maximo: 0.041 segundos
+media: 0.037 segundos
+moda: 0.039 segundos
+mediana: 0.040 segundos
+desviacion_estandar: 0.040 segundos
+permutaciones: 0.038
+variaciones es lo mimsmo que permutaciones porque la lista tiene un elemento
+
+
+
+lista ordenada:
+maximo : 0.040 segundos
+media: 0.039 segundos
+moda: 0.040 segundos
+mediana: 0.042
+desviacion_estandar: 0.039
+permutaciones: 0.042
+variaciones es lo mimsmo que permutaciones porque la lista tiene un elemento
+
+n = 8
+Lista
+permutaciones : 0.055
+variaciones_r_elementos_sin_repeticion : 0.037
+variaciones_r_elementos : 0.045
+
+lista ordenada
+permutaciones : 0.057
+variaciones_r_elementos_sin_repeticion : 0.037
+variaciones_r_elementos : 0.042
+
+
+lista n = 100
+lista
+maximo : 0.05 segundos
+mediana : 0.034 segundos
+moda: 0.036 segundos
+desviacion_estandar: 0.43 segundos
+
+lista ordenada
+maximo : 0.035
+mediana : 0.036
+moda : 0.040
+desviacion_estandar : 0.041
+
+
+n = 100000
+Lista
+maximo : 0.072
+mediana : 0.095
+media : 0.077
+moda :  0.095
+desviacion_estandar : 0.095
+
+lista ordenada
+maximo : 0.1
+mediana : 0.095
+media : 0.097
+moda : 0.120
+desviacion_estandar : 0.111
+
+
+n = 1000000
+Lista
+maximo = 0.92
+mediana = 0.91
+media = 0.45
+moda = 0.61
+desviacion_estandar = 0.56
+
+lista ordenada
+maximo = 0.75
+mediana = 0.82
+media = 0.84
+moda = 1.1
+desviacion_estandar = 1.0
