@@ -217,7 +217,6 @@ def variaciones_r_elementos(number_list, r):
         variaciones.append(list(number_list[i] for i in indices))
 
 
-
 def main():
     cargar_numeros(file_path)
 
