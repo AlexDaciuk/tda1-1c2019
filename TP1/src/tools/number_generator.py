@@ -5,7 +5,7 @@ from pathlib import Path
 
 n = int(sys.argv[1])
 
-number_list = random.sample(range(1, 1000), n)
+number_list = random.sample(range(1, n + 1), n)
 
 file_path = "../../assets/txt/numbers.txt"
 
