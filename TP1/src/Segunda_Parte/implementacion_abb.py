@@ -139,8 +139,8 @@ def mediana(root):
                 current = current.right
 
 
-# complejidad temporal: O(N) (?)
-# complejidad espacial: O(N) (?)
+# complejidad temporal: O(n log n) 
+# complejidad espacial: O(N) 
 # ver peor y mejor caso
 def moda(root):
     first(root)
@@ -360,7 +360,7 @@ def permutaciones(root):  # O(n!)
 
 
 # encuentra la suma de todos los elementos.
-# ehh ponele que esto tarda O(log N) en caso normal
+# tarda O(log N) en caso normal
 # y en el peor caso es O(N)
 def cargar_numeros(file_path):  # O(n)
     file = open(file_path, "r")
@@ -397,10 +397,10 @@ def main():
     root = cargar_numeros(file_path)
 
     operations_without_r = {
-        "maximo": maximo,   # Anda
-        "media": media,     # Anda
+        "maximo": maximo,   
+        "media": media,     
         "moda": moda,
-        "mediana": mediana, # Anda pero tendria que ponerme a dibujar el abb para chequearlo 100% y esto se entrega hoy
+        "mediana": mediana, 
         "desviacion_estandar": desviacion_estandar,
         "permutaciones": permutaciones
     }

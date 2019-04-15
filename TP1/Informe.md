@@ -1,4 +1,7 @@
-# Informe TP 1
+### (75.29 / 95.06) - Teoría de Algoritmos - FIUBA
+
+# Informe Trabajo Práctico 1 
+
 ## Grupo : 3 + 1
 ## Integrantes
   * Matias Onorato (93179)
@@ -6,6 +9,7 @@
   * Francisco Strambini (92135)
   * Alexis Daciuk (97630)
 
+---
 
 ## Introducción: Algoritmo Gale-Shapley
 ### El problema
@@ -220,3 +224,133 @@ def armarParejasEstables(jugadores):
 Esta complejidad difiere de la complejidad teórica de gale shapley tradicional, que es O(n^2), porque a diferencia de esta, en este caso la complejidad de comparar las preferencias pasa de O(1) (comparar index en un vector) a O(n) (buscar los números de preferencia de cada jugador y su pareja y compararlo)
 
 ## Parte 2 - Funciones matemáticas / estadísticas
+
+### 2.1 - Proponga algoritmos para cada una de las resoluciones
+
+los algoritmos estan propuestos en  */TP1/src/Segunda_Parte*
+
+en *implementación_lista.py* estan implementadas todas las funciones para la lista y el array. En python encontramos la particularidad que los array y las listas funcionan de la misma forma, ambas quedan determinadas por el comando []
+
+en *implementación_lista_ordenada.py* estan implementadas todas las funciones para el vector ordenado
+
+en *implementación_abb.py* estan implementadas todas las funciones para nuestra implementación elegida, un arbol de busqueda binario.
+
+para correr el codigo:
+
+```
+
+```
+
+### 2.2 - Analisis de complejidad algorítmica
+
+#### Lista y vector en python:
+
+* Máximo
+  * temporal: *O(n)*
+  * espacial: *O(n)*
+* Media
+  * temporal: *O(n)*
+  * espacial: *O(n)*
+* Moda
+  * temporal: *O(n)*
+  * espacial: *O(n)*
+* Mediana
+  * temporal: *O(n log n)*
+  * espacial: *O(n)*
+* Desviación estándar
+  * temporal: *O(n^2)*
+  * espacial: *O(n)*
+* Permutaciones del conjunto
+  * temporal: *O(n!)*
+  * espacial: *O(n!)*
+* Variaciones del conjunto tomados de r elementos (r«n)
+  * temporal: *O(n!)*
+  * espacial: *O(n!)*
+* Variaciones con repetición del conjunto de r elementos (r«n)
+  * temporal: *O(n!)*
+  * espacial: *O(n!)*
+
+#### Vector ordenado:
+
+* Máximo
+  * temporal: *O(n)*
+  * espacial: *O(n)*
+* Media
+  * temporal: *O(n)*
+  * espacial: *O(n)*
+* Moda
+  * temporal: *O(n)*
+  * espacial: *O(n)*
+* Mediana
+  * temporal: *O(n log n)*
+  * espacial: *O(n)*
+* Desviación estándar
+  * temporal: *O(n^2)*
+  * espacial: *O(n)*
+* Permutaciones del conjunto
+  * temporal: *O(n!)*
+  * espacial: *O(n!)*
+* Variaciones del conjunto tomados de r elementos (r«n)
+  * temporal: *O(n!)*
+  * espacial: *O(n!)*
+* Variaciones con repetición del conjunto de r elementos (r«n)
+  * temporal: *O(n!)*
+  * espacial: *O(n!)*
+
+#### Vector ordenado:
+
+* Máximo
+  * temporal: *O(1)*
+  * espacial: *O(n)*
+* Media
+  * temporal: *O(1)*
+  * espacial: *O(n)*
+* Moda
+  * temporal: *O(1)*
+  * espacial: *O(n)*
+* Mediana
+  * temporal: *O(n log n)*
+  * espacial: *O(n)*
+* Desviación estándar
+  * temporal: *O(n^2)*
+  * espacial: *O(n)*
+* Permutaciones del conjunto
+  * temporal: *O(n!)*
+  * espacial: *O(n!)*
+* Variaciones del conjunto tomados de r elementos (r«n)
+  * temporal: *O(n!)*
+  * espacial: *O(n!)*
+* Variaciones con repetición del conjunto de r elementos (r«n)
+  * temporal: *O(n!)*
+  * espacial: *O(n!)*
+
+
+#### abb:
+* Máximo
+  * temporal: *O(log n)*
+  * espacial: *O(n)*
+* Media
+  * temporal: *O(n)*
+  * espacial: *O(n)*
+* Moda
+  * temporal: *O(n)*
+  * espacial: *O(n)*
+* Mediana
+  * temporal: *O(n log n)*
+  * espacial: *O(n)*
+* Desviación estándar
+  * temporal: *O(n^2)*
+  * espacial: *O(n)*
+* Permutaciones del conjunto
+  * temporal: *O(n!)*
+  * espacial: *O(n!)*
+* Variaciones del conjunto tomados de r elementos (r«n)
+  * temporal: *O(n!)*
+  * espacial: *O(n!)*
+* Variaciones con repetición del conjunto de r elementos (r«n)
+  * temporal: *O(n!)*
+  * espacial: *O(n!)*
+
+  ### 2.3 - Gráficos de Complejidad
+
+  ### 2.4 - Programación Algoritmos
