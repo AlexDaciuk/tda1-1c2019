@@ -13,11 +13,8 @@ try:
 except IndexError:
     hay_r = False
 
-modecount = 0
 
 # Clase de Nodo
-
-
 class newNode:
 
     # Constructor para crear un nodo nuevo
@@ -26,12 +23,11 @@ class newNode:
         self.left = None
         self.right = None
 
+
 # funcion para insertar en el nodo
-
-
 def insert(node, key):
     # Si el abb esta vacio, retorna un nuevo nodo
-    if (node == None):
+    if (node is None):
         return newNode(key)
     # de otra forma, recorre el arbol
     if (key < node.data):
@@ -41,23 +37,24 @@ def insert(node, key):
     # devuelve el puntero al nodo
     return node
 
+
 # funcion para contar nodos en el abb
 # usando recorrido inorder
 # por ser inorder tarda O(N)
-
 def suma(root):
-    if (root == None):
+    if (root is None):
         return 0
     return (root.data + suma(root.left) + suma(root.right))
+
 
 def counNodes(root):
     # Inicializa el contador en 0
     count = 0
-    if (root == None):
+    if (root is None):
         return count
     current = root
-    while (current != None):
-        if (current.left == None):
+    while (current is not None):
+        if (current.left is None):
             # Cuenta el nodo si el hijo izq es None
             count += 1
             # Se mueve a la derecha
@@ -65,11 +62,11 @@ def counNodes(root):
         else:
             # Encuentra el predecesor inorder de la actual.
             pre = current.left
-            while (pre.right != None and pre.right != current):
+            while (pre.right is not None and pre.right != current):
                 pre = pre.right
             # Hace al actual como hijo derecho del
             # predecesor inorder
-            if(pre.right == None):
+            if(pre.right is None):
                 pre.right = current
                 current = current.left
             else:
@@ -89,7 +86,7 @@ def counNodes(root):
 
 def maximo(node):
     current = node
-    while (current.right != None):
+    while (current.right is not None):
         current = current.right
 
     archivo_resultados(current.data)
@@ -102,13 +99,13 @@ def maximo(node):
 #    se utiliza un puntero adicional que apunta al nodo anterior
 # O(N) en tiempo y O(1) en espacio.
 def mediana(root):
-    if (root == None):
+    if (root is None):
         return 0
     count = counNodes(root)
     currCount = 0
     current = root
-    while (current != None):
-        if (current.left == None):
+    while (current is not None):
+        if (current.left is None):
             # contador del nodo actual
             currCount += 1
             # se fija si el nodo actual es la mediana
@@ -120,9 +117,9 @@ def mediana(root):
             current = current.right
         else:
             pre = current.left
-            while (pre.right != None and pre.right != current):
+            while (pre.right is not None and pre.right != current):
                 pre = pre.right
-            if (pre.right == None):
+            if (pre.right is None):
                 pre.right = current
                 current = current.left
             else:
@@ -141,17 +138,14 @@ def mediana(root):
 # complejidad espacial: O(N) (?)
 # ver peor y mejor caso
 def moda(root):
-    curval = 0
     first(root)
     mode = int(modecount)
-    curcount = 0
-    modecount = 0
     second(root)
     archivo_resultados(mode)
 
 
 def first(root):
-    if (root == None):
+    if (root is None):
         return
     first(root.left)
     val = root.data
@@ -168,7 +162,7 @@ def first(root):
 
 
 def second(root):
-    if (root == None):
+    if (root is None):
         return
     second(root.left)
     val = root.data
@@ -183,7 +177,7 @@ def second(root):
 
 
 def media(root):    # O(N) + O(log N)
-    sumatoria = str (suma(root))
+    sumatoria = str(suma(root))
     cont = counNodes(root)
     promedio = sumatoria / cont
     return promedio
@@ -205,13 +199,13 @@ def desviacion_estandar(root):
 
 
 def aux_desviacion(root, media):
-    if (root == None):
+    if (root is None):
         return 0
     dist_media = root.key - media
     suma_dist = + (dist_media ** 2)
-    return (suma_dist
-            + aux_desviacion(root.left, media)
-            + aux_desviacion(root.right, media))
+    return (suma_dist +
+            aux_desviacion(root.left, media) +
+            aux_desviacion(root.right, media))
 
 
 def variaciones_r_elementos_sin_repeticion(root, r):
@@ -248,6 +242,7 @@ def variaciones_r_elementos_sin_repeticion(root, r):
     # return variaciones
     archivo_resultados(variaciones)
 
+
 def variaciones_r_elementos(root, r):
     n = counNodes(root)
 
@@ -273,7 +268,7 @@ def variaciones_r_elementos(root, r):
 
         indices[i:] = [indices[i] + 1] * (r - i)
 
-        variaciones.append(list(lista[i] for i in indices))  
+        variaciones.append(list(lista[i] for i in indices))
 
 # devuelve una lista de los valores
 # de los nodos usando recorrido inorder
@@ -284,23 +279,23 @@ def variaciones_r_elementos(root, r):
 
 def listNodes(root):
     lista = []
-    if (root == None):
+    if (root is None):
         return count
     current = root
-    while (current != None):
+    while (current is not None):
         lista.append(current.data)
-        if (current.left == None):
+        if (current.left is None):
             # se mueve a la derecha si el
             # hijo izq no existe
             current = current.right
         else:
             # Encuentra el predecesor inorder de la actual.
             pre = current.left
-            while (pre.right != None and pre.right != current):
+            while (pre.right is not None and pre.right != current):
                 pre = pre.right
             # Hace al actual como hijo derecho del
             # predecesor inorder
-            if(pre.right == None):
+            if(pre.right is None):
                 pre.right = current
                 current = current.left
             else:
@@ -314,32 +309,24 @@ def listNodes(root):
 def permutaciones(root):
     return 0
 
-
-def variaciones_r_elementos(root, r):
-    return 0
-
 # encuentra la suma de todos los elementos.
 # ehh ponele que esto tarda O(log N) en caso normal
 # y en el peor caso es O(N)
-
-
-
-
-
 def cargar_numeros(file_path):  # O(n)
     file = open(file_path, "r")
-    root = None 
+    root = None
     lines = file.readlines()
 
     for line in lines:  # ver esto root deberia estar fuera del ciclo
         number_tmp = line.rstrip()
-        if (root == None):
+        if (root is None):
             root = newNode(number_tmp)
             continue
         insert(root, number_tmp)
 
     file.close()
     return root
+
 
 def archivo_resultados(resultados):  # O(1)
     file_path = "resultados.txt"
@@ -354,7 +341,6 @@ def archivo_resultados(resultados):  # O(1)
     file.close()
 
     raise SystemExit
- 
 
 
 def main():
