@@ -7,7 +7,8 @@ operation = sys.argv[2]
 curval = 0
 maxcount = 0
 modecount = 0
-
+mode = []
+i = 0
 try:
     r = sys.argv[3]
 except IndexError:
@@ -30,9 +31,9 @@ def insert(node, key):
     if (node is None):
         return newNode(key)
     # de otra forma, recorre el arbol
-    if (key < node.data):
+    if (int(key) < node.data):
         node.left = insert(node.left, key)
-    elif (key > node.data):
+    elif (int(key) > node.data):
         node.right = insert(node.right, key)
     # devuelve el puntero al nodo
     return node
@@ -110,8 +111,10 @@ def mediana(root):
             currCount += 1
             # se fija si el nodo actual es la mediana
             if (count % 2 != 0 and currCount == (count + 1) // 2):
+                archivo_resultados(prev.data)
                 return prev.data
             elif (count % 2 == 0 and currCount == (count // 2) + 1):
+                archivo_resultados((prev.data + current.data) // 2)
                 return (prev.data + current.data) // 2
             prev = current
             current = current.right
@@ -127,8 +130,10 @@ def mediana(root):
                 prev = pre
                 currCount += 1
                 if (count % 2 != 0 and currCount == (count + 1) // 2):
+                    archivo_resultados(current.data)
                     return current.data
                 elif (count % 2 == 0 and currCount == (count // 2) + 1):
+                    archivo_resultados((prev.data + current.data) // 2)
                     return (prev.data + current.data) // 2
                 prev = current
                 current = current.right
@@ -139,7 +144,10 @@ def mediana(root):
 # ver peor y mejor caso
 def moda(root):
     first(root)
-    mode = int(modecount)
+    #mode = int(modecount)
+    global mode
+    global modecount
+    mode = [0] * modecount
     second(root)
     archivo_resultados(mode)
 
@@ -149,10 +157,13 @@ def first(root):
         return
     first(root.left)
     val = root.data
+    global curval
     if (curval != val):
         curval = val
         curcount = 0
     curcount += 1
+    global maxcount 
+    global modecount
     if (curcount > maxcount):
         maxcount = curcount
         modecount = 1
@@ -162,6 +173,9 @@ def first(root):
 
 
 def second(root):
+    global curval
+    global mode
+    global modecount
     if (root is None):
         return
     second(root.left)
@@ -170,16 +184,21 @@ def second(root):
         curval = val
         curcount = 0
     curcount += 1
+    global i 
     if (curcount == maxcount):
-        mode[modecount] = curval
+        #mode[modecount] = curval
+        #mode.append(curval)
+        mode[i] = curval 
+        i += 1
         modecount += 1
     second(root.right)
 
 
 def media(root):    # O(N) + O(log N)
-    sumatoria = str(suma(root))
+    sumatoria = int(suma(root))
     cont = counNodes(root)
     promedio = sumatoria / cont
+    archivo_resultados(promedio)
     return promedio
 
 
@@ -306,8 +325,6 @@ def listNodes(root):
     return lista
 
 
-def permutaciones(root):
-    return 0
 
 # Entran todos los elementos del arbol
 # Importa el orden
@@ -353,9 +370,9 @@ def cargar_numeros(file_path):  # O(n)
     for line in lines:  # ver esto root deberia estar fuera del ciclo
         number_tmp = line.rstrip()
         if (root is None):
-            root = newNode(number_tmp)
+            root = newNode(int(number_tmp))
             continue
-        insert(root, number_tmp)
+        insert(root, int(number_tmp))
 
     file.close()
     return root
@@ -381,9 +398,9 @@ def main():
 
     operations_without_r = {
         "maximo": maximo,   # Anda
-        "media": media,
+        "media": media,     # Anda
         "moda": moda,
-        "mediana": mediana,
+        "mediana": mediana, # Anda pero tendria que ponerme a dibujar el abb para chequearlo 100% y esto se entrega hoy
         "desviacion_estandar": desviacion_estandar,
         "permutaciones": permutaciones
     }
