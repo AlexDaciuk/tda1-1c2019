@@ -21,7 +21,7 @@ def cargar_numeros(file_path):
     lines = file.readlines()
     for line in lines:
         number_tmp = line.rstrip()
-        number_lista.append(number_tmp)
+        number_lista.append(int(number_tmp))
     file.close()
 
 
