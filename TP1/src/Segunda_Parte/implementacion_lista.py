@@ -210,11 +210,13 @@ def variaciones_r_elementos(number_list, r):
             if indices[i] != n - 1:
                 break
         else:
-            return
+            break
 
         indices[i:] = [indices[i] + 1] * (r - i)
 
         variaciones.append(list(number_list[i] for i in indices))
+
+    archivo_resultados(variaciones)
 
 
 def main():
