@@ -63,14 +63,27 @@ def media(number_list):  # O(n)
 
 
 # Si no se repite ningun elemento, devuelve todo el vector
-def moda(number_list):
-    # Aca se obtiene el elemento que mayor frecuencia tiene
-    frecuente = max(list(map(number_list.count, number_list)))
-    # En caso de que haya mas de 1 valor de maxima frecuencia:
-    archivo_resultados(
-        list(set(filter(lambda x: number_list.count(x) == frecuente,
-                        number_list)))
-    )
+def moda(lista):
+    mas_frecuentes = [lista[0]]
+    frecuencia = 0
+    actual = lista[0]
+    frecuencia_actual = 0
+
+    for numero in lista:
+
+        if numero != actual:
+            actual = numero
+            frecuencia_actual = 0
+
+        frecuencia_actual += 1
+
+        if frecuencia_actual > frecuencia:
+            frecuencia = frecuencia_actual
+            mas_frecuentes = [actual]
+        elif frecuencia_actual == frecuencia:
+            mas_frecuentes.append(actual)
+
+    archivo_resultados(mas_frecuentes)
 
 
 def mediana(number_list):   # O(n log n)
@@ -110,7 +123,7 @@ def desviacion_estandar(number_list):  # O(n^2)
 # No se repiten los elementos
 
 
-def permutaciones(lista):
+def permutaciones(lista):  # O(n!)
     permutaciones = []
 
     def swap(n1, n2):
@@ -141,7 +154,7 @@ def permutaciones(lista):
 # Si importa el orden
 # No se repiten elementos
 
-def variaciones_r_elementos_sin_repeticion(number_list, r):
+def variaciones_r_elementos_sin_repeticion(number_list, r):  # O(nr)
     n = len(number_list)
 
     if r >= n:
