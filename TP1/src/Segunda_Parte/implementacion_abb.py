@@ -42,6 +42,10 @@ def insert(node, key):
 # usando recorrido inorder
 # por ser inorder tarda O(N)
 
+def suma(root):
+    if (root == None):
+        return 0
+    return (root.data + suma(root.left) + suma(root.right))
 
 def counNodes(root):
     # Inicializa el contador en 0
@@ -175,9 +179,9 @@ def second(root):
 
 
 def media(root):    # O(N) + O(log N)
-    suma = suma(root)
+    sumatoria = str (suma(root))
     cont = counNodes(root)
-    promedio = suma / cont
+    promedio = sumatoria / cont
     return promedio
 
 
@@ -240,6 +244,33 @@ def variaciones_r_elementos_sin_repeticion(root, r):
     # return variaciones
     archivo_resultados(variaciones)
 
+def variaciones_r_elementos(root, r):
+    n = counNodes(root)
+
+    if r >= n:
+        print("Numero invalido.")
+        raise SystemExit
+
+    variaciones = []
+    indices = list(range(r))
+    lista = listNodes(root)
+
+    # Inicializo los r indices en 0, ya que es el primer caso trivial
+    indices = [0] * r
+
+    variaciones.append(list(lista[i] for i in indices))
+
+    while True:
+        for i in reversed(range(r)):
+            if indices[i] != n - 1:
+                break
+        else:
+            return
+
+        indices[i:] = [indices[i] + 1] * (r - i)
+
+        variaciones.append(list(lista[i] for i in indices))  
+
 # devuelve una lista de los valores
 # de los nodos usando recorrido inorder
 # por ser inorder tarda O(N)
@@ -288,10 +319,7 @@ def variaciones_r_elementos(root, r):
 # y en el peor caso es O(N)
 
 
-def suma(root):
-    if (root == None):
-        return 0
-    return (root.key + suma(root.left) + suma(root.right))
+
 
 
 def cargar_numeros(file_path):  # O(n)
