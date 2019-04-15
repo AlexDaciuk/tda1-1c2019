@@ -51,7 +51,7 @@ def archivo_resultados(resultados):
 # Temporal : O(n)
 # Espacial : O(n)
 def maximo(number_list):  # O(n)
-    maximo = number_list[1]
+    maximo = number_list[0]
     for number in number_list:
         if number > maximo:
             maximo = number
