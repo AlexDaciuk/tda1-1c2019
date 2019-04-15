@@ -65,6 +65,7 @@ def media(number_list):  # O(n)
 # Si no se repite ningun elemento, devuelve todo el vector
 def moda(lista):
     mas_frecuentes = [lista[0]]
+    
     frecuencia = 0
     actual = lista[0]
     frecuencia_actual = 0
