@@ -8,7 +8,7 @@ curval = 0
 maxcount = 0
 modecount = 0
 mode = []
-
+i = 0
 try:
     r = sys.argv[3]
 except IndexError:
@@ -147,7 +147,7 @@ def moda(root):
     #mode = int(modecount)
     global mode
     global modecount
-    mod = mode[modecount]
+    mode = [0] * modecount
     second(root)
     archivo_resultados(mode)
 
@@ -184,9 +184,12 @@ def second(root):
         curval = val
         curcount = 0
     curcount += 1
+    global i 
     if (curcount == maxcount):
         #mode[modecount] = curval
-        mode.append(curval)
+        #mode.append(curval)
+        mode[i] = curval 
+        i += 1
         modecount += 1
     second(root.right)
 
