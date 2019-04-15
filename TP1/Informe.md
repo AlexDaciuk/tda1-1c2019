@@ -71,12 +71,19 @@ por lo tanto el algoritmo de Gale-Shapley presenta una complejidad *O(n^2)*, sie
 ### 1.4 - ¿Es posible un desempate mediante un tiro de moneda?
 Esta opción no es posible.
 
-Al igual que el caso considerado al final del punto 1.2, no podemos permitir que ante un empate se generen casos donde el criterio de selección de pareja no sea arbitrario. Si permitimos que el azar resuelva un empate en una lista de preferencias, en lugar de que la diferencia de prioridades sea estrictamente mayor para romper una pareja ya armada, se podrían generar casos de bloqueo que romperían la estabilidad del pareo.
+Al igual que el caso considerado al final del punto 1.2, no podemos permitir que ante un empate se generen casos donde el criterio de selección de pareja no sea arbitrario. Si permitimos que el azar resuelva un empate en una lista de preferencias, en lugar de constatar ante cada caso de cambio de pareja el pareo debilmente estable antes mencionado, se podrían generar casos de bloqueo que romperían la estabilidad del pareo.
 
 ### 1.5 - Desarrolle un algoritmo que dado una pareo y las preferencias determina si el mismo es matching estable. ¿Qué complejidad algorítmica tiene?
 
-instrucciones ejecución
-explicar complejidad 
+para ejecutar este algoritmo realizar los siguientes pasos:
+Colocar un archivo *parejas_alternativas.txt* en el directorio *TP1/assets/txt* con las parejas propuestas, junto a los archivos de jugadores y preferencias.
+
+luego ejecutar los siguientes comandos:
+```
+cd TP1/src/Priemra_Parte
+python main.py 1.5 archivo_jugadores.rank parejas_alternativas.txt
+```
+la salida del programa imprimira las parejas cargadas y si las mismas son estables o no segun sus archivos de preferencias.
 
 ### 1.6 - Programación de los algoritmos
 

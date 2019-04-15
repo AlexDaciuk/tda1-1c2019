@@ -7,19 +7,32 @@
 Primero, generar los archivos de preferencias y ranking general
 
 ```
-cd src/tools
-python3 player_generator.py
+cd TP1/src/tools
+python player_generator.py
 ```
 
-Asegurarse que el directorio **assets/txt** no tenga ningun archivo, solamente el readme
+el mismo guarda un *archivo_jugadores.rank* en la carpeta *TP1/assets/txt* con el nombre segun indica el tp, por ejemplo *20_jugadores.rank* y un archivo de preferencia por jugador *jugador_ranking.pref*
 
-Para correr el programa que genera las parejas
+#### punto 1.1
+luego, para ejecutar el punto 1.1 realizar los siguientes pasos:
 
 ```
-cd src/Primera_Parte
-python3 matcher.py 20 ../../assets/txt/20_jugadores.rank
+cd TP1/src/Primera_Parte
+python main.py 1.1 archivo_jugadores.rank
 ```
 
+se imprime en pantalla las parejas que forman un pareo estable y se comprueba algoritmicamente dicha estabilidad.
+
+#### punto 1.5
+para ejecutar el punto 1.5 realizar los siguientes pasos:
+Colocar un archivo *parejas_alternativas.txt* en el directorio *TP1/assets/txt* con las parejas propuestas, junto a los archivos de jugadores y preferencias.
+
+luego ejecutar los siguientes comandos:
+
+```
+cd TP1/src/Priemra_Parte
+python main.py 1.5 archivo_jugadores.rank parejas_alternativas.txt
+```
 
 ## Segunda Parte
 
