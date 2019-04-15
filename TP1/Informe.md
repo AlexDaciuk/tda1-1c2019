@@ -350,6 +350,10 @@ en *implementación_abb.py* estan implementadas todas las funciones para nuestra
 
   Para armar los graficos de complejidad, usamos diferentes largos de vector para medir el tiempo real de ejecucion usando el comando **time** de Linux y tomando el tiempo de ejecucion total.
 
+  ![Gráfico lista y vector sin ordenar](graf_1.png)
+
+  ![Gráfico vector ordenado](graf_2.png)
+
   ### 2.4 - Programación Algoritmos
 
   Como ejecutar las distintas implementaciones
