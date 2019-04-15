@@ -34,6 +34,8 @@ cd TP1/src/Priemra_Parte
 python main.py 1.5 archivo_jugadores.rank parejas_alternativas.txt
 ```
 
+La salida del programa imprimira las parejas cargadas y si las mismas son estables o no segun sus archivos de preferencias.
+
 ## Segunda Parte
 
 Primero, generar el archivo con los numeros aleatorios, el script recibe un parametro
