@@ -1,6 +1,6 @@
 ### (75.29 / 95.06) - Teoría de Algoritmos - FIUBA
 
-# Informe Trabajo Práctico 1 
+# Informe Trabajo Práctico 1
 
 ## Grupo : 3 + 1
 ## Integrantes
@@ -74,7 +74,7 @@ FIN MIENTRAS
 
 
 ### 1.2 - Estabilidad de la Variante
-Por lo visto en la introducción, el algoritmo de Gale-Shelley es por naturaleza estable, por lo cual analizamos nuestra variación para ver si su nueva implementación produce algún cambio que afecte su estabilidad a la hora de encontrar un posible bloqueo luego de formadas las parejas. 
+Por lo visto en la introducción, el algoritmo de Gale-Shelley es por naturaleza estable, por lo cual analizamos nuestra variación para ver si su nueva implementación produce algún cambio que afecte su estabilidad a la hora de encontrar un posible bloqueo luego de formadas las parejas.
 
 Si definimos como criterio de desempate en el pareo (y por ende al consultar la preferencia) que la preferencia del proponente tiene que ser estrictamente mayor a la referencia de la pareja del propuesto, por más que esta sea la misma en más de un caso, el algoritmo de Gale-Shapley no encuentra alteraciones en su estabilidad. Esto se debe a que con el criterio mencionado, ante cada intento de formar una pareja entre los jugadores de ambos grupos, al tener que ser esta preferencia estrictamente mayor,  ningún jugador podrá cambiar su pareja para ninguno de los casos en los que se repita ese mismo valor de preferencia nen un pareo debilmente estable, conservándose la estabilidad al no generarse ningún bloqueo.
 
@@ -110,7 +110,7 @@ hilo la parte inicial en el main.py
 
 ```
     if punto == "1.5":
-        print('Parejas por archivo de pareo:') 
+        print('Parejas por archivo de pareo:')
         nombre_archivo_pareo = sys.argv[3]        
         grupoA, grupoB = armarParejas(jugadores, nombre_archivo_pareo) # O(armarParejas(n,a))
 
@@ -205,7 +205,7 @@ def armarParejasEstables(jugadores):
     grupoA = jugadores[slice(0,len(jugadores)//2)] # O(1)
     grupoB = jugadores[slice(len(jugadores)//2,len(jugadores))] # O(1)
 
-    proponentesLibres = len(grupoA) 
+    proponentesLibres = len(grupoA)
 
     while proponentesLibres>0 : # O(n)
         for proponente in grupoA: # O(n)
@@ -219,7 +219,7 @@ def armarParejasEstables(jugadores):
     return grupoA, grupoB
 ```
 
-*O(armarParejasEstables(n)) = O(n^3)* 
+*O(armarParejasEstables(n)) = O(n^3)*
 
 Esta complejidad difiere de la complejidad teórica de gale shapley tradicional, que es O(n^2), porque a diferencia de esta, en este caso la complejidad de comparar las preferencias pasa de O(1) (comparar index en un vector) a O(n) (buscar los números de preferencia de cada jugador y su pareja y compararlo)
 
@@ -235,122 +235,145 @@ en *implementación_lista_ordenada.py* estan implementadas todas las funciones p
 
 en *implementación_abb.py* estan implementadas todas las funciones para nuestra implementación elegida, un arbol de busqueda binario.
 
-para correr el codigo:
-
-```
-
-```
 
 ### 2.2 - Analisis de complejidad algorítmica
 
 #### Lista y vector en python:
 
 * Máximo
-  * temporal: *O(n)*
-  * espacial: *O(n)*
+  * Temporal: *O(n)*
+  * Espacial: *O(n)*
 * Media
-  * temporal: *O(n)*
-  * espacial: *O(n)*
+  * Temporal: *O(n)*
+  * Espacial: *O(n)*
 * Moda
-  * temporal: *O(n)*
-  * espacial: *O(n)*
+  * Temporal: *O(n)*
+  * Espacial: *O(n)*
 * Mediana
-  * temporal: *O(n log n)*
-  * espacial: *O(n)*
+  * Temporal: *O(n log n)*
+  * Espacial: *O(n)*
 * Desviación estándar
-  * temporal: *O(n^2)*
-  * espacial: *O(n)*
+  * Temporal: *O(n^2)*
+  * Espacial: *O(n)*
 * Permutaciones del conjunto
-  * temporal: *O(n!)*
-  * espacial: *O(n!)*
+  * Temporal: *O(n!)*
+  * Espacial: *O(n!)*
 * Variaciones del conjunto tomados de r elementos (r«n)
-  * temporal: *O(n!)*
-  * espacial: *O(n!)*
+  * Temporal: *O(n!)*
+  * Espacial: *O(n!)*
 * Variaciones con repetición del conjunto de r elementos (r«n)
-  * temporal: *O(n!)*
-  * espacial: *O(n!)*
+  * Temporal: *O(n!)*
+  * Espacial: *O(n!)*
 
 #### Vector ordenado:
 
 * Máximo
-  * temporal: *O(n)*
-  * espacial: *O(n)*
+  * Temporal: *O(n)*
+  * Espacial: *O(n)*
 * Media
-  * temporal: *O(n)*
-  * espacial: *O(n)*
+  * Temporal: *O(n)*
+  * Espacial: *O(n)*
 * Moda
-  * temporal: *O(n)*
-  * espacial: *O(n)*
+  * Temporal: *O(n)*
+  * Espacial: *O(n)*
 * Mediana
-  * temporal: *O(n log n)*
-  * espacial: *O(n)*
+  * Temporal: *O(n log n)*
+  * Espacial: *O(n)*
 * Desviación estándar
-  * temporal: *O(n^2)*
-  * espacial: *O(n)*
+  * Temporal: *O(n^2)*
+  * Espacial: *O(n)*
 * Permutaciones del conjunto
-  * temporal: *O(n!)*
-  * espacial: *O(n!)*
+  * Temporal: *O(n!)*
+  * Espacial: *O(n!)*
 * Variaciones del conjunto tomados de r elementos (r«n)
-  * temporal: *O(n!)*
-  * espacial: *O(n!)*
+  * Temporal: *O(n!)*
+  * Espacial: *O(n!)*
 * Variaciones con repetición del conjunto de r elementos (r«n)
-  * temporal: *O(n!)*
-  * espacial: *O(n!)*
+  * Temporal: *O(n!)*
+  * Espacial: *O(n!)*
 
 #### Vector ordenado:
 
 * Máximo
-  * temporal: *O(1)*
-  * espacial: *O(n)*
+  * Temporal: *O(1)*
+  * Espacial: *O(n)*
 * Media
-  * temporal: *O(1)*
-  * espacial: *O(n)*
+  * Temporal: *O(1)*
+  * Espacial: *O(n)*
 * Moda
-  * temporal: *O(1)*
-  * espacial: *O(n)*
+  * Temporal: *O(1)*
+  * Espacial: *O(n)*
 * Mediana
-  * temporal: *O(n log n)*
-  * espacial: *O(n)*
+  * Temporal: *O(n log n)*
+  * Espacial: *O(n)*
 * Desviación estándar
-  * temporal: *O(n^2)*
-  * espacial: *O(n)*
+  * Temporal: *O(n^2)*
+  * Espacial: *O(n)*
 * Permutaciones del conjunto
-  * temporal: *O(n!)*
-  * espacial: *O(n!)*
+  * Temporal: *O(n!)*
+  * Espacial: *O(n!)*
 * Variaciones del conjunto tomados de r elementos (r«n)
-  * temporal: *O(n!)*
-  * espacial: *O(n!)*
+  * Temporal: *O(n!)*
+  * Espacial: *O(n!)*
 * Variaciones con repetición del conjunto de r elementos (r«n)
-  * temporal: *O(n!)*
-  * espacial: *O(n!)*
+  * Temporal: *O(n!)*
+  * Espacial: *O(n!)*
 
 
-#### abb:
+#### Arboy de Busquda Binaria:
 * Máximo
-  * temporal: *O(log n)*
-  * espacial: *O(n)*
+  * Temporal: *O(log n)*
+  * Espacial: *O(n)*
 * Media
-  * temporal: *O(n)*
-  * espacial: *O(n)*
+  * Temporal: *O(n)*
+  * Espacial: *O(n)*
 * Moda
-  * temporal: *O(n)*
-  * espacial: *O(n)*
+  * Temporal: *O(n)*
+  * Espacial: *O(n)*
 * Mediana
-  * temporal: *O(n log n)*
-  * espacial: *O(n)*
+  * Temporal: *O(n log n)*
+  * Espacial: *O(n)*
 * Desviación estándar
-  * temporal: *O(n^2)*
-  * espacial: *O(n)*
+  * Temporal: *O(n^2)*
+  * Espacial: *O(n)*
 * Permutaciones del conjunto
-  * temporal: *O(n!)*
-  * espacial: *O(n!)*
+  * Temporal: *O(n!)*
+  * Espacial: *O(n!)*
 * Variaciones del conjunto tomados de r elementos (r«n)
-  * temporal: *O(n!)*
-  * espacial: *O(n!)*
+  * Temporal: *O(n!)*
+  * Espacial: *O(n!)*
 * Variaciones con repetición del conjunto de r elementos (r«n)
-  * temporal: *O(n!)*
-  * espacial: *O(n!)*
+  * Temporal: *O(n!)*
+  * Espacial: *O(n!)*
 
   ### 2.3 - Gráficos de Complejidad
 
+  Para armar los graficos de complejidad, usamos diferentes largos de vector para medir el tiempo real de ejecucion usando el comando **time** de Linux y tomando el tiempo de ejecucion total.
+
   ### 2.4 - Programación Algoritmos
+
+  Como ejecutar las distintas implementaciones
+
+  1) Generamos el archivo txt con la cantidad de numeros que queremos, siendo **n** la cantidad de numeros
+  ```
+  cd TP1/src/Tools
+  python number_generator.py n
+  ```
+  2) Ejecutar la implementacion deseada y funcion deseada conjunto
+  ```
+  cd TP1/src/Segunda_Parte/
+  implentacion_lista.py ruta_archivo funcion r
+  ```
+  Siendo **r** un argumento necesario solo para las variaciones
+
+  Las funciones son las siguientes:
+  * Maximo : **maximo**
+  * Media : **media**
+  * Moda : **moda**
+  * Mediana : **mediana**
+  * Desviacion Estandar : **desviacion_estandar**
+  * Permutaciones : **permutaciones**
+  * Variaciones de r en r : **variaciones**
+  * Variaciones de r en r con repeticion : **variaciones_con_repeticion**
+
+  La ruta del archivo, si fue generado con el script en **tools** esta en **../assets/txt/numbers.txt**
