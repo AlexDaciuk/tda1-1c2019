@@ -296,23 +296,40 @@ def suma(root):
 
 def cargar_numeros(file_path):  # O(n)
     file = open(file_path, "r")
-
+    root = None 
     lines = file.readlines()
 
     for line in lines:  # ver esto root deberia estar fuera del ciclo
         number_tmp = line.rstrip()
-        root = newNode(number_tmp)
+        if (root == None):
+            root = newNode(number_tmp)
+            continue
         insert(root, number_tmp)
 
     file.close()
     return root
+
+def archivo_resultados(resultados):  # O(1)
+    file_path = "resultados.txt"
+
+    file = open(file_path, 'w+')
+
+    if isinstance(resultados, str):
+        file.write(resultados)
+    else:
+        file.write(str(resultados))
+
+    file.close()
+
+    raise SystemExit
+ 
 
 
 def main():
     root = cargar_numeros(file_path)
 
     operations_without_r = {
-        "maximo": maximo,
+        "maximo": maximo,   # Anda
         "media": media,
         "moda": moda,
         "mediana": mediana,
