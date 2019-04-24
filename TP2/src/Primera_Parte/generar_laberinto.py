@@ -37,7 +37,16 @@ def metodo_dyc(mapa):
     None
 
 
+def metodo_dfs(mapa):
+    None
+
+
 if __name__ == "__main__":
     mapa = crear_mapa_vacio(alto, ancho)
 
     mostrar_mapa(mapa)
+
+    if metodo == "dyc":
+        metodo_dyc(mapa)
+    elif metodo == "dfs":
+        metodo_dfs(mapa)
