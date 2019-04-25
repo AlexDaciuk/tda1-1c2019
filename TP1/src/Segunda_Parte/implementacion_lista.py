@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import math
+import time
 
 file_path = sys.argv[1]
 
@@ -56,7 +57,7 @@ def maximo(number_list):  # O(n)
         if number > maximo:
             maximo = number
 
-    archivo_resultados(maximo)
+    return maximo
 
 
 # Temporal : O(n)
@@ -68,7 +69,7 @@ def media(number_list):
 
     media = suma / len(number_list)
 
-    archivo_resultados(media)
+    return media
 
 
 # Temporal : O(n)
@@ -94,7 +95,7 @@ def moda(lista):
         elif frecuencia_actual == frecuencia:
             mas_frecuentes.append(actual)
 
-    archivo_resultados(mas_frecuentes)
+    return mas_frecuentes
 
 
 # Temporal : O(n log n)
@@ -103,15 +104,15 @@ def mediana(number_list):
     number_list.sort()
 
     pos = (len(number_list) - 1) // 2
-    resultado = number_list[pos]
+    mediana = number_list[pos]
 
     # Si el largo de la lista es par devuelvo el promedio
     # de los 2 valores medios de la lista
     if (len(number_list) % 2) == 0:
-        resultado = (number_list[pos] + number_list[pos + 1]) / 2.0
+        mediana = (number_list[pos] + number_list[pos + 1]) / 2.0
 
     # Sino devuelvo el valor medio
-    archivo_resultados(resultado)
+    return mediana
 
 
 # Temporal : O(n^2)
@@ -131,7 +132,9 @@ def desviacion_estandar(number_list):  # O(n^2)
 
     media_de_suma = suma_distancias / len(number_list)
 
-    archivo_resultados(math.sqrt(media_de_suma))  # sqrt O(log n)
+    desviacion_estandar = math.sqrt(media_de_suma)  # sqrt O(log n)
+
+    return desviacion_estandar
 
 
 # Entran todos los elementos del array
@@ -163,7 +166,7 @@ def permutaciones(lista):  # O(n!)
     # Llamo a la funcion
     generar_permutaciones(len(lista), lista)
 
-    archivo_resultados(permutaciones)
+    return permutaciones
 
 
 # No entran todos los elementos, entran r
@@ -200,7 +203,7 @@ def variaciones_r_elementos_sin_repeticion(number_list, r):  # O(nr)
             indices[j] = indices[j - 1] + 1
             variaciones.append(list(number_list[i] for i in indices))
 
-    archivo_resultados(variaciones)
+    return variaciones
 
 
 # No entran todos los elementos, entran r
@@ -233,10 +236,10 @@ def variaciones_r_elementos(number_list, r):
 
         variaciones.append(list(number_list[i] for i in indices))
 
-    archivo_resultados(variaciones)
+    return variaciones
 
 
-def main():
+if __name__ == "__main__":
     cargar_numeros(file_path)
 
     operations_without_r = {
@@ -253,12 +256,16 @@ def main():
         "variaciones_con_repeticion": variaciones_r_elementos
     }
 
+    start = time.time()
     if hay_r and operation in operations_with_r:
-        operations_with_r[operation](number_list, r)
+        resultado = operations_with_r[operation](number_list, r)
     elif not hay_r and operation in operations_without_r:
-        operations_without_r[operation](number_list)
+        resultado = operations_without_r[operation](number_list)
     else:
         print("Argumentos invalidos")
+    end = time.time()
 
+    print("Tiempo de ejecucion de " + operation + " en lista con " +
+          str(len(number_list)) + " elementos : " + str(end - start))
 
-main()
+    archivo_resultados(resultado)
