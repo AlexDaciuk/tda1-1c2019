@@ -14,18 +14,27 @@ def crear_mapa_vacio(alto, ancho):
 
     poner_paredes_externas(mapa_tmp, alto, ancho)
 
+    poner_entrada_salida(mapa_tmp, alto, ancho)
+
     return mapa_tmp
+
+
+def poner_entrada_salida(mapa, alto, ancho):
+    # Entrada
+    mapa[0][1] = " "
+    # Salida
+    mapa[alto - 1][ancho - 2] = " "
 
 
 def poner_paredes_externas(mapa, alto, ancho):
     for i in range(1, ancho - 1):
         # Pared superior e inferior, uso signo menos
         mapa[0][i] = "*"
-        mapa[alto + 1][i] = "*"
-    for i in range(alto - 2):
+        mapa[alto - 1][i] = "*"
+    for i in range(alto):
         # Paredes laterales, uso pipe
         mapa[i][0] = "*"
-        mapa[i][ancho + 1] = "*"
+        mapa[i][ancho - 1] = "*"
 
 
 def mostrar_mapa(mapa):
