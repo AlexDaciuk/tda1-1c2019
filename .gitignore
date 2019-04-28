@@ -106,3 +106,4 @@ venv.bak/
 #vscode
 .vscode
 launch.json
+*.tda.code-workspace
