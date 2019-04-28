@@ -70,18 +70,18 @@ def poner_pared(mapa, orientacion, x, y, largo):
 
 def metodo_dyc(mapa):
 
-    def dividir(mapa, x, y, ancho, alto, orientacion):
+    def dividir(mapa, x, y, ancho, alto):
         if alto < 2 or ancho < 2:
             return
 
-        es_horizontal = (orientacion == "horizontal")
+        es_horizontal = (decidir_orientacion(ancho, alto) == "horizontal")
 
-        # Busco punto de inicio de la pared
-        pared_x = x + (0 if es_horizontal else random.randint(ancho - 2))
-        pared_y = y + (random.randint(alto - 2) if es_horizontal else 0)
+        # Busco punto de inicio de la pared, siempre va a estar sobre la pared
+        # derecha o superior del recuadro definido por (x,y), ancho y alto
+        # OSEA, SIEMPRE QUE ARMO UNA PARED, ES PARA ABAJO O PARA LA DERECHA
+        pared_x = x + (0 if es_horizontal else random.randint(x, alto - x))
+        pared_y = y + (random.randint(y, ancho - y) if es_horizontal else 0)
 
-        # Defino la direccion
-        
         # Defino el largo de la pared
         largo_pared = ancho if es_horizontal else alto
 
