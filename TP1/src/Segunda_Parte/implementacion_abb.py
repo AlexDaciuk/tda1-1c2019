@@ -139,59 +139,32 @@ def mediana(root):
                 current = current.right
 
 
-# complejidad temporal: O(n log n) 
-# complejidad espacial: O(N) 
-# ver peor y mejor caso
+# Temporal : O(n)
+# Espacial : O(n)
+# Si no se repite ningun elemento, devuelve todo el vector
 def moda(root):
-    first(root)
-    #mode = int(modecount)
-    global mode
-    global modecount
-    mode = [0] * modecount
-    second(root)
-    archivo_resultados(mode)
+    lista = listNodes(root)
+    mas_frecuentes = [lista[0]]
+    frecuencia = 0
+    actual = lista[0]
+    frecuencia_actual = 0
 
+    for numero in lista:
 
-def first(root):
-    if (root is None):
-        return
-    first(root.left)
-    val = root.data
-    global curval
-    if (curval != val):
-        curval = val
-        curcount = 0
-    curcount += 1
-    global maxcount 
-    global modecount
-    if (curcount > maxcount):
-        maxcount = curcount
-        modecount = 1
-    elif (curcount == maxcount):
-        modecount += 1
-    first(root.right)
+        if numero != actual:
+            actual = numero
+            frecuencia_actual = 0
 
+        frecuencia_actual += 1
 
-def second(root):
-    global curval
-    global mode
-    global modecount
-    if (root is None):
-        return
-    second(root.left)
-    val = root.data
-    if (curval != val):
-        curval = val
-        curcount = 0
-    curcount += 1
-    global i 
-    if (curcount == maxcount):
-        #mode[modecount] = curval
-        #mode.append(curval)
-        mode[i] = curval 
-        i += 1
-        modecount += 1
-    second(root.right)
+        if frecuencia_actual > frecuencia:
+            frecuencia = frecuencia_actual
+            mas_frecuentes = [actual]
+        elif frecuencia_actual == frecuencia:
+            mas_frecuentes.append(actual)
+
+    archivo_resultados(mas_frecuentes)
+
 
 
 def media(root):    # O(N) + O(log N)

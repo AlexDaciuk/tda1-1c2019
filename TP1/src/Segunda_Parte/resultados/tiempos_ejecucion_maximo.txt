@@ -1,0 +1,8 @@
+Tiempo de ejecucion de maximo en lista con 1 elementos :  1.4066696166992E-6 (media)
+Tiempo de ejecucion de maximo en lista con 10 elementos : 1.8119812011719E-6 (media)
+Tiempo de ejecucion de maximo en lista con 100 elementos : 3.7670135498047E-6 (media)
+Tiempo de ejecucion de maximo en lista con 1000 elementos : 2.3269653320312E-5 (media)
+Tiempo de ejecucion de maximo en lista con 10000 elementos : 0.00021286010742187 (media)
+Tiempo de ejecucion de maximo en lista con 100000 elementos : 0.0020575046539307 (media)
+Tiempo de ejecucion de maximo en lista con 1000000 elementos :  0.020466566085815 (media)
+Tiempo de ejecucion de maximo en lista con 10000000 elementos : 0.20008180141449 (media)
