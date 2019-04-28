@@ -4,14 +4,12 @@ import random
 
 # El orden de los argumentos esta definido en el enunciado
 metodo = sys.argv[1]
-
+# Sumo 2 para que las paredes exteriores no le saquen tamaño al mapa
 alto = int(sys.argv[2]) + 2
 ancho = int(sys.argv[3]) + 2
 
 
 def crear_mapa_vacio(alto, ancho):
-    # Creo el mapa vacio, sumo 2 a alto y ancho, asi el mapa queda
-    # del tamaño que me piden y las paredes exteriores no le sacan tamaño
     mapa_tmp = [[" " for x in range(ancho)] for y in range(alto)]
 
     poner_paredes_externas(mapa_tmp, alto, ancho)
