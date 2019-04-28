@@ -42,20 +42,6 @@ def mostrar_mapa(mapa):
         print(*mapa[fila], sep=' ')
 
 
-def poner_pared(mapa, orientacion, posicion, desde, hasta):
-    pos_random = random.randint(desde + 1, hasta - 2)
-
-    if orientacion == "horizontal":
-        for celda in range(desde, hasta):
-            mapa[posicion][celda] = "*"
-        mapa[posicion][pos_random] = " "
-
-    elif orientacion == "vertical":
-        for celda in range(desde, hasta):
-            mapa[celda][posicion] = "*"
-        mapa[pos_random][posicion] = " "
-
-
 def decidir_orientacion(alto, ancho):
     if alto > ancho:
         return "horizontal"
@@ -65,13 +51,42 @@ def decidir_orientacion(alto, ancho):
         return (random.choice(["horizontal", "vertical"]))
 
 
-def metodo_dyc(mapa):
-    alto_tmp = random.randint(2, alto - 2)
-    ancho_tmp = random.randint(2, ancho - 2)
-    # Pongo la primera pared para arrancar
-    orientacion_tmp = decidir_orientacion(alto_tmp, ancho_tmp)
+def poner_pared(mapa, orientacion, x, y, largo):
 
-    poner_pared(mapa, orientacion_tmp, ancho_tmp, 0, )
+    if orientacion == "horizontal":
+        for i in range(y, y + largo):
+            mapa[x][i] = "*"
+        y_a_sacar = random.randint(y, y + largo)
+        x_a_sacar = x
+
+    elif orientacion == "vertical":
+        for i in range(x, x + largo):
+            mapa[i][y] = "*"
+        x_a_sacar = random.randint(x, x + largo)
+        y_a_sacar = y
+
+    mapa[x_a_sacar][y_a_sacar] = " "
+
+
+def metodo_dyc(mapa):
+
+    def dividir(mapa, x, y, ancho, alto, orientacion):
+        if alto < 2 or ancho < 2:
+            return
+
+        es_horizontal = (orientacion == "horizontal")
+
+        # Busco punto de inicio de la pared
+        pared_x = x + (0 if es_horizontal else random.randint(ancho - 2))
+        pared_y = y + (random.randint(alto - 2) if es_horizontal else 0)
+
+        # Defino la direccion
+        
+        # Defino el largo de la pared
+        largo_pared = ancho if es_horizontal else alto
+
+        # Que direccion es perpendicular a la pared?
+        # direc_perpendicular = "horizontal" if es_horizontal else "vertical"
 
 
 def metodo_dfs(mapa):
