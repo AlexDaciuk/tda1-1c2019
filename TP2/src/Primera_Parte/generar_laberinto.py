@@ -51,6 +51,7 @@ def decidir_orientacion(alto, ancho):
         return (random.choice(["horizontal", "vertical"]))
 
 
+# Siempre la pared se hace de izq a derecha o de arriba a abajo
 def poner_pared(mapa, orientacion, x, y, largo):
 
     if orientacion == "horizontal":
@@ -85,8 +86,9 @@ def metodo_dyc(mapa):
         # Defino el largo de la pared
         largo_pared = ancho if es_horizontal else alto
 
-        # Que direccion es perpendicular a la pared?
-        # direc_perpendicular = "horizontal" if es_horizontal else "vertical"
+        poner_pared(mapa,
+                    ("horizontal" if es_horizontal else "vertical"),
+                    pared_x, pared_y, largo_pared)
 
 
 def metodo_dfs(mapa):
