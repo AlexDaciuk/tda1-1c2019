@@ -239,17 +239,42 @@ en *implementación_abb.py* estan implementadas todas las funciones para nuestra
 ### 2.2 - Analisis de complejidad algorítmica
 
 #### Lista y vector en python:
-
+Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la cantidad de elementos de la estructura a menos que se indique lo contrario
 * Máximo
+  * Pseudo codigo:
+    * maximo(lista):
+      * maximo = lista[0]
+      * for elemento in lista:
+        * if elemento > maximo:
+          * maximo = elemento
+      * return maximo
+  * Basicamente recorremos linealmente quedandonos con el mayor elemento visitado, esto claramente es O(n) en tiempo y O(1) en espacio porque usamos una variable para guardar el maximo
   * Temporal: *O(n)*
   * Espacial: *O(1)*
 * Media
+  * Pseudo codigo:
+    * media(lista):
+      * suma = 0
+        * for number in lista:
+          * suma += number
+      * media = suma / largo(lista)
+      * return media
+  * Como hace falta recorrer todos los elementos de la lista esto es O(n), esto se guarda en una variable por lo que es O(1) en espacio.
   * Temporal: *O(n)*
   * Espacial: *O(1)*
 * Moda
   * Temporal: *O(n)*
   * Espacial: *O(n)*
 * Mediana
+  * pseudo codigo:
+    * mediana(lista):
+      * lista.ordenar()
+      * pos = (largo(lista) - 1) // 2
+      * mediana = lista[pos]
+      * if largo(lista) es par:
+        * mediana = (lista[pos] + lista[pos + 1]) / 2.0
+      * return mediana
+  * Lo que hacemos primero es ordenar la lista, lo cual es O(n log n) en tiempo. Luego, si la lista tiene una cantidad par de elementos, devolvemos el promedio de los 2 elementos medios de la lista, de lo contrario la mediana es el valor en el medio.
   * Temporal: *O(n log n)*
   * Espacial: *O(1)*
 * Desviación estándar
@@ -271,33 +296,44 @@ en *implementación_abb.py* estan implementadas todas las funciones para nuestra
 
 * Máximo
   * Pseudo codigo:
-      * return primer elemento de la lista
-  * En un vector ordenado descendente el primer elemento siempre tiene el maximo valor.
-  * Por ello esto solo requiere visitar un solo elemento y guardarlo en una sola variable.
+    * maximo(lista):
+      * return lista[0]
+  * En un vector ordenado descendente el primer elemento siempre tiene el maximo valor. Por ello esto solo requiere visitar un solo elemento y guardarlo en una sola variable.
   * Temporal: *O(1)*
   * Espacial: *O(1)*
 * Media
   * Pseudo codigo:
-    * para todos los elementos de la lista:
-      * sumar todos los elementos
-    * return sumatoria / cantidad de elementos
-  * Como hace falta recorrer todos los elementos de la lista esto es O(n) siendo n la cantidad de elementos de la lista, esto se guarda en una variable por lo que es O(1) es espacio
-  * Temporal: *O(1)*
+    * media(lista):
+      * for elemento in lista:
+        * sumatoria = sumar todos los elementos
+      * return sumatoria / largo(lista)
+  * Es el mismo algoritmo que el usado para la lista y el vector, ya que en ambas estructuras no cambia el como se obtiene la media.
+  * Temporal: *O(n)*
   * Espacial: *O(1)*
 * Moda
   * Temporal: *O(1)*
   * Espacial: *O(n)*
 * Mediana
   * Pseudo codigo:
-    * si la lista es impar:
-      * return el elemento del medio
-    * sino:
-      * return el promedio de los 2 elementos del medio
+    * mediana(lista):
+      * if lista es impar:
+        * return el elemento del medio
+      * sino:
+        * return el promedio de los 2 elementos del medio
   * Como sabemos que posiciones del vector hay que visitar y solo son un par de posiciones, esto es O(1), tanto en tiempo como en espacio.
   * Temporal: *O(1)*
   * Espacial: *O(1)*
 * Desviación estándar
-  * Temporal: *O(n^2)*
+  * Pseudo codigo:
+    * calcular la media
+    * suma_de_distancias = 0
+    * for elemento in lista:
+      * distancia_media = (elemento - media) ** 2 
+      * suma_distancias += distancia_media
+    * media_de_suma = suma_distancias / largo(lista)
+    * return raiz cuadrada de media_de_suma
+  * Calcular la media es O(n) en tiempo y O(1) en espacio, despues se recorre toda la lista calculando la suma de las distancias medias, lo cual es O(n) en tiempo y O(1) en espacio (VER ESTO REVIZAR SI SUMA_DISTANCIAS SE REESCRIBE O CREA UNA NUEVA VARIABLE CADA VEZ), almacenar le media de sumas es O(1) en espacio y O(n) en tiempo (porque calculamos el largo de la lista, esto se podria haber calculado en el ciclo anterior pero O(n) + O(n) = O(n)). Finalmente, calcular la raiz cuadrada es O(log n) en tiempo, y O(1) en espacio (es inplace). Finalmente, en complejidad temporal esta funcion es O(n) + O(n) + O(n) + O(log n) = O(n) + O(log n) = O(n) y en complejidad espacial es O(1) (VER, PODRIA SER O(n))
+  * Temporal: *O(n)*
   * Espacial: *O(1)*
 * Permutaciones del conjunto
   * Temporal: *O(n!)*
@@ -312,8 +348,15 @@ en *implementación_abb.py* estan implementadas todas las funciones para nuestra
 
 #### Arboy de Busquda Binaria:
 * Máximo
+  * Pseudo codigo:
+    * maximo(nodo_raiz):
+      * actual = nodo_raiz
+      * while (actual.derecho is not NULL):
+        * actual = actual.derecho
+      * return actual.dato
+  * Bajamos todo a la derecha, donde va a estar el maximo, tarda O(log N) (caso normal) Tarda O(N) en el peor caso que seria que el arbol sea una lista enlazada. El mejor caso es O(1) (la raiz es el maximo)
   * Temporal: *O(log n)*
-  * Espacial: *O(n)*
+  * Espacial: *O(1)*
 * Media
   * Temporal: *O(n)*
   * Espacial: *O(n)*
@@ -321,6 +364,39 @@ en *implementación_abb.py* estan implementadas todas las funciones para nuestra
   * Temporal: *O(n)*
   * Espacial: *O(n)*
 * Mediana
+  * pseudo codigo:
+    * mediana(nodo_raiz):
+      * if (nodo_raiz is NULL):
+        * return 0
+      * contador = contarNodos(nodo_raiz)
+      * contadorActual = 0
+      * actual = nodo_raiz
+      * while (actual is not NULL):
+        * if (actual.izq is NULL):
+          * contadorActual += 1
+          * if (contador % 2 != 0 and contadorActual == (contador + 1) // 2):
+            * return previo.data
+          * elif (contador % 2 == 0 and contadorActual == (contador // 2) + 1):
+            * return (previo.data + actual.data) // 2
+          * previo = actual
+          * actual = actual.derecho
+        * else:
+            * pre = actual.izq
+            * while (pre.derecho is not NULL and pre.derecho != actual):
+              * pre = pre.derecho
+            * if (pre.derecho is NULL):
+              * pre.derecho = actual
+              * actual = actual.izq
+            * else:
+              * pre.derecho = NULL
+              * previo = pre
+              * contadorActual += 1
+              * if (contador % 2 != 0 and contadorActual == (contador + 1) // 2):
+                * return actual.data
+              * elif (contador % 2 == 0 and contadorActual == (contador // 2) + 1):
+                * return (previo.data + actual.data) // 2
+              * previo = actual
+              * actual = actual.derecho
   * Temporal: *O(n log n)*
   * Espacial: *O(n)*
 * Desviación estándar
