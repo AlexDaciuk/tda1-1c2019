@@ -263,6 +263,24 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
   * Temporal: *O(n)*
   * Espacial: *O(1)*
 * Moda
+  * pseudo codigo:
+    * moda(lista):
+      * mas_frecuentes = [lista[0]]
+      * frecuencia = 0
+      * actual = lista[0]
+      * frecuencia_actual = 0
+      * for numero in lista:
+        * if numero != actual:
+          * actual = numero
+          * frecuencia_actual = 0
+        * frecuencia_actual ++
+        * if frecuencia_actual > frecuencia:
+          * frecuencia = frecuencia_actual
+          * mas_frecuentes = [actual]
+        * elif frecuencia_actual == frecuencia:
+          * mas_frecuentes.append(actual)
+      * return mas_frecuentes
+  * Como recorremos toda la lista, esto es O(n) y como usamos una lista para guardar los elementos mas frecuentes, en espacio es O(n) en el peor caso, que seria que todos los elementos tienen igual frecuencia, en ese caso devolvemos la lista entera.
   * Temporal: *O(n)*
   * Espacial: *O(n)*
 * Mediana
@@ -272,7 +290,7 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
       * pos = (largo(lista) - 1) // 2
       * mediana = lista[pos]
       * if largo(lista) es par:
-        * mediana = (lista[pos] + lista[pos + 1]) / 2.0
+        * mediana = (lista[pos] + lista[pos + 1]) / 2
       * return mediana
   * Lo que hacemos primero es ordenar la lista, lo cual es O(n log n) en tiempo. Luego, si la lista tiene una cantidad par de elementos, devolvemos el promedio de los 2 elementos medios de la lista, de lo contrario la mediana es el valor en el medio.
   * Temporal: *O(n log n)*
@@ -328,11 +346,11 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
     * calcular la media
     * suma_de_distancias = 0
     * for elemento in lista:
-      * distancia_media = (elemento - media) ** 2 
+      * distancia_media = (elemento - media) ^ 2
       * suma_distancias += distancia_media
     * media_de_suma = suma_distancias / largo(lista)
     * return raiz cuadrada de media_de_suma
-  * Calcular la media es O(n) en tiempo y O(1) en espacio, despues se recorre toda la lista calculando la suma de las distancias medias, lo cual es O(n) en tiempo y O(1) en espacio (VER ESTO REVIZAR SI SUMA_DISTANCIAS SE REESCRIBE O CREA UNA NUEVA VARIABLE CADA VEZ), almacenar le media de sumas es O(1) en espacio y O(n) en tiempo (porque calculamos el largo de la lista, esto se podria haber calculado en el ciclo anterior pero O(n) + O(n) = O(n)). Finalmente, calcular la raiz cuadrada es O(log n) en tiempo, y O(1) en espacio (es inplace). Finalmente, en complejidad temporal esta funcion es O(n) + O(n) + O(n) + O(log n) = O(n) + O(log n) = O(n) y en complejidad espacial es O(1) (VER, PODRIA SER O(n))
+  * Calcular la media es O(n) en tiempo y O(1) en espacio, despues se recorre toda la lista calculando la suma de las distancias medias siendo la distancia media de cada elemento, el elemento menos la media al cuadrado, lo cual es O(n) en tiempo y O(1) en espacio (VER ESTO REVIZAR SI SUMA_DISTANCIAS SE REESCRIBE O CREA UNA NUEVA VARIABLE CADA VEZ), almacenar le media de sumas es O(1) en espacio y O(n) en tiempo (porque calculamos el largo de la lista, esto se podria haber calculado en el ciclo anterior pero O(n) + O(n) = O(n)). Finalmente, calcular la raiz cuadrada es O(log n) en tiempo, y O(1) en espacio (es inplace). Finalmente, en complejidad temporal esta funcion es O(n) + O(n) + O(n) + O(log n) = O(n) + O(log n) = O(n) y en complejidad espacial es O(1) (VER, PODRIA SER O(n))
   * Temporal: *O(n)*
   * Espacial: *O(1)*
 * Permutaciones del conjunto
@@ -373,7 +391,7 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
       * actual = nodo_raiz
       * while (actual is not NULL):
         * if (actual.izq is NULL):
-          * contadorActual += 1
+          * contadorActual ++
           * if (contador % 2 != 0 and contadorActual == (contador + 1) // 2):
             * return previo.data
           * elif (contador % 2 == 0 and contadorActual == (contador // 2) + 1):
@@ -390,7 +408,7 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
             * else:
               * pre.derecho = NULL
               * previo = pre
-              * contadorActual += 1
+              * contadorActual ++
               * if (contador % 2 != 0 and contadorActual == (contador + 1) // 2):
                 * return actual.data
               * elif (contador % 2 == 0 and contadorActual == (contador // 2) + 1):
