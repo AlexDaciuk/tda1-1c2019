@@ -242,82 +242,72 @@ en *implementación_abb.py* estan implementadas todas las funciones para nuestra
 
 * Máximo
   * Temporal: *O(n)*
-  * Espacial: *O(n)*
+  * Espacial: *O(1)*
 * Media
   * Temporal: *O(n)*
-  * Espacial: *O(n)*
+  * Espacial: *O(1)*
 * Moda
   * Temporal: *O(n)*
   * Espacial: *O(n)*
 * Mediana
   * Temporal: *O(n log n)*
-  * Espacial: *O(n)*
+  * Espacial: *O(1)*
 * Desviación estándar
   * Temporal: *O(n^2)*
-  * Espacial: *O(n)*
+  * Espacial: *O(1)*
 * Permutaciones del conjunto
   * Temporal: *O(n!)*
-  * Espacial: *O(n!)*
+  * Espacial: *O(n|)*
 * Variaciones del conjunto tomados de r elementos (r«n)
   * Temporal: *O(n!)*
   * Espacial: *O(n!)*
 * Variaciones con repetición del conjunto de r elementos (r«n)
   * Temporal: *O(n!)*
   * Espacial: *O(n!)*
+
+
 
 #### Vector ordenado:
 
 * Máximo
-  * Temporal: *O(n)*
-  * Espacial: *O(n)*
-* Media
-  * Temporal: *O(n)*
-  * Espacial: *O(n)*
-* Moda
-  * Temporal: *O(n)*
-  * Espacial: *O(n)*
-* Mediana
-  * Temporal: *O(n log n)*
-  * Espacial: *O(n)*
-* Desviación estándar
-  * Temporal: *O(n^2)*
-  * Espacial: *O(n)*
-* Permutaciones del conjunto
-  * Temporal: *O(n!)*
-  * Espacial: *O(n!)*
-* Variaciones del conjunto tomados de r elementos (r«n)
-  * Temporal: *O(n!)*
-  * Espacial: *O(n!)*
-* Variaciones con repetición del conjunto de r elementos (r«n)
-  * Temporal: *O(n!)*
-  * Espacial: *O(n!)*
-
-#### Vector ordenado:
-
-* Máximo
+  * Pseudo codigo:
+      * return primer elemento de la lista
+  * En un vector ordenado descendente el primer elemento siempre tiene el maximo valor.
+  * Por ello esto solo requiere visitar un solo elemento y guardarlo en una sola variable.
   * Temporal: *O(1)*
-  * Espacial: *O(n)*
+  * Espacial: *O(1)*
 * Media
+  * Pseudo codigo:
+    * para todos los elementos de la lista:
+      * sumar todos los elementos
+    * return sumatoria / cantidad de elementos
+  * Como hace falta recorrer todos los elementos de la lista esto es O(n) siendo n la cantidad de elementos de la lista, esto se guarda en una variable por lo que es O(1) es espacio
   * Temporal: *O(1)*
-  * Espacial: *O(n)*
+  * Espacial: *O(1)*
 * Moda
   * Temporal: *O(1)*
   * Espacial: *O(n)*
 * Mediana
-  * Temporal: *O(n log n)*
-  * Espacial: *O(n)*
+  * Pseudo codigo:
+    * si la lista es impar:
+      * return el elemento del medio
+    * sino:
+      * return el promedio de los 2 elementos del medio
+  * Como sabemos que posiciones del vector hay que visitar y solo son un par de posiciones, esto es O(1), tanto en tiempo como en espacio.
+  * Temporal: *O(1)*
+  * Espacial: *O(1)*
 * Desviación estándar
   * Temporal: *O(n^2)*
-  * Espacial: *O(n)*
+  * Espacial: *O(1)*
 * Permutaciones del conjunto
   * Temporal: *O(n!)*
-  * Espacial: *O(n!)*
+  * Espacial: *O(n|)*
 * Variaciones del conjunto tomados de r elementos (r«n)
   * Temporal: *O(n!)*
-  * Espacial: *O(n!)*
+  * Espacial: *O(n|)*
 * Variaciones con repetición del conjunto de r elementos (r«n)
   * Temporal: *O(n!)*
-  * Espacial: *O(n!)*
+  * Espacial: *O(n|)*
 
 
 #### Arboy de Busquda Binaria:
