@@ -247,7 +247,7 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
       * for elemento in lista:
         * if elemento > maximo:
           * maximo = elemento
-      * return maximo
+    * return maximo
   * Basicamente recorremos linealmente quedandonos con el mayor elemento visitado, esto claramente es O(n) en tiempo y O(1) en espacio porque usamos una variable para guardar el maximo
   * Temporal: *O(n)*
   * Espacial: *O(1)*
@@ -258,7 +258,7 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
         * for number in lista:
           * suma += number
       * media = suma / largo(lista)
-      * return media
+    * return media
   * Como hace falta recorrer todos los elementos de la lista esto es O(n), esto se guarda en una variable por lo que es O(1) en espacio.
   * Temporal: *O(n)*
   * Espacial: *O(1)*
@@ -279,7 +279,7 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
           * mas_frecuentes = [actual]
         * elif frecuencia_actual == frecuencia:
           * mas_frecuentes.append(actual)
-      * return mas_frecuentes
+    * return mas_frecuentes
   * Como recorremos toda la lista, esto es O(n) y como usamos una lista para guardar los elementos mas frecuentes, en espacio es O(n) en el peor caso, que seria que todos los elementos tienen igual frecuencia, en ese caso devolvemos la lista entera.
   * Temporal: *O(n)*
   * Espacial: *O(n)*
@@ -291,20 +291,82 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
       * mediana = lista[pos]
       * if largo(lista) es par:
         * mediana = (lista[pos] + lista[pos + 1]) / 2
-      * return mediana
+    * return mediana
   * Lo que hacemos primero es ordenar la lista, lo cual es O(n log n) en tiempo. Luego, si la lista tiene una cantidad par de elementos, devolvemos el promedio de los 2 elementos medios de la lista, de lo contrario la mediana es el valor en el medio.
   * Temporal: *O(n log n)*
   * Espacial: *O(1)*
 * Desviación estándar
-  * Temporal: *O(n^2)*
+  * pseudo codigo: 
+    * desviacion_estandar(lista):
+      * calcular la media
+      * suma_de_distancias = 0
+      * for elemento in lista:
+        * distancia_media = (elemento - media) ^ 2
+        * suma_distancias += distancia_media
+      * media_de_suma = suma_distancias / largo(lista)
+    * return raiz cuadrada de media_de_suma
+  * Calcular la media es O(n) en tiempo y O(1) en espacio, despues se recorre toda la lista calculando la suma de las distancias medias siendo la distancia media de cada elemento, el elemento menos la media al cuadrado, lo cual es O(n) en tiempo y O(1) en espacio, almacenar le media de sumas es O(1) en espacio y O(n) en tiempo (porque calculamos el largo de la lista, esto se podria haber calculado en el ciclo anterior pero O(n) + O(n) = O(n)). Finalmente, calcular la raiz cuadrada es O(log n) en tiempo, y O(1) en espacio (es inplace). Finalmente, en complejidad temporal esta funcion es O(n) + O(n) + O(n) + O(log n) = O(n) + O(log n) = O(n) y en complejidad espacial es O(1).
+  * Temporal: *O(n)*
   * Espacial: *O(1)*
 * Permutaciones del conjunto
+  * pseudo codigo:
+    * permutaciones(lista):
+      * permutaciones = []
+
+      * generar_permutaciones(k, lista):
+        * if k == 1:
+          * permutaciones.append(lista)
+          * return
+        * for i in range(0, k-1):
+          * generar_permutaciones(k-1, lista)
+            * if i es par:
+              * swap(i, k-1)
+            * else:
+              * swap(0, k-1)
+
+      * generar_permutaciones(largo(lista), lista)
+    * return permutaciones
+  * Como este algoritmo tiene que generar todas las permutaciones posibles y a la vez tiene que devolver dichas combinaciones (guardadas en una lista de listas) este algoritmo es tanto O(n!) en espacio como en tiempo.
   * Temporal: *O(n!)*
   * Espacial: *O(n|)*
 * Variaciones del conjunto tomados de r elementos (r«n)
+  * pseudo codigo:
+    * variaciones_r_elementos_sin_repeticion(lista, r):  # O(n*r)
+      * n = largo(lista)
+      * variaciones = []
+      * indices = list(range(r))
+      * variaciones.append(list(lista[i] for i in indices))
+      * while True:
+        * for i in reversed(range(r)):
+          * if indices[i] != i + n - r:
+            * break
+        * else:
+          * break
+        * indices[i] ++
+        * for j in range(i + 1, r):
+          * indices[j] = indices[j - 1] + 1
+          * variaciones.append(list(lista[i] for i in indices))
+      * return variaciones
+  * VER COMPLEJIDAD
   * Temporal: *O(n!)*
   * Espacial: *O(n!)*
 * Variaciones con repetición del conjunto de r elementos (r«n)
+  * pseudo codigo:
+    * variaciones_r_elementos(lista, r):
+      * n = largo(lista)
+      * variaciones = []
+      * indices = [0] * r
+      * variaciones.append(list(lista[i] for i in indices))
+      * while True:
+        * for i in reversed(range(r)):
+          * if indices[i] != n - 1:
+            * break
+          * else:
+            * break
+        * indices[i:] = [indices[i] + 1] * (r - i)
+        * variaciones.append(list(lista[i] for i in indices))
+    * return variaciones
+  * VER COMPLEJIDAD
   * Temporal: *O(n!)*
   * Espacial: *O(n!)*
 
@@ -324,11 +386,12 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
     * media(lista):
       * for elemento in lista:
         * sumatoria = sumar todos los elementos
-      * return sumatoria / largo(lista)
+    * return sumatoria / largo(lista)
   * Es el mismo algoritmo que el usado para la lista y el vector, ya que en ambas estructuras no cambia el como se obtiene la media.
   * Temporal: *O(n)*
   * Espacial: *O(1)*
 * Moda
+  * pseudo codigo: Es exactamente el mismo algoritmo usado en 'lista y vector'.
   * Temporal: *O(1)*
   * Espacial: *O(n)*
 * Mediana
@@ -342,15 +405,7 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
   * Temporal: *O(1)*
   * Espacial: *O(1)*
 * Desviación estándar
-  * Pseudo codigo:
-    * calcular la media
-    * suma_de_distancias = 0
-    * for elemento in lista:
-      * distancia_media = (elemento - media) ^ 2
-      * suma_distancias += distancia_media
-    * media_de_suma = suma_distancias / largo(lista)
-    * return raiz cuadrada de media_de_suma
-  * Calcular la media es O(n) en tiempo y O(1) en espacio, despues se recorre toda la lista calculando la suma de las distancias medias siendo la distancia media de cada elemento, el elemento menos la media al cuadrado, lo cual es O(n) en tiempo y O(1) en espacio (VER ESTO REVIZAR SI SUMA_DISTANCIAS SE REESCRIBE O CREA UNA NUEVA VARIABLE CADA VEZ), almacenar le media de sumas es O(1) en espacio y O(n) en tiempo (porque calculamos el largo de la lista, esto se podria haber calculado en el ciclo anterior pero O(n) + O(n) = O(n)). Finalmente, calcular la raiz cuadrada es O(log n) en tiempo, y O(1) en espacio (es inplace). Finalmente, en complejidad temporal esta funcion es O(n) + O(n) + O(n) + O(log n) = O(n) + O(log n) = O(n) y en complejidad espacial es O(1) (VER, PODRIA SER O(n))
+  * pseudo codigo: Es exactamente el mismo algoritmo usado en 'lista y vector'.
   * Temporal: *O(n)*
   * Espacial: *O(1)*
 * Permutaciones del conjunto
@@ -392,9 +447,9 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
       * while (actual is not NULL):
         * if (actual.izq is NULL):
           * contadorActual ++
-          * if (contador % 2 != 0 and contadorActual == (contador + 1) // 2):
+          * if (contador es impar and contadorActual == (contador + 1) // 2):
             * return previo.data
-          * elif (contador % 2 == 0 and contadorActual == (contador // 2) + 1):
+          * elif (contador es par and contadorActual == (contador // 2) + 1):
             * return (previo.data + actual.data) // 2
           * previo = actual
           * actual = actual.derecho
@@ -409,16 +464,16 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
               * pre.derecho = NULL
               * previo = pre
               * contadorActual ++
-              * if (contador % 2 != 0 and contadorActual == (contador + 1) // 2):
+              * if (contador es impar and contadorActual == (contador + 1) // 2):
                 * return actual.data
-              * elif (contador % 2 == 0 and contadorActual == (contador // 2) + 1):
+              * elif (contador es par and contadorActual == (contador // 2) + 1):
                 * return (previo.data + actual.data) // 2
               * previo = actual
               * actual = actual.derecho
   * Temporal: *O(n log n)*
   * Espacial: *O(n)*
 * Desviación estándar
-  * Temporal: *O(n^2)*
+  * Temporal: *O(n)*
   * Espacial: *O(n)*
 * Permutaciones del conjunto
   * Temporal: *O(n!)*
