@@ -437,8 +437,15 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
   * Temporal: *O(log n)*
   * Espacial: *O(1)*
 * Media
+  * pseudo codigo: 
+    * media(raiz):    # O(N) + O(log N)
+      * sumatoria = sumarNodos(raiz)
+      * cont = contarNodos(raiz)
+      * promedio = sumatoria / cont
+    * return promedio
+  * Recorremos inorder el ABB contando y sumando todos los nodos, lo cual es O(n) en tiempo. Y usamos un par de variables para guardar los resultados, O(1) en espacio.
   * Temporal: *O(n)*
-  * Espacial: *O(n)*
+  * Espacial: *O(1)*
 * Moda
   * Temporal: *O(n)*
   * Espacial: *O(n)*

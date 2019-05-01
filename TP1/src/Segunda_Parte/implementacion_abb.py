@@ -215,7 +215,7 @@ def variaciones_r_elementos_sin_repeticion(root, r):
     # lista = [0,1,2,3,...,r]
     # Trivial, los primeros r elementos de la lista
     lista = listNodes(root)
-    # VER DE CAMBIAR DE ACA PARA ABAJO
+    
     variaciones.append(list(lista[i] for i in indices))
 
     while True:
