@@ -476,8 +476,9 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
                 * return (previo.data + actual.data) // 2
               * previo = actual
               * actual = actual.derecho
-  * Temporal: *O(n log n)*
-  * Espacial: *O(n)*
+  * Lo que hacemos es recorrer Inorder el arbol, teniendo un contador del nodo actual, chequeando si el nodo actual es la mediana. Obviament en caso de encontrarse la media se chequea si hay que devolver el valor medio o el promedio de los valores medios. La mediana se guarda en una variable y al ser un recorrido inorder (recorrido lineal de los nodos) es O(n) en tiempo.
+  * Temporal: *O(n)*
+  * Espacial: *O(1)*
 * Desviación estándar
   * Temporal: *O(n)*
   * Espacial: *O(n)*
