@@ -409,12 +409,18 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
   * Temporal: *O(n)*
   * Espacial: *O(1)*
 * Permutaciones del conjunto
+  * pseudo codigo: Es exactamente el mismo algoritmo usado en 'lista y vector'.
+  * VER COMPLEJIDAD
   * Temporal: *O(n!)*
   * Espacial: *O(n|)*
 * Variaciones del conjunto tomados de r elementos (r«n)
+  * pseudo codigo: Es exactamente el mismo algoritmo usado en 'lista y vector'.
+  * VER COMPLEJIDAD
   * Temporal: *O(n!)*
   * Espacial: *O(n|)*
 * Variaciones con repetición del conjunto de r elementos (r«n)
+  * pseudo codigo: Es exactamente el mismo algoritmo usado en 'lista y vector'.
+  * VER COMPLEJIDAD
   * Temporal: *O(n!)*
   * Espacial: *O(n|)*
 
