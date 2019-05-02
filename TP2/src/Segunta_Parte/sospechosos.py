@@ -20,11 +20,8 @@ def cargar_planilla(file_path):
 
 
 def buscar_sospechosos(planilla):
-    lista = []
-    cant_gente = 0
-
-    for persona in planilla:
-        
+    lista_tmp = []
+    sospechosos = []
 
 
 if __name__ == "__main__":
