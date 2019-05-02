@@ -19,7 +19,13 @@ def cargar_planilla(file_path):
         planilla.append(persona_tmp)
 
 
+def buscar_sospechosos(planilla):
+    None
+
+
 if __name__ == "__main__":
     cargar_planilla(file_path)
+
+    buscar_sospechosos(planilla)
 
     print(planilla)
