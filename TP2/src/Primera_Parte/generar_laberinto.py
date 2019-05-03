@@ -86,7 +86,6 @@ def aleatorio(a, b):
 def metodo_dyc(mapa):
 
     def dividir(mapa, x, y, ancho, alto):
-        mostrar_mapa(mapa)
         # Pongo un limite inferior para las subdivisiones
         if alto < 4 or ancho < 4:
             return
