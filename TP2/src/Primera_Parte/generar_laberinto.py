@@ -88,7 +88,7 @@ def metodo_dyc(mapa):
     def dividir(mapa, x, y, ancho, alto):
         mostrar_mapa(mapa)
         # Pongo un limite inferior para las subdivisiones
-        if alto < 2 or ancho < 2:
+        if alto < 4 or ancho < 4:
             return
 
         # Decido la orientacion dependiendo del tamaño de la division
@@ -113,10 +113,10 @@ def metodo_dyc(mapa):
         dividir(mapa, x, y, ancho_parte_arriba, alto_parte_arriba)
 
         # Lo que queda a la derecha o abajo de la pared
-        # ancho_parte_abajo = ancho if es_horizontal else (ancho - pared_y - 1)
-        # alto_parte_abajo = (alto - pared_x - 1) if es_horizontal else alto
-        # dividir(mapa, pared_x + 1, pared_y + 1,
-        #         ancho_parte_abajo, alto_parte_abajo)
+        ancho_parte_abajo = ancho if es_horizontal else (ancho - pared_y - 1)
+        alto_parte_abajo = (alto - pared_x - 1) if es_horizontal else alto
+        dividir(mapa, pared_x + 1, pared_y + 1,
+                ancho_parte_abajo, alto_parte_abajo)
 
     dividir(mapa, 1, 1, ancho_mapa - 2, alto_mapa - 2)
 
