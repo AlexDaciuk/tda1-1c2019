@@ -22,10 +22,10 @@ class Jugador:
         else:
             return None
 
-    def prefiere(self,jugador):
-        prefJugador = [x['nPref'] for x in self.preferencias if x['jugador']==jugador].pop()
-        prefPareja = [x['nPref'] for x in self.preferencias if x['jugador']==self.pareja].pop()
-        return prefJugador < prefPareja
+    def prefiere(self,jugador):   
+        prefJugador = next(filter(lambda x: x['jugador']==jugador, self.preferencias)) 
+        prefPareja = next(filter(lambda x: x['jugador']==self.pareja, self.preferencias))
+        return prefJugador['nPref'] < prefPareja['nPref']
 
     def formarPareja(self,jugador):
         if jugador.pareja != None: jugador.pareja.pareja = None
