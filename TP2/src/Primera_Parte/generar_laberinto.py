@@ -42,20 +42,6 @@ def mostrar_mapa(mapa):
         print(*mapa[fila], sep=' ')
 
 
-def poner_pared(mapa, orientacion, posicion, desde, hasta):
-    pos_random = random.randint(desde + 1, hasta - 2)
-
-    if orientacion == "horizontal":
-        for celda in range(desde, hasta):
-            mapa[posicion][celda] = "*"
-        mapa[posicion][pos_random] = " "
-
-    elif orientacion == "vertical":
-        for celda in range(desde, hasta):
-            mapa[celda][posicion] = "*"
-        mapa[pos_random][posicion] = " "
-
-
 def decidir_orientacion(alto, ancho):
     if alto > ancho:
         return "horizontal"
@@ -65,13 +51,61 @@ def decidir_orientacion(alto, ancho):
         return (random.choice(["horizontal", "vertical"]))
 
 
-def metodo_dyc(mapa):
-    alto_tmp = random.randint(2, alto - 2)
-    ancho_tmp = random.randint(2, ancho - 2)
-    # Pongo la primera pared para arrancar
-    orientacion_tmp = decidir_orientacion(alto_tmp, ancho_tmp)
+# Siempre la pared se hace de izq a derecha o de arriba a abajo
+def poner_pared(mapa, orientacion, x, y, largo):
+    print("Pongo pared " + orientacion + " en " + str(x) + "," + str(y) +
+          " de largo " + str(largo))
 
-    poner_pared(mapa, orientacion_tmp, ancho_tmp, 0, )
+    if orientacion == "horizontal":
+        for i in range(y, y + largo):
+            print("Pongo pared en " + str(x) + " " + str(i))
+            mapa[x][i] = "*"
+        y_a_sacar = random.randint(y, y + largo)
+        x_a_sacar = x
+
+    elif orientacion == "vertical":
+        for i in range(x, x + largo):
+            print("Pongo pared en " + str(i) + " " + str(x))
+            mapa[i][y] = "*"
+        x_a_sacar = random.randint(x, x + largo)
+        y_a_sacar = y
+
+    mapa[x_a_sacar][y_a_sacar] = " "
+
+
+def metodo_dyc(mapa):
+
+    def dividir(mapa, x, y, ancho, alto):
+        # Pongo un limite inferior para las subdivisiones
+        if alto < 3 or ancho < 3:
+            return
+
+        # Decido la orientacion dependiendo del tamaño de la division
+        es_horizontal = (decidir_orientacion(ancho, alto) == "horizontal")
+
+        # Busco punto de inicio de la pared, siempre va a estar sobre la pared
+        # derecha o superior del recuadro definido por (x,y), ancho y alto
+        # OSEA, SIEMPRE QUE ARMO UNA PARED, ES PARA ABAJO O PARA LA DERECHA
+        pared_x = x + (0 if es_horizontal else random.randint(x, alto - x))
+        pared_y = y + (random.randint(y, ancho - y) if es_horizontal else 0)
+
+        # Defino el largo de la pared
+        largo_pared = (ancho - pared_y) if es_horizontal else (alto - pared_x)
+
+        poner_pared(mapa,
+                    ("horizontal" if es_horizontal else "vertical"),
+                    pared_x, pared_y, largo_pared)
+
+        # Lo que queda a la izquierda o arriba de la pared
+        dividir(mapa, x, y,
+                ancho if es_horizontal else pared_y - y,
+                pared_x - x if es_horizontal else alto)
+        # Lo que queda a la derecha o abajo de la pared
+        dividir(mapa, pared_x + 1, pared_y + 1,
+                ancho if es_horizontal else ancho - pared_y,
+                alto - pared_x if es_horizontal else alto)
+
+    dividir(mapa, 0, 0, ancho - 2, alto - 2)
 
 
 def metodo_dfs(mapa):
@@ -82,7 +116,11 @@ if __name__ == "__main__":
     mapa = crear_mapa_vacio(alto, ancho)
     mostrar_mapa(mapa)
 
-    if metodo == "dyc":
-        metodo_dyc(mapa)
-    elif metodo == "dfs":
-        metodo_dfs(mapa)
+    metodo_dyc(mapa)
+
+    mostrar_mapa(mapa)
+
+    # if metodo == "dyc":
+    #     metodo_dyc(mapa)
+    # elif metodo == "dfs":
+    #     metodo_dfs(mapa)

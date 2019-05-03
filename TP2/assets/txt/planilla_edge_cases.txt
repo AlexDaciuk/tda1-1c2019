@@ -1,0 +1,9 @@
+Juan,0700,39
+Jose,0700,39
+Marcos,0700,39
+Julian,0700,39
+Pedro,0700,39
+Daniel,0730,50
+Matias,0730,50
+Francisco,0730,50
+Leandro,0730,50

@@ -50,7 +50,7 @@ def archivo_resultados(resultados):
 
 
 # Temporal : O(n)
-# Espacial : O(n)
+# Espacial : O(1)
 def maximo(number_list):  # O(n)
     maximo = number_list[0]
     for number in number_list:
@@ -61,7 +61,7 @@ def maximo(number_list):  # O(n)
 
 
 # Temporal : O(n)
-# Espacial : O(n)
+# Espacial : O(1)
 def media(number_list):
     suma = 0
     for number in number_list:

@@ -141,30 +141,37 @@ def mediana(root):
 
 # Temporal : O(n)
 # Espacial : O(n)
-# Si no se repite ningun elemento, devuelve todo el vector
 def moda(root):
-    lista = listNodes(root)
-    mas_frecuentes = [lista[0]]
-    frecuencia = 0
-    actual = lista[0]
-    frecuencia_actual = 0
+    valGlobal = 0
+    countGlobal = 0
+    max_count = 0
+    ans = []    
+    inorder(root)    
+    return ans
 
-    for numero in lista:
 
-        if numero != actual:
-            actual = numero
-            frecuencia_actual = 0
+def inorder(root):
+    if (root is None):
+        return
+    inorder(root.left)
+    visit(root.data)
+    inorder(root.right)
+  
+def visit(valor):
+    if (countGlobal > 0 and valor == valGlobal):
+        countGlobal += 1   
+    else:
+        valGlobal = valor
+        count = 1
+    
+    if (countGlobal > max_count):
+        max_count_ = count
+        ans.clear()
+    
+    if (countGlobal == max_count):
+        ans.append(valor)
 
-        frecuencia_actual += 1
-
-        if frecuencia_actual > frecuencia:
-            frecuencia = frecuencia_actual
-            mas_frecuentes = [actual]
-        elif frecuencia_actual == frecuencia:
-            mas_frecuentes.append(actual)
-
-    archivo_resultados(mas_frecuentes)
-
+ 
 
 
 def media(root):    # O(N) + O(log N)
@@ -215,7 +222,7 @@ def variaciones_r_elementos_sin_repeticion(root, r):
     # lista = [0,1,2,3,...,r]
     # Trivial, los primeros r elementos de la lista
     lista = listNodes(root)
-    # VER DE CAMBIAR DE ACA PARA ABAJO
+
     variaciones.append(list(lista[i] for i in indices))
 
     while True:
