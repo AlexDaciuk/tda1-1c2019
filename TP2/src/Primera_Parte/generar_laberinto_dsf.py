@@ -110,13 +110,14 @@ class Graficador:
             self.canva.create_line(ix+2,iy+2,ix+2,fy+2, fill="black") # Oeste     
 
     def guardar(self):
-        pass
+        archivo = open(Path("../../assets/txt/laberinto_dfs.txt"), "w+")
 
-        archivo =     
+       # linea = 
 
 if __name__ == "__main__": 
     sys.setrecursionlimit(5000)
-    lab = Laberinto(10,10)
+    lab = Laberinto(3,4)
     graf = Graficador(lab,30)
     graf.imprimir()
     mainloop()
+    a=1
