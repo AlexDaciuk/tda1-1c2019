@@ -73,16 +73,6 @@ def poner_pared(mapa, orientacion, x, y, largo):
     mapa[x_a_sacar][y_a_sacar] = " "
 
 
-def aleatorio(a, b):
-    print("a vale " + str(a) + " b vale " + str(b))
-    if a == b:
-        return a
-    elif b == 1 or b == 0:
-        return a
-    else:
-        return random.randint(a, b)
-
-
 def metodo_dyc(mapa):
 
     def dividir(mapa, x, y, ancho, alto):
@@ -96,8 +86,8 @@ def metodo_dyc(mapa):
         # Busco punto de inicio de la pared, siempre va a estar sobre la pared
         # derecha o superior del recuadro definido por (x,y), ancho y alto
         # OSEA, SIEMPRE QUE ARMO UNA PARED, ES PARA ABAJO O PARA LA DERECHA
-        pared_x = x + (aleatorio(2, alto - 2) if es_horizontal else 0)
-        pared_y = y + (0 if es_horizontal else aleatorio(2, ancho - 2))
+        pared_x = x + (random.randint(2, alto - 2) if es_horizontal else 0)
+        pared_y = y + (0 if es_horizontal else random.randint(2, ancho - 2))
 
         # Defino el largo de la pared
         largo_pared = ancho if es_horizontal else alto
@@ -107,9 +97,10 @@ def metodo_dyc(mapa):
                     pared_x, pared_y, largo_pared)
 
         # Lo que queda a la izquierda o arriba de la pared
-        ancho_parte_arriba = ancho if es_horizontal else (pared_y - y)
-        alto_parte_arriba = (pared_x - x) if es_horizontal else alto
-        dividir(mapa, x, y, ancho_parte_arriba, alto_parte_arriba)
+        if es_horizontal:
+            ancho_parte_arriba = ancho
+            alto_parte_arriba = pared_x - x
+            dividir(mapa, x, y, ancho_parte_arriba, alto_parte_arriba)
 
         # Lo que queda a la derecha o abajo de la pared
         ancho_parte_abajo = ancho if es_horizontal else (ancho - pared_y - 1)
