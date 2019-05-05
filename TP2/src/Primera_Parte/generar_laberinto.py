@@ -114,10 +114,10 @@ def metodo_dyc(mapa):
         # Lo que queda a la derecha o abajo de la pared
         ancho_parte_abajo = ancho if es_horizontal else (ancho - pared_y - 1)
         alto_parte_abajo = (alto - pared_x - 1) if es_horizontal else alto
-        dividir(mapa, pared_x + 1, pared_y + 1,
+        dividir(mapa, pared_x, pared_y,
                 ancho_parte_abajo, alto_parte_abajo)
 
-    dividir(mapa, 1, 1, ancho_mapa - 2, alto_mapa - 2)
+    dividir(mapa, 0, 0, ancho_mapa - 2, alto_mapa - 2)
 
 
 def metodo_dfs(mapa):
