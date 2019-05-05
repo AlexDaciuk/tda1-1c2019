@@ -79,19 +79,18 @@ class Laberinto:
         else:
             return
                  
-class Graficador:
+class Impresora:
     def __init__(self,laberinto, wcelda):
-        self.laberinto = laberinto
+        self.lab = laberinto
         self.master = Tk()
         self.w = wcelda # Ancho de celda
-        self.canva = Canvas(self.master, width=(self.laberinto.cols*self.w)+2, height=(self.laberinto.fils*self.w)+2)
+        self.canva = Canvas(self.master, width=(self.lab.cols*self.w)+2, height=(self.lab.fils*self.w)+2)
 
-    def imprimir(self):
+    def presentar(self):
         # Imprimo celdas        
-        for fila in self.laberinto.grilla:
-            for celda in fila:
-                self.iCelda(celda)                     
-
+        for x in self.lab.grilla:
+            for celda in x:
+                self.iCelda(celda) 
         self.canva.pack()    
 
     def iCelda(self,celda):
@@ -112,12 +111,41 @@ class Graficador:
     def guardar(self):
         archivo = open(Path("../../assets/txt/laberinto_dfs.txt"), "w+")
 
-       # linea = 
+        lineas = []
+        lineas.append('*'*((self.lab.cols*2) + 1)) #Muro N
+
+        for x in range(self.lab.fils):
+            linea1='*' # Agrego pared oeste
+            linea2='*' # Agrego pared oeste
+            for y in range(self.lab.cols):
+                celda = self.lab.grilla[y][x]
+                
+                linea1 +=' ' # Agergo celda
+                if celda.conexiones['E'] is not None:
+                    linea1 += ' ' # Agrego conexión al E
+                else:
+                    linea1 += '*' # Agrego muro al E
+                
+                if celda.conexiones['S'] is not None:
+                    linea2 += ' ' # Agrego conexión al S
+                else:
+                    linea2 += '*' # agrego muro al S
+                linea2 += '*' #agego muro diagonal SE
+            lineas.append(linea1)
+            lineas.append(linea2)
+
+        for linea in lineas:
+            archivo.write(linea +'\n')
+
+        print(archivo.read())
+        archivo.close()
+
 
 if __name__ == "__main__": 
     sys.setrecursionlimit(5000)
     lab = Laberinto(3,4)
-    graf = Graficador(lab,30)
-    graf.imprimir()
+    imp = Impresora(lab,30)
+    imp.presentar()
+    imp.guardar()
     mainloop()
     a=1
