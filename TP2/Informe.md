@@ -17,11 +17,81 @@
 
 ### **Pseudocodigo**
 
+```
+1) Generas el mapa con el alto y ancho pedido
+
+2) Mientras que el tamaño del sub-laberinto sea mayor a 4x4
+
+    2.1) Decidir orientacion de la pared nueva
+
+    2.2) Poner la pared con pasaje en una posicion aleatoria mientras que no tape otro pasaje
+
+    2.3) Repetir 2) con los 2 sub-laberintos definidos por la pared nueva
+```
+
 ### **Complejidad**
+
 
 ### **Implementacion**
 
+```python
+def generar_mapa(mapa):
+
+    def dividir(mapa, x, y, ancho, alto):
+        # Pongo un limite inferior para las subdivisiones
+        if alto < 4 or ancho < 4:
+            return
+
+        # Busco punto de inicio de la pared, siempre va a estar sobre la pared
+        # derecha o superior del recuadro definido por (x,y), ancho y alto
+        # OSEA, SIEMPRE QUE ARMO UNA PARED, ES PARA ABAJO O PARA LA DERECHA
+        pared_valida = False
+
+        while not pared_valida:
+            # Decido la orientacion dependiendo del tamaño de la division
+            es_horizontal = (decidir_orientacion(alto, ancho) == "horizontal")
+
+            # Defino el largo de la pared
+            largo_pared = ancho if es_horizontal else alto
+
+            # Defino aleatoriamente donde va a estar la pared
+            pared_x = x + (random.randint(2, alto - 2) if es_horizontal else 0)
+            pared_y = y + \
+                (0 if es_horizontal else random.randint(2, ancho - 2))
+
+            # Valido que no este frente a una puerta
+            pared_valida = validar_pared(
+                pared_x, pared_y, largo_pared, es_horizontal)
+
+        poner_pared(mapa,
+                    ("horizontal" if es_horizontal else "vertical"),
+                    pared_x, pared_y, largo_pared)
+
+        x_a = x
+        y_a = y
+        ancho_a = ancho if es_horizontal else pared_y - y
+        alto_a = pared_x - x if es_horizontal else alto
+
+        dividir(mapa, x_a, y_a, ancho_a, alto_a)
+
+        x_b = pared_x + 1 if es_horizontal else pared_x
+        y_b = pared_y if es_horizontal else pared_y + 1
+        ancho_b = ancho if es_horizontal else ancho - pared_y + y - 1
+        alto_b = alto - pared_x + x - 1 if es_horizontal else alto
+
+        dividir(mapa, x_b, y_b, ancho_b, alto_b)
+
+    dividir(mapa, 1, 1, ancho_mapa - 2, alto_mapa - 2)
+```
+
 ### **Ejecución**
+
+```
+cd TP2/src/Primera_Parte
+python3 generar_laberinto_dyc.py ancho alto
+```
+
+Que genera el archivo **assets/txt/laberinto_dyc.txt** donde los asteriscos representan las paredes y los espacios en blanco.
 
 ## Depth-First Search y Recursive Backtracking
 
@@ -64,7 +134,7 @@ el codigo esta implementado en *laberinto_dfs.py*
 
 El grafo plano queda representado por un vector de 2 dimensiones dentro de la propiedad grilla de la clase Laberinto. Dentro de la grilla hay instancias de la clase celda, donde en la propiedad conexiones estan conectados los vecinos que forman el sub grafo del laberinto al recorrelos.
 
-```
+```python
 class Celda:
     def __init__(self, x, y):
         self.x = x
@@ -75,7 +145,7 @@ class Celda:
         #para uso en  Dijkstra
         self.caminoMin = False
         self.distancia = -1 #infinito
-        self.anterior = None 
+        self.anterior = None
 
 class Laberinto:
     def __init__(self,fils = 0,cols = 0,archivo = None):
@@ -86,7 +156,7 @@ class Laberinto:
         self.recorridoMin = []
 
         if type(archivo) is str:
-            self.cargar(archivo) 
+            self.cargar(archivo)
         else:
             self.crear() # Generación de la grilla y ejecución dfs-backtraking
 
@@ -94,9 +164,9 @@ class Laberinto:
 ### **Ejecución**
 ```
 cd TP2/src/Primera_Parte
-py constructor.py dfs 10 30
+python3 constructor.py dfs 10 30
 ```
-El algoritmo genera el archivo 
+El algoritmo genera el archivo
 
 *TP2/assets/tst/mapa-laberinto.txt*
 
@@ -119,8 +189,8 @@ function Dijkstra(Grafo, source):
         dist[v] := infinito
  	    anterior[v] := ninguno
  	dist[nodo_inicio] := 0 	
- 	pila = todoslos los nodos en grafo 
- 	mientras pila tiene algun nodo: 
+ 	pila = todoslos los nodos en grafo
+ 	mientras pila tiene algun nodo:
  	    u := nodo en pila con menor distancia
  	    eliminar u de pila
  	    por cada vecino v de u: 	
@@ -129,7 +199,7 @@ function Dijkstra(Grafo, source):
  	        if alt < dist[v] 	
 	        dist[v] := alt
  	        anterior[v] := u
- 	return anterior[] 
+ 	return anterior[]
 ```
 
 ### **Analisis de Complejidad**
@@ -139,7 +209,7 @@ El algoritmo consiste en *N-1* iteraciones como máximo, en las cuales se agrega
 
 
 ### **Implementación algoritmo**
-```
+```python
 def dijkstra(self):    
     self.grilla[0][0].distancia = 0 #seteo distancia inicio
     self.grilla[0][0].caminoMin = True
@@ -149,7 +219,7 @@ def dijkstra(self):
         for celda in x:
             nodos.append(celda)   
 
-    while nodos: 
+    while nodos:
         nodoPos = [n for n in nodos if n.distancia != -1] #lista de nodos con distancia no infinita
         u = min(nodoPos, key=lambda x: x.distancia) #nodo con distanci minima
         nodos.remove(u)
@@ -160,7 +230,7 @@ def dijkstra(self):
                 v.anterior = u
 
     return self.marcarCaminoMin(self.grilla[self.cols-1][self.fils-1]) #recorro el camino minimo desde la salida y lo devuelvo
-    
+
 def marcarCaminoMin(self,celda):
     if celda.anterior is not None:
         celda.caminoMin = True
@@ -174,7 +244,7 @@ cd TP2/src/Primera_Parte
 py constructor.py dfs 10 30
 py camino_min.py 'mapa-laberintos.txt'
 ```
-El algoritmo genera el archivo 
+El algoritmo genera el archivo
 
 *TP2/assets/tst/mapa-laberinto-camino-min.txt*
 
@@ -243,4 +313,50 @@ por lo tanto la complejidad queda igual que la teorica
 # Parte 2 - Golpe comando
 Proponer y explicar un algoritmo que liste los grupos de sospechosos
 
-## Complejidad
+## Algoritmo
+
+```
+Tengo una lista con todos los ingresos
+
+Y voy generando listas de sospechosos de la siguiente forma:
+
+  Cada lista de sospechosos es de la forma [hora_ingreso_primer_sospechoso, sospechoso_1 , ... , sospechoso_n]
+
+  Tomo a la primera persona que ingreso como primer sospechoso y creo la primera lista
+
+  Ahora, recorro la lista de ingresos (sin la primera persona)
+    Por cada persona, chequeo que su hora de entrada este en el rango de los 120 minutos posteriores a la entrada de cada lista de sospechosos, si lo esta, entra en esa lista, sino, crea otra con la hora de entrada de esa persona
+
+  Filtro duplicados de cada lista de sospechosos e imprimo todas las listas de sospechosos  
+```
+
+## Codigo
+```python
+def buscar_sospechosos(planilla):
+    lista_tmp = []
+    sospechosos = []
+
+    planilla_copia = list(planilla)
+
+    lista_tmp.append([planilla[0][1], planilla[0][0]])
+
+    planilla_copia.remove(planilla[0])
+
+    for persona in planilla_copia:  # O(n)
+        for lista in lista_tmp:     # O(n)
+            if validar_hora(persona[1], lista[0]):
+                lista.append(persona[0])
+            else:
+                lista_tmp.append([persona[0], persona[1]])
+
+    for lista in lista_tmp:     # O (n)
+        lista[0] = str(lista[0][0]) + ":" + str(lista[0][1])
+        lista = list(dict.fromkeys(lista))    # O(n)
+        sospechosos.append(lista)
+
+    return sospechosos
+```
+
+## Realizar el analsis de Complejidad
+
+La complejidad es **O(n^2)** por que lo mas costoso son 2 for's anidados
