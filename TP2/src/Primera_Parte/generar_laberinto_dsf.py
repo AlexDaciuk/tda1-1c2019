@@ -13,13 +13,44 @@ class Celda:
         self.visitado= False        
 
 class Laberinto:
-    def __init__(self,fils,cols):
-         self.fils = fils
-         self.cols = cols
-         # Grafo del laberinto con diccionario de adyacencias y representación matricial de los nodos (celdas)
-         self.grilla = [[Celda(x,y) for y in range(self.fils)] for x in range(self.cols)] 
-         self.pila = [self.grilla[0][0]]
-         self.generar(self.grilla[0][0])
+    def __init__(self,fils = 0,cols = 0,archivo = None):
+        if type(archivo) is str:
+            self.cargar(archivo)
+        else:
+            self.crear(fils,cols)
+
+    def cargar(self,archivo):               
+        archivo = open(Path("../../assets/txt/" + archivo), "r")
+        lineas = archivo.read().splitlines()
+
+        alto = len(lineas)
+        ancho = len(lineas[0])
+        self.fils = int((alto-1)/2)
+        self.cols = int((ancho-1)/2)
+        self.grilla = [[Celda(x,y) for y in range(self.fils)] for x in range(self.cols)] 
+
+        posCols = [x for x in range(ancho) if x%2!=0] 
+        posFils = [x for x in range(alto) if x%2!=0] 
+
+        for y in range(self.fils):            
+            for x in range(self.cols):
+                celda = self.grilla[x][y]
+                if lineas[posFils[y]-1][posCols[x]] == ' ':
+                    celda.conexiones['N'] = self.grilla[x][y-1]
+                if lineas[posFils[y]+1][posCols[x]] == ' ':
+                    celda.conexiones['S'] = self.grilla[x][y+1]
+                if lineas[posFils[y]][posCols[x]+1] == ' ':
+                    celda.conexiones['E'] = self.grilla[x+1][y]
+                if lineas[posFils[y]][posCols[x]-1] == ' ':
+                    celda.conexiones['O'] = self.grilla[x-1][y]
+      
+    def crear(self,fils,cols):
+        self.fils = fils
+        self.cols = cols
+        # Grafo del laberinto con diccionario de adyacencias y representación matricial de los nodos (celdas)
+        self.grilla = [[Celda(x,y) for y in range(self.fils)] for x in range(self.cols)] 
+        self.pila = [self.grilla[0][0]]
+        self.generar(self.grilla[0][0])        
 
     # Busca un vecino al azar, lo conecta con la celda y lo retorna. Si no existe retorna None
     def conectarVecino(self, celda):
@@ -61,24 +92,12 @@ class Laberinto:
             self.generar(self.pila[-1])
         else:
             try:
-                self.pila.pop()
-                self.pila.pop() 
+                self.pila.pop() # expulso None
+                self.pila.pop() # expulso última celda sin vecinos
                 self.generar(self.pila[-1])              
             except IndexError:
                 return
-
-    def generar2(self,celda):                
-        if type(celda) is Celda :
-            celda.visitado = True
-            if self.conectarVecino(celda) is not None:
-                self.pila.append(celda)            
-            self.generar2(self.conectarVecino(celda))
-        elif celda is None and self.pila:
-            self.pila.pop()
-            self.generar2(self.pila[-1])
-        else:
-            return
-                 
+                
 class Impresora:
     def __init__(self,laberinto, wcelda):
         self.lab = laberinto
@@ -114,11 +133,11 @@ class Impresora:
         lineas = []
         lineas.append('*'*((self.lab.cols*2) + 1)) #Muro N
 
-        for x in range(self.lab.fils):
+        for y in range(self.lab.fils):
             linea1='*' # Agrego pared oeste
             linea2='*' # Agrego pared oeste
-            for y in range(self.lab.cols):
-                celda = self.lab.grilla[y][x]
+            for x in range(self.lab.cols):
+                celda = self.lab.grilla[x][y]
                 
                 linea1 +=' ' # Agergo celda
                 if celda.conexiones['E'] is not None:
@@ -140,12 +159,12 @@ class Impresora:
         print(archivo.read())
         archivo.close()
 
-
 if __name__ == "__main__": 
-    sys.setrecursionlimit(5000)
-    lab = Laberinto(3,4)
+    sys.setrecursionlimit(5000)    
+    lab = Laberinto(archivo='laberinto_dfs.txt')
+    #lab = Laberinto(fils=3,cols=4)
     imp = Impresora(lab,30)
-    imp.presentar()
-    imp.guardar()
+    imp.presentar()    
+    #imp.guardar()
     mainloop()
-    a=1
+    
