@@ -20,7 +20,7 @@
 ```
 1) Generas el mapa con el alto y ancho pedido
 
-2) Mientras que el tamaño del sub-laberinto sea mayor a 4x4
+2) Mientras que el tamaño del sub-laberinto sea mayor a 4x4 
 
     2.1) Decidir orientacion de la pared nueva
 
@@ -31,6 +31,7 @@
 
 ### **Complejidad**
 
+En el armado del algoritmo, a través del proceso de división de la matriz, se termina pasando una vez por cada celda del laberinto, por lo cual la complejidad es siempre *O(N)*
 
 ### **Implementacion**
 
@@ -272,8 +273,6 @@ def generar(self, celda):
             return
 ```
 La única complejidad que depende de n es la recursión del backtraking descripta en el pseudocodigo, por lo tanto la complejidad de la implementación es igual a la teórica
-
-### **División y Conquista**
 
 ### **Dijkstra**
 ```python
