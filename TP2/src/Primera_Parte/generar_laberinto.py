@@ -127,13 +127,13 @@ def metodo_dyc(mapa):
         mostrar_mapa(mapa)
 
         # Lo que queda a la izquierda o arriba de la pared
-        ancho_parte_arriba = ancho if es_horizontal else (pared_y - y)
-        alto_parte_arriba = (pared_x - x) if es_horizontal else alto
-        dividir(mapa, x, y, abs(ancho_parte_arriba), abs(alto_parte_arriba))
+        # ancho_parte_arriba = ancho if es_horizontal else (pared_y - y)
+        # alto_parte_arriba = (pared_x - x) if es_horizontal else alto
+        # dividir(mapa, x, y, abs(ancho_parte_arriba), abs(alto_parte_arriba))
 
         # Lo que queda a la derecha o abajo de la pared
-        ancho_parte_abajo = ancho if es_horizontal else (ancho - pared_y)
-        alto_parte_abajo = (alto - pared_x) if es_horizontal else alto
+        ancho_parte_abajo = ancho if es_horizontal else ((ancho_mapa-2) - pared_y)
+        alto_parte_abajo = (alto_mapa - pared_x - 2) if es_horizontal else alto
         x_abajo = pared_x + 1 if es_horizontal else pared_x
         y_abajo = pared_y if es_horizontal else pared_y + 1
         dividir(mapa, x_abajo, y_abajo,
