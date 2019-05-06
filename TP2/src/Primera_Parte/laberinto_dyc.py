@@ -3,13 +3,6 @@ import sys
 import random
 from pathlib import Path
 
-# Sumo 2 para que las paredes exteriores no le saquen tamaño al mapa
-alto_mapa = int(sys.argv[1]) + 2
-ancho_mapa = int(sys.argv[2]) + 2
-
-sys.setrecursionlimit(100000)
-
-
 def crear_mapa_vacio(alto, ancho):
     mapa_tmp = [[" " for x in range(ancho)] for y in range(alto)]
 
@@ -69,7 +62,7 @@ def poner_pared(mapa, orientacion, x, y, largo):
     mapa[x_a_sacar][y_a_sacar] = " "
 
 
-def validar_pared(x, y, largo, es_horizontal):
+def validar_pared(mapa, x, y, largo, es_horizontal):
     if es_horizontal \
             and mapa[x][y + largo] != " " \
             and mapa[x][y - 1] == "*" \
@@ -84,7 +77,7 @@ def validar_pared(x, y, largo, es_horizontal):
         return False
 
 
-def generar_mapa(mapa):
+def generar_mapa(mapa, alto_mapa, ancho_mapa):
 
     def dividir(mapa, x, y, ancho, alto):
         # Pongo un limite inferior para las subdivisiones
@@ -109,7 +102,7 @@ def generar_mapa(mapa):
                 (0 if es_horizontal else random.randint(2, ancho - 2))
 
             # Valido que no este frente a una puerta
-            pared_valida = validar_pared(
+            pared_valida = validar_pared(mapa,
                 pared_x, pared_y, largo_pared, es_horizontal)
 
         poner_pared(mapa,
@@ -134,7 +127,7 @@ def generar_mapa(mapa):
 
 
 def guardar_mapa(mapa):
-    file_path = "../../assets/txt/laberinto_dyc.txt"
+    file_path = "../../assets/txt/mapa-laberinto.txt"
 
     file = open(Path(file_path), 'w+')
 
@@ -146,10 +139,9 @@ def guardar_mapa(mapa):
 
 
 if __name__ == "__main__":
+    alto_mapa = int(sys.argv[1]) + 2
+    ancho_mapa = int(sys.argv[2]) + 2
     mapa = crear_mapa_vacio(alto_mapa, ancho_mapa)
-
-    generar_mapa(mapa)
-
+    generar_mapa(mapa,alto_mapa,ancho_mapa)
     mostrar_mapa(mapa)
-
     guardar_mapa(mapa)

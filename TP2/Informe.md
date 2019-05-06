@@ -186,11 +186,61 @@ Además imprime en pantalla un diagrama del laberinto resuelto:
 
 ## 1.3 - Comparación de complejidad
 ### **Depth-First Search y Recursive Backtracking**
-### **División y Conquista**
-### **Dijkstra**
 
+```python
+def generar(self, celda):                
+    if self.pila[-1] is not None: # O(1)
+        celda.visitado = True # O(1)
+        self.pila.append(self.conectarVecino(celda)) # O(4)
+        self.generar(self.pila[-1]) #O(n.log(n))
+    else:
+        try:
+            self.pila.pop() # O(1)
+            self.pila.pop() # O(1)
+            self.generar(self.pila[-1]) # O(n.log(n)              
+        except IndexError: # O(1)
+            return
+```
+La única complejidad que depende de n es la recursión del backtraking descripta en el pseudocodigo, por lo tanto la complejidad de la implementación es igual a la teórica
+
+### **División y Conquista**
+
+### **Dijkstra**
+```python
+def dijkstra(self):
+    self.grilla[0][0].distancia = 0 #0(1)
+    self.grilla[0][0].caminoMin = True #0(1)
+    nodos = [] #0(1)
+    for x in self.grilla: #0(n) 
+        for celda in x:
+            nodos.append(celda) 
+
+    while nodos: #0(n) 
+        nodoPos = [n for n in nodos if n.distancia != -1]  #0(n) 
+        u = min(nodoPos, key=lambda x: x.distancia) #0(n)
+        nodos.remove(u) #0(1)
+        for v in u.obtenerConexiones(): #0(4)
+            alt = u.distancia + 1 #0(1)
+            if alt < v.distancia or v.distancia == -1: #0(1)
+                v.distancia = alt #0(1)
+                v.anterior = u #0(1)
+
+    return self.marcarCaminoMin(self.grilla[self.cols-1] [self.fils-1]) #O(n)
+    
+def marcarCaminoMin(self,celda):
+    if celda.anterior is not None: #O(1)
+        celda.caminoMin = True #O(1)
+        self.marcarCaminoMin(celda.anterior) #O(n)
+    else:            
+        return
+```
+
+*O(dijkstra) = O(3) + O(n) + O(n).(2.O(n) + O(8)) +O(n)*
+*O(dijkstra) = O(n^2)*
+
+por lo tanto la complejidad queda igual que la teorica
 
 # Parte 2 - Golpe comando
 Proponer y explicar un algoritmo que liste los grupos de sospechosos
 
-## Realizar el analsis de Complejidad
+## Complejidad
