@@ -174,8 +174,8 @@ class Impresora:
         if celda.caminoMin:
             self.canva.create_oval(ix+2+self.w/3,iy+2+self.w/3,fx+2-self.w/3,fy+2-self.w/3, fill="red") # Norte
 
-    def guardar(self,distancia = False):
-        archivo = open(Path("../../assets/txt/mapa-laberinto.txt"), "w+")
+    def guardar(self,distancia = False, archivo='mapa-laberinto.txt'):
+        archivo = open(Path("../../assets/txt/"+archivo), "w+")
 
         lineas = []
         lineas.append('*'*((self.lab.cols*2) + 1)) #Muro inicio
