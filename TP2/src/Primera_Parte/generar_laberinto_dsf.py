@@ -51,8 +51,22 @@ class Laberinto:
         self.grilla = [[Celda(x,y) for y in range(self.fils)] for x in range(self.cols)] 
         self.pila = [self.grilla[0][0]]
         self.generar(self.grilla[0][0])        
-
-    # Busca un vecino al azar, lo conecta con la celda y lo retorna. Si no existe retorna None
+    
+    #dfs con recursive backtraking
+    def generar(self, celda):                
+        if self.pila[-1] is not None:
+            celda.visitado = True
+            self.pila.append(self.conectarVecino(celda))
+            self.generar(self.pila[-1])
+        else:
+            try:
+                self.pila.pop() # expulso None
+                self.pila.pop() # expulso última celda sin vecinos
+                self.generar(self.pila[-1])              
+            except IndexError:
+                return
+    
+    # Busca un vecino al azar, lo conecta con la celda y lo retorna. Si no existe retorna None 
     def conectarVecino(self, celda):
         vecinos = []
 
@@ -83,20 +97,6 @@ class Laberinto:
         if pos == 'S': return 'N'
         if pos == 'E': return 'O'
         if pos == 'O': return 'E'
-    
-    #dfs con recursive backtraking
-    def generar(self, celda):                
-        if self.pila[-1] is not None:
-            celda.visitado = True
-            self.pila.append(self.conectarVecino(celda))
-            self.generar(self.pila[-1])
-        else:
-            try:
-                self.pila.pop() # expulso None
-                self.pila.pop() # expulso última celda sin vecinos
-                self.generar(self.pila[-1])              
-            except IndexError:
-                return
                 
 class Impresora:
     def __init__(self,laberinto, wcelda):
@@ -131,7 +131,7 @@ class Impresora:
         archivo = open(Path("../../assets/txt/laberinto_dfs.txt"), "w+")
 
         lineas = []
-        lineas.append('*'*((self.lab.cols*2) + 1)) #Muro N
+        lineas.append('*'*((self.lab.cols*2) + 1)) #Muro inicio
 
         for y in range(self.lab.fils):
             linea1='*' # Agrego pared oeste
@@ -162,8 +162,8 @@ class Impresora:
 if __name__ == "__main__": 
     sys.setrecursionlimit(5000)    
     lab = Laberinto(archivo='laberinto_dfs.txt')
-    #lab = Laberinto(fils=3,cols=4)
-    imp = Impresora(lab,30)
+    #lab = Laberinto(fils=10,cols=30)
+    imp = Impresora(lab,10)
     imp.presentar()    
     #imp.guardar()
     mainloop()
