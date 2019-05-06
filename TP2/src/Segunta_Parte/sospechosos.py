@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import sys
+from pathlib import Path
 
 file_path = sys.argv[1]
 
@@ -65,10 +66,26 @@ def buscar_sospechosos(planilla):
     return sospechosos
 
 
+def guardar_archivo(sospechosos):
+    file_path = "../../assets/txt/sospechosos.txt"
+
+    file = open(Path(file_path), 'w+')
+
+    file.write("Los diferentes grupos de sospechosos son : \n")
+
+    for fila in range(len(sospechosos)):
+        linea_tmp = ", ".join(str(x) for x in sospechosos[fila]) + "\n"
+        file.write(linea_tmp)
+
+    file.close()
+
+
 if __name__ == "__main__":
     cargar_planilla(file_path)
 
     print(planilla)
 
     print("Las listas de sospechosos son : ")
-    print(buscar_sospechosos(planilla))
+    sospechosos = buscar_sospechosos(planilla)
+    print(sospechosos)
+    guardar_archivo(sospechosos)
