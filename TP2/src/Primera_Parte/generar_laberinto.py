@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 import sys
 import random
+from pathlib import Path
 
-# El orden de los argumentos esta definido en el enunciado
-metodo = sys.argv[1]
 # Sumo 2 para que las paredes exteriores no le saquen tamaño al mapa
-alto_mapa = int(sys.argv[2]) + 2
-ancho_mapa = int(sys.argv[3]) + 2
+alto_mapa = int(sys.argv[1]) + 2
+ancho_mapa = int(sys.argv[2]) + 2
 
 sys.setrecursionlimit(100000)
 
@@ -55,9 +54,6 @@ def decidir_orientacion(alto, ancho):
 
 # Siempre la pared se hace de izq a derecha o de arriba a abajo
 def poner_pared(mapa, orientacion, x, y, largo):
-    print("Pongo pared " + orientacion + " en " + str(x) + "," + str(y)
-          + " de largo " + str(largo))
-
     if orientacion == "horizontal":
         for i in range(y, y + largo):
             mapa[x][i] = "*"
@@ -74,8 +70,6 @@ def poner_pared(mapa, orientacion, x, y, largo):
 
 
 def validar_pared(x, y, largo, es_horizontal):
-    print("Validando pared " + str(es_horizontal) + " en " +
-          str(x) + " , " + str(y) + " de largo " + str(largo))
     if es_horizontal \
             and mapa[x][y + largo] != " " \
             and mapa[x][y - 1] == "*" \
@@ -90,22 +84,12 @@ def validar_pared(x, y, largo, es_horizontal):
         return False
 
 
-def metodo_dyc(mapa):
+def generar_mapa(mapa):
 
     def dividir(mapa, x, y, ancho, alto):
-
-        print("Entro a " + str(x) + " , " + str(y) + " con ancho " + str(ancho)
-              + " y alto " + str(alto))
-
         # Pongo un limite inferior para las subdivisiones
         if alto < 4 or ancho < 4:
             return
-
-        # Decido la orientacion dependiendo del tamaño de la division
-        es_horizontal = (decidir_orientacion(alto, ancho) == "horizontal")
-
-        # Defino el largo de la pared
-        largo_pared = ancho if es_horizontal else alto
 
         # Busco punto de inicio de la pared, siempre va a estar sobre la pared
         # derecha o superior del recuadro definido por (x,y), ancho y alto
@@ -113,18 +97,24 @@ def metodo_dyc(mapa):
         pared_valida = False
 
         while not pared_valida:
+            # Decido la orientacion dependiendo del tamaño de la division
+            es_horizontal = (decidir_orientacion(alto, ancho) == "horizontal")
+
+            # Defino el largo de la pared
+            largo_pared = ancho if es_horizontal else alto
+
+            # Defino aleatoriamente donde va a estar la pared
             pared_x = x + (random.randint(2, alto - 2) if es_horizontal else 0)
             pared_y = y + \
                 (0 if es_horizontal else random.randint(2, ancho - 2))
 
+            # Valido que no este frente a una puerta
             pared_valida = validar_pared(
                 pared_x, pared_y, largo_pared, es_horizontal)
 
         poner_pared(mapa,
                     ("horizontal" if es_horizontal else "vertical"),
                     pared_x, pared_y, largo_pared)
-
-        mostrar_mapa(mapa)
 
         x_a = x
         y_a = y
@@ -143,15 +133,23 @@ def metodo_dyc(mapa):
     dividir(mapa, 1, 1, ancho_mapa - 2, alto_mapa - 2)
 
 
+def guardar_mapa(mapa):
+    file_path = "../../assets/txt/laberinto_dyc.txt"
+
+    file = open(Path(file_path), 'w+')
+
+    for fila in range(len(mapa)):
+        linea_tmp = "".join(str(x) for x in mapa[fila]) + "\n"
+        file.write(linea_tmp)
+
+    file.close()
+
+
 if __name__ == "__main__":
     mapa = crear_mapa_vacio(alto_mapa, ancho_mapa)
+
+    generar_mapa(mapa)
+
     mostrar_mapa(mapa)
 
-    metodo_dyc(mapa)
-
-    mostrar_mapa(mapa)
-
-    # if metodo == "dyc":
-    #     metodo_dyc(mapa)
-    # elif metodo == "dfs":
-    #     metodo_dfs(mapa)
+    guardar_mapa(mapa)
