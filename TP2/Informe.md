@@ -209,7 +209,7 @@ El algoritmo consiste en *N-1* iteraciones como máximo, en las cuales se agrega
 
 
 ### **Implementación algoritmo**
-```
+```python
 def dijkstra(self):    
     self.grilla[0][0].distancia = 0 #seteo distancia inicio
     self.grilla[0][0].caminoMin = True
@@ -263,4 +263,50 @@ Además imprime en pantalla un diagrama del laberinto resuelto:
 # Parte 2 - Golpe comando
 Proponer y explicar un algoritmo que liste los grupos de sospechosos
 
+## Algoritmo
+
+```
+Tengo una lista con todos los ingresos
+
+Y voy generando listas de sospechosos de la siguiente forma:
+
+  Cada lista de sospechosos es de la forma [hora_ingreso_primer_sospechoso, sospechoso_1 , ... , sospechoso_n]
+
+  Tomo a la primera persona que ingreso como primer sospechoso y creo la primera lista
+
+  Ahora, recorro la lista de ingresos (sin la primera persona)
+    Por cada persona, chequeo que su hora de entrada este en el rango de los 120 minutos posteriores a la entrada de cada lista de sospechosos, si lo esta, entra en esa lista, sino, crea otra con la hora de entrada de esa persona
+
+  Filtro duplicados de cada lista de sospechosos e imprimo todas las listas de sospechosos  
+```
+
+## Codigo
+```python
+def buscar_sospechosos(planilla):
+    lista_tmp = []
+    sospechosos = []
+
+    planilla_copia = list(planilla)
+
+    lista_tmp.append([planilla[0][1], planilla[0][0]])
+
+    planilla_copia.remove(planilla[0])
+
+    for persona in planilla_copia:  # O(n)
+        for lista in lista_tmp:     # O(n)
+            if validar_hora(persona[1], lista[0]):
+                lista.append(persona[0])
+            else:
+                lista_tmp.append([persona[0], persona[1]])
+
+    for lista in lista_tmp:     # O (n)
+        lista[0] = str(lista[0][0]) + ":" + str(lista[0][1])
+        lista = list(dict.fromkeys(lista))    # O(n)
+        sospechosos.append(lista)
+
+    return sospechosos
+```
+
 ## Realizar el analsis de Complejidad
+
+La complejidad es **O(n^2)** por que lo mas costoso son 2 for's anidados
