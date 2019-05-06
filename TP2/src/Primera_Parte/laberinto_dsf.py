@@ -10,14 +10,29 @@ class Celda:
         self.x = x
         self.y = y
         self.conexiones = {'N':None, 'S':None, 'E':None, 'O':None}
-        self.visitado= False        
+        self.visitado= False
+
+        #para uso en  Dijkstra
+        self.caminoMin = False
+        self.distancia = -1 #infinito
+        self.anterior = None  
+
+    def obtenerConexiones(self):
+        return [self.conexiones[x] for x in list(self.conexiones.keys()) if self.conexiones[x] != None ]
+
 
 class Laberinto:
     def __init__(self,fils = 0,cols = 0,archivo = None):
+        self.fils = fils
+        self.cols = cols
+        self.grilla = []
+        self.pila = []
+        self.recorridoMin = []
+
         if type(archivo) is str:
             self.cargar(archivo)
         else:
-            self.crear(fils,cols)
+            self.crear()
 
     def cargar(self,archivo):               
         archivo = open(Path("../../assets/txt/" + archivo), "r")
@@ -44,9 +59,7 @@ class Laberinto:
                 if lineas[posFils[y]][posCols[x]-1] == ' ':
                     celda.conexiones['O'] = self.grilla[x-1][y]
       
-    def crear(self,fils,cols):
-        self.fils = fils
-        self.cols = cols
+    def crear(self):
         # Grafo del laberinto con diccionario de adyacencias y representación matricial de los nodos (celdas)
         self.grilla = [[Celda(x,y) for y in range(self.fils)] for x in range(self.cols)] 
         self.pila = [self.grilla[0][0]]
@@ -97,7 +110,36 @@ class Laberinto:
         if pos == 'S': return 'N'
         if pos == 'E': return 'O'
         if pos == 'O': return 'E'
-                
+
+    def dijkstra(self):
+        #seteo distancia inicio
+        self.grilla[0][0].distancia = 0 
+        self.grilla[0][0].caminoMin = True
+        #lista de nodos
+        nodos = []
+        for x in self.grilla:
+            for celda in x:
+                nodos.append(celda)   
+
+        while nodos: 
+            nodoPos = [n for n in nodos if n.distancia != -1]           
+            u = min(nodoPos, key=lambda x: x.distancia)
+            nodos.remove(u)
+            for v in u.obtenerConexiones():
+                alt = u.distancia + 1
+                if alt < v.distancia or v.distancia == -1:
+                    v.distancia = alt
+                    v.anterior = u
+
+        return self.marcarCaminoMin(self.grilla[self.cols-1][self.fils-1])
+        
+    def marcarCaminoMin(self,celda):
+        if celda.anterior is not None:
+            celda.caminoMin = True
+            self.marcarCaminoMin(celda.anterior)
+        else:            
+            return
+
 class Impresora:
     def __init__(self,laberinto, wcelda):
         self.lab = laberinto
@@ -118,6 +160,7 @@ class Impresora:
         fx = celda.x*self.w + self.w
         fy = celda.y*self.w + self.w
         
+        #muros
         if celda.conexiones['N'] is None:
             self.canva.create_line(ix+2,iy+2,fx+2,iy+2, fill="black") # Norte
         if celda.conexiones['E'] is None:
@@ -125,10 +168,14 @@ class Impresora:
         if celda.conexiones['S'] is None:
             self.canva.create_line(ix+2,fy+2,fx+2,fy+2, fill="black") # Sur
         if celda.conexiones['O'] is None:
-            self.canva.create_line(ix+2,iy+2,ix+2,fy+2, fill="black") # Oeste     
+            self.canva.create_line(ix+2,iy+2,ix+2,fy+2, fill="black") # Oeste  
 
-    def guardar(self):
-        archivo = open(Path("../../assets/txt/laberinto_dfs.txt"), "w+")
+        #caminoMin
+        if celda.caminoMin:
+            self.canva.create_oval(ix+2+self.w/3,iy+2+self.w/3,fx+2-self.w/3,fy+2-self.w/3, fill="red") # Norte
+
+    def guardar(self,distancia = False):
+        archivo = open(Path("../../assets/txt/mapa-laberinto.txt"), "w+")
 
         lineas = []
         lineas.append('*'*((self.lab.cols*2) + 1)) #Muro inicio
@@ -139,7 +186,14 @@ class Impresora:
             for x in range(self.lab.cols):
                 celda = self.lab.grilla[x][y]
                 
-                linea1 +=' ' # Agergo celda
+                if distancia:
+                    linea1 +=str(celda.distancia) # Agergo distancia
+                else:
+                    if celda.caminoMin:
+                        linea1 +='.'# Agergo celda camino minimo
+                    else:
+                        linea1 +=' '# Agergo celda
+
                 if celda.conexiones['E'] is not None:
                     linea1 += ' ' # Agrego conexión al E
                 else:
@@ -160,11 +214,21 @@ class Impresora:
         archivo.close()
 
 if __name__ == "__main__": 
-    sys.setrecursionlimit(5000)    
-    lab = Laberinto(archivo='laberinto_dfs.txt')
-    #lab = Laberinto(fils=10,cols=30)
-    imp = Impresora(lab,10)
-    imp.presentar()    
-    #imp.guardar()
+    sys.setrecursionlimit(5000)
+    #lab = Laberinto(archivo='laberinto_dfs.txt')
+    lab = Laberinto(fils=30,cols=30)
+    imp = Impresora(lab,15)    
+    lab.dijkstra() 
+    imp.guardar()   
+    imp.presentar()
     mainloop()
+     
+        
+
+        
+        
+
+
+
+
     
