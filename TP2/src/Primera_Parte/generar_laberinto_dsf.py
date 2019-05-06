@@ -13,13 +13,44 @@ class Celda:
         self.visitado= False        
 
 class Laberinto:
-    def __init__(self,fils,cols):
-         self.fils = fils
-         self.cols = cols
-         # Grafo del laberinto con diccionario de adyacencias y representación matricial de los nodos (celdas)
-         self.grilla = [[Celda(x,y) for y in range(self.fils)] for x in range(self.cols)] 
-         self.pila = [self.grilla[0][0]]
-         self.generar(self.grilla[0][0])
+    def __init__(self,fils = 0,cols = 0,archivo = None):
+        if type(archivo) is str:
+            self.cargar(archivo)
+        else:
+            self.crear(fils,cols)
+
+    def cargar(self,archivo):               
+        archivo = open(Path("../../assets/txt/" + archivo), "r")
+        lineas = archivo.read().splitlines()
+
+        alto = len(lineas)
+        ancho = len(lineas[0])
+        self.fils = int((alto-1)/2)
+        self.cols = int((ancho-1)/2)
+        self.grilla = [[Celda(x,y) for y in range(self.fils)] for x in range(self.cols)] 
+
+        posCols = [x for x in range(ancho) if x%2!=0] 
+        posFils = [x for x in range(alto) if x%2!=0] 
+
+        for y in range(self.fils):            
+            for x in range(self.cols):
+                celda = self.grilla[x][y]
+                if lineas[posFils[y]-1][posCols[x]] == ' ':
+                    celda.conexiones['N'] = self.grilla[x][y-1]
+                if lineas[posFils[y]+1][posCols[x]] == ' ':
+                    celda.conexiones['S'] = self.grilla[x][y+1]
+                if lineas[posFils[y]][posCols[x]+1] == ' ':
+                    celda.conexiones['E'] = self.grilla[x+1][y]
+                if lineas[posFils[y]][posCols[x]-1] == ' ':
+                    celda.conexiones['O'] = self.grilla[x-1][y]
+      
+    def crear(self,fils,cols):
+        self.fils = fils
+        self.cols = cols
+        # Grafo del laberinto con diccionario de adyacencias y representación matricial de los nodos (celdas)
+        self.grilla = [[Celda(x,y) for y in range(self.fils)] for x in range(self.cols)] 
+        self.pila = [self.grilla[0][0]]
+        self.generar(self.grilla[0][0])        
 
     # Busca un vecino al azar, lo conecta con la celda y lo retorna. Si no existe retorna None
     def conectarVecino(self, celda):
@@ -61,37 +92,24 @@ class Laberinto:
             self.generar(self.pila[-1])
         else:
             try:
-                self.pila.pop()
-                self.pila.pop() 
+                self.pila.pop() # expulso None
+                self.pila.pop() # expulso última celda sin vecinos
                 self.generar(self.pila[-1])              
             except IndexError:
                 return
-
-    def generar2(self,celda):                
-        if type(celda) is Celda :
-            celda.visitado = True
-            if self.conectarVecino(celda) is not None:
-                self.pila.append(celda)            
-            self.generar2(self.conectarVecino(celda))
-        elif celda is None and self.pila:
-            self.pila.pop()
-            self.generar2(self.pila[-1])
-        else:
-            return
-                 
-class Graficador:
+                
+class Impresora:
     def __init__(self,laberinto, wcelda):
-        self.laberinto = laberinto
+        self.lab = laberinto
         self.master = Tk()
         self.w = wcelda # Ancho de celda
-        self.canva = Canvas(self.master, width=(self.laberinto.cols*self.w)+2, height=(self.laberinto.fils*self.w)+2)
+        self.canva = Canvas(self.master, width=(self.lab.cols*self.w)+2, height=(self.lab.fils*self.w)+2)
 
-    def imprimir(self):
+    def presentar(self):
         # Imprimo celdas        
-        for fila in self.laberinto.grilla:
-            for celda in fila:
-                self.iCelda(celda)                     
-
+        for x in self.lab.grilla:
+            for celda in x:
+                self.iCelda(celda) 
         self.canva.pack()    
 
     def iCelda(self,celda):
@@ -110,13 +128,43 @@ class Graficador:
             self.canva.create_line(ix+2,iy+2,ix+2,fy+2, fill="black") # Oeste     
 
     def guardar(self):
-        pass
+        archivo = open(Path("../../assets/txt/laberinto_dfs.txt"), "w+")
 
-        archivo =     
+        lineas = []
+        lineas.append('*'*((self.lab.cols*2) + 1)) #Muro N
+
+        for y in range(self.lab.fils):
+            linea1='*' # Agrego pared oeste
+            linea2='*' # Agrego pared oeste
+            for x in range(self.lab.cols):
+                celda = self.lab.grilla[x][y]
+                
+                linea1 +=' ' # Agergo celda
+                if celda.conexiones['E'] is not None:
+                    linea1 += ' ' # Agrego conexión al E
+                else:
+                    linea1 += '*' # Agrego muro al E
+                
+                if celda.conexiones['S'] is not None:
+                    linea2 += ' ' # Agrego conexión al S
+                else:
+                    linea2 += '*' # agrego muro al S
+                linea2 += '*' #agego muro diagonal SE
+            lineas.append(linea1)
+            lineas.append(linea2)
+
+        for linea in lineas:
+            archivo.write(linea +'\n')
+
+        print(archivo.read())
+        archivo.close()
 
 if __name__ == "__main__": 
-    sys.setrecursionlimit(5000)
-    lab = Laberinto(10,10)
-    graf = Graficador(lab,30)
-    graf.imprimir()
+    sys.setrecursionlimit(5000)    
+    lab = Laberinto(archivo='laberinto_dfs.txt')
+    #lab = Laberinto(fils=3,cols=4)
+    imp = Impresora(lab,30)
+    imp.presentar()    
+    #imp.guardar()
     mainloop()
+    
