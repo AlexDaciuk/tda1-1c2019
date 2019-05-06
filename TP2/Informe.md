@@ -311,9 +311,8 @@ def marcarCaminoMin(self,celda):
 por lo tanto la complejidad queda igual que la teorica
 
 # Parte 2 - Golpe comando
-Proponer y explicar un algoritmo que liste los grupos de sospechosos
 
-## Algoritmo
+### **Algoritmo**
 
 ```
 Tengo una lista con todos los ingresos
@@ -330,7 +329,7 @@ Y voy generando listas de sospechosos de la siguiente forma:
   Filtro duplicados de cada lista de sospechosos e imprimo todas las listas de sospechosos  
 ```
 
-## Codigo
+### *Codigo*
 ```python
 def buscar_sospechosos(planilla):
     lista_tmp = []
@@ -357,6 +356,6 @@ def buscar_sospechosos(planilla):
     return sospechosos
 ```
 
-## Realizar el analsis de Complejidad
+### **Análisis de Complejidad**
 
 La complejidad es **O(n^2)** por que lo mas costoso son 2 for's anidados
