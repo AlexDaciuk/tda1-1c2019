@@ -487,15 +487,19 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
   * Temporal: *O(n)*
   * Espacial: *O(1)*
 * Desviación estándar
+  * Pseudo codigo: Debido a que el algoritmo que usamos para calcular la desviacion estandar es "eficiente" en nuestros terminos, decidimos re usarlo para el arbol. Con la unica modificacion de que guardamos en una lista todos los nodos del arbol (usando una funcion que es O(n) porque busca los nodos inorder). Como esto lo unico que cambia es que la complejidad espacial pasa a ser O(1) a O(n) consideramos esta implementacion eficiente.
   * Temporal: *O(n)*
   * Espacial: *O(n)*
 * Permutaciones del conjunto
+  * VER COMPLEJIDAD
   * Temporal: *O(n!)*
   * Espacial: *O(n!)*
 * Variaciones del conjunto tomados de r elementos (r«n)
+  * VER COMPLEJIDAD
   * Temporal: *O(n!)*
   * Espacial: *O(n!)*
 * Variaciones con repetición del conjunto de r elementos (r«n)
+  * VER COMPLEJIDAD
   * Temporal: *O(n!)*
   * Espacial: *O(n!)*
 
