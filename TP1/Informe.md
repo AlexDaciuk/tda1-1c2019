@@ -493,9 +493,29 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
   * Temporal: *O(n)*
   * Espacial: *O(1)*
 * Desviación estándar
-  * Pseudo codigo: Debido a que el algoritmo que usamos para calcular la desviacion estandar es "eficiente" en nuestros terminos, decidimos re usarlo para el arbol. Con la unica modificacion de que guardamos en una lista todos los nodos del arbol (usando una funcion que es O(n) porque busca los nodos inorder). Como esto lo unico que cambia es que la complejidad espacial pasa a ser O(1) a O(n) consideramos esta implementacion eficiente.
+  * Pseudo codigo: 
+    * desviacion_estandar(raiz):
+      * suma = suma(raiz)
+      * cont = counNodes(raiz)
+      * media = suma / cont
+      * suma_distancias = 0
+      * suma_distancias = aux_desviacion(raiz, media)
+      * media_de_suma = suma_distancias / cont
+    * return raiz_cuadrada(media_de_suma)
+
+    * aux_desviacion(raiz, media):
+      * if (raiz == NULL):
+        * return 0
+      * dist_media = raiz.key - media
+      * suma_dist = + (dist_media ^ 2)
+      * return (suma_dist +
+            * aux_desviacion(raiz.izq, media) +
+            * aux_desviacion(raiz.der, media))
+
+  * Lo que se hace es contar la cantidad de nodos, sumar todos los nodos, con esto obtenemos la media. Luego para todos los nodos de forma inorder, sumamos todas las distancias.
+  * La desviacion estandar es la raiz cuadrada de la media de la sumatoria de distancias. Sumar, contar y calcular la suma de distancias de todos los nodos son O(n), porque las 3 se hacen de forma inorder, calcular la raiz cuadrada es O(log(n)). Entonces la complejidad temporal de esta funcion es O(n) y su complejidad espacial es O(1), solo necesitamos algunas variables para guardar los resultados.
   * Temporal: *O(n)*
-  * Espacial: *O(n)*
+  * Espacial: *O(1)*
 * Permutaciones del conjunto
   * Pseudo codigo: Decidimos re utilizar la funcion de permutaciones de la lista para la implementacion del arbol, sabemos que no es este el espiritu de la materia, pero lo hacemos por los siguientes motivos:
     * 1) La implementacion de esta solucion no tiene un orden menor a O(n!). Al menos no de una forma trivial, podria haber una solucion extremadamente compleja que sea mas optima que esta, pero al menos nosotros no encontramos una mejor.
