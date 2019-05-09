@@ -347,7 +347,13 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
           * indices[j] = indices[j - 1] + 1
           * variaciones.append(list(lista[i] for i in indices))
       * return variaciones
-  * VER COMPLEJIDAD
+  * Este algoritmo es una version modificada de una implementacion de la libreria standard de Python, la cual es "itertools.combinations(iterable, r)":
+  * Devuelve subsecuencias de r elementos de la lista permitiendo que los elementos individuales se repitan más de una vez.
+  * Las combinaciones se emiten en ordenamiento lexicográfico. Entonces si la lista está ordenada, las tuplas combinadas se producirán en forma ordenada.
+  * Los elementos se tratan como únicos en función de su posición, no de su valor. Entonces, si los elementos de la lista son únicos, las combinaciones generadas también serán únicas.
+  * La complejidad de este algoritmo es O(n+r-1)! en tiempo, pero dado que el 1 se desprecia y r siempre es menor a n se deduce:
+  * O(n+r-1)! = O(n+r)! = O(n+n)! = O(2*n)! = O(n)!
+  * En complejidad espacial tambien es O(n)! ya que guardamos una lista de todas las combinaciones posibles de longitud r.
   * Temporal: *O(n!)*
   * Espacial: *O(n!)*
 * Variaciones con repetición del conjunto de r elementos (r«n)
@@ -366,7 +372,10 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
         * indices[i:] = [indices[i] + 1] * (r - i)
         * variaciones.append(list(lista[i] for i in indices))
     * return variaciones
-  * VER COMPLEJIDAD
+  * Este algoritmo, al igual que el anterior, es una version modificada de una implementacion de la libreria standard de Python, exactamente esta "itertools.combinations_with_replacement(iterable, r)":
+  * La unica diferencia con las varicaiones sin elementos repetidos es esta:
+  * Los elementos se tratan como únicos en función de su posición, no de su valor. Entonces, si los elementos de la lista son únicos, las combinaciones generadas también serán únicas.
+  * La complejidad tanto espacial y temporal es la misma que la de variaciones de r elementons no repetidos, ya que en esencia son la misma idea con un poco de variacion.
   * Temporal: *O(n!)*
   * Espacial: *O(n!)*
 
@@ -410,17 +419,14 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
   * Espacial: *O(1)*
 * Permutaciones del conjunto
   * pseudo codigo: Es exactamente el mismo algoritmo usado en 'lista y vector'.
-  * VER COMPLEJIDAD
   * Temporal: *O(n!)*
   * Espacial: *O(n|)*
 * Variaciones del conjunto tomados de r elementos (r«n)
   * pseudo codigo: Es exactamente el mismo algoritmo usado en 'lista y vector'.
-  * VER COMPLEJIDAD
   * Temporal: *O(n!)*
   * Espacial: *O(n|)*
 * Variaciones con repetición del conjunto de r elementos (r«n)
   * pseudo codigo: Es exactamente el mismo algoritmo usado en 'lista y vector'.
-  * VER COMPLEJIDAD
   * Temporal: *O(n!)*
   * Espacial: *O(n|)*
 
@@ -491,15 +497,16 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
   * Temporal: *O(n)*
   * Espacial: *O(n)*
 * Permutaciones del conjunto
-  * VER COMPLEJIDAD
+  * Pseudo codigo: Decidimos re utilizar la funcion de permutaciones de la lista para la implementacion del arbol, sabemos que no es este el espiritu de la materia, pero lo hacemos por los siguientes motivos:
+    * 1) La implementacion de esta solucion no tiene un orden menor a O(n!). Al menos no de una forma trivial, podria haber una solucion extremadamente compleja que sea mas optima que esta, pero al menos nosotros no encontramos una mejor.
+    * 2) Guardar todos los elementos del arbol con un recorrido inorder y calcular las variaciones con dicha lista tiene la misma complejidad en temporal y espacial que hacerlo directamente sobre la lista, por lo que no solo es una solucion practica sino que no agrega complejidad al algoritmo.
+  * Por los mismos motivos decidimos hacer lo mismo para ambas variaciones.
   * Temporal: *O(n!)*
   * Espacial: *O(n!)*
 * Variaciones del conjunto tomados de r elementos (r«n)
-  * VER COMPLEJIDAD
   * Temporal: *O(n!)*
   * Espacial: *O(n!)*
 * Variaciones con repetición del conjunto de r elementos (r«n)
-  * VER COMPLEJIDAD
   * Temporal: *O(n!)*
   * Espacial: *O(n!)*
 
