@@ -108,7 +108,7 @@ analizamos por partes:
 
 hilo la parte inicial en el main.py
 
-```
+```python
     if punto == "1.5":
         print('Parejas por archivo de pareo:')
         nombre_archivo_pareo = sys.argv[3]        
@@ -124,7 +124,7 @@ hilo la parte inicial en el main.py
 *O(algoritmo 1.5) = O(armarParejas(n,a)) + O(n) + O(parejasEstables(n,n))*
 
 carga de parejas por archivo
-```
+```python
 def armarParejas(jugadores, nombre_archivo_pareo):    
     grupoA = jugadores[slice(0,len(jugadores)//2)] # O(1)
     grupoB = jugadores[slice(len(jugadores)//2,len(jugadores))] # O(1)
@@ -142,7 +142,7 @@ def armarParejas(jugadores, nombre_archivo_pareo):
 
 *O(armarParejas(n,a)) = O(n^2)*
 
-```
+```python
 def parejasEstables(grupoA, grupoB):
     for jugadorA in grupoA: # O(n)
         for jugadorB in grupoB: # O(n)
@@ -165,7 +165,7 @@ instrucciones ejecución del TP:
 
 Primero, generar los archivos de preferencias y ranking general
 
-```
+```bash
 cd TP1/src/tools
 python player_generator.py
 ```
@@ -175,7 +175,7 @@ el mismo guarda un *archivo_jugadores.rank* en la carpeta *TP1/assets/txt* con e
 #### punto 1.1
 luego, para ejecutar el punto 1.1 realizar los siguientes pasos:
 
-```
+```bash
 cd TP1/src/Primera_Parte
 python main.py 1.1 archivo_jugadores.rank
 ```
@@ -188,7 +188,7 @@ Colocar un archivo *parejas_alternativas.txt* en el directorio *TP1/assets/txt* 
 
 luego ejecutar los siguientes comandos:
 
-```
+```bash
 cd TP1/src/Priemra_Parte
 python main.py 1.5 archivo_jugadores.rank parejas_alternativas.txt
 ```
@@ -200,7 +200,7 @@ La salida del programa imprimira las parejas cargadas y si las mismas son establ
 
 Analizo complejidad del algoritmo de Gale-Shapley
 
-```
+```python
 def armarParejasEstables(jugadores):    
     grupoA = jugadores[slice(0,len(jugadores)//2)] # O(1)
     grupoB = jugadores[slice(len(jugadores)//2,len(jugadores))] # O(1)
@@ -296,7 +296,7 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
   * Temporal: *O(n log n)*
   * Espacial: *O(1)*
 * Desviación estándar
-  * pseudo codigo: 
+  * pseudo codigo:
     * desviacion_estandar(lista):
       * calcular la media
       * suma_de_distancias = 0
@@ -443,7 +443,7 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
   * Temporal: *O(log n)*
   * Espacial: *O(1)*
 * Media
-  * pseudo codigo: 
+  * pseudo codigo:
     * media(raiz):   
       * sumatoria = sumarNodos(raiz)
       * cont = contarNodos(raiz)
@@ -468,7 +468,7 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
       * inorder(raiz.izq)
       * visit(raiz.data)
       * inorder(raiz.der)
-  
+
     * visit(valor):
       * if (count > 0 and valor == val):
         * count += 1
@@ -522,7 +522,7 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
   * Temporal: *O(n)*
   * Espacial: *O(1)*
 * Desviación estándar
-  * Pseudo codigo: 
+  * Pseudo codigo:
     * desviacion_estandar(raiz):
       * suma = suma(raiz)
       * cont = counNodes(raiz)
@@ -572,12 +572,12 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
   Como ejecutar las distintas implementaciones
 
   1) Generamos el archivo txt con la cantidad de numeros que queremos, siendo **n** la cantidad de numeros
-  ```
+  ```bash
   cd TP1/src/Tools
   python number_generator.py n
   ```
   2) Ejecutar la implementacion deseada y funcion deseada conjunto
-  ```
+  ```bash
   cd TP1/src/Segunda_Parte/
   implentacion_lista.py ruta_archivo funcion r
   ```
