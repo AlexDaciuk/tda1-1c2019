@@ -240,74 +240,90 @@ en *implementación_abb.py* estan implementadas todas las funciones para nuestra
 
 #### Lista y vector en python:
 Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la cantidad de elementos de la estructura a menos que se indique lo contrario
-* Máximo
-  * Pseudo codigo:
-    * maximo(lista):
-      * maximo = lista[0]
-      * for elemento in lista:
-        * if elemento > maximo:
-          * maximo = elemento
-    * return maximo
-  * Basicamente recorremos linealmente quedandonos con el mayor elemento visitado, esto claramente es O(n) en tiempo y O(1) en espacio porque usamos una variable para guardar el maximo
-  * Temporal: *O(n)*
-  * Espacial: *O(1)*
-* Media
-  * Pseudo codigo:
-    * media(lista):
-      * suma = 0
-        * for number in lista:
-          * suma += number
-      * media = suma / largo(lista)
-    * return media
-  * Como hace falta recorrer todos los elementos de la lista esto es O(n), esto se guarda en una variable por lo que es O(1) en espacio.
-  * Temporal: *O(n)*
-  * Espacial: *O(1)*
-* Moda
-  * pseudo codigo:
-    * moda(lista):
-      * mas_frecuentes = [lista[0]]
-      * frecuencia = 0
-      * actual = lista[0]
-      * frecuencia_actual = 0
-      * for numero in lista:
-        * if numero != actual:
-          * actual = numero
-          * frecuencia_actual = 0
-        * frecuencia_actual ++
-        * if frecuencia_actual > frecuencia:
-          * frecuencia = frecuencia_actual
-          * mas_frecuentes = [actual]
-        * elif frecuencia_actual == frecuencia:
-          * mas_frecuentes.append(actual)
-    * return mas_frecuentes
-  * Como recorremos toda la lista, esto es O(n) y como usamos una lista para guardar los elementos mas frecuentes, en espacio es O(n) en el peor caso, que seria que todos los elementos tienen igual frecuencia, en ese caso devolvemos la lista entera.
-  * Temporal: *O(n)*
-  * Espacial: *O(n)*
-* Mediana
-  * pseudo codigo:
-    * mediana(lista):
-      * lista.ordenar()
-      * pos = (largo(lista) - 1) // 2
-      * mediana = lista[pos]
-      * if largo(lista) es par:
-        * mediana = (lista[pos] + lista[pos + 1]) / 2
-    * return mediana
-  * Lo que hacemos primero es ordenar la lista, lo cual es O(n log n) en tiempo. Luego, si la lista tiene una cantidad par de elementos, devolvemos el promedio de los 2 elementos medios de la lista, de lo contrario la mediana es el valor en el medio.
-  * Temporal: *O(n log n)*
-  * Espacial: *O(1)*
-* Desviación estándar
-  * pseudo codigo:
-    * desviacion_estandar(lista):
-      * calcular la media
-      * suma_de_distancias = 0
-      * for elemento in lista:
-        * distancia_media = (elemento - media) ^ 2
-        * suma_distancias += distancia_media
-      * media_de_suma = suma_distancias / largo(lista)
-    * return raiz cuadrada de media_de_suma
-  * Calcular la media es O(n) en tiempo y O(1) en espacio, despues se recorre toda la lista calculando la suma de las distancias medias siendo la distancia media de cada elemento, el elemento menos la media al cuadrado, lo cual es O(n) en tiempo y O(1) en espacio, almacenar le media de sumas es O(1) en espacio y O(n) en tiempo (porque calculamos el largo de la lista, esto se podria haber calculado en el ciclo anterior pero O(n) + O(n) = O(n)). Finalmente, calcular la raiz cuadrada es O(log n) en tiempo, y O(1) en espacio (es inplace). Finalmente, en complejidad temporal esta funcion es O(n) + O(n) + O(n) + O(log n) = O(n) + O(log n) = O(n) y en complejidad espacial es O(1).
-  * Temporal: *O(n)*
-  * Espacial: *O(1)*
+##### Máximo
+
+Recorremos todo el vector / lista quedandonos con el mayor elemento visitado, esto claramente es O(n) en tiempo y O(1) en espacio porque usamos una variable para guardar el maximo.
+* Temporal: *O(n)*
+* Espacial: *O(1)*
+
+```
+   maximo = vector[0]
+
+   Para cada elemento del vector:
+      si vector[i] > maximo:
+        maximo = vector[i]
+
+
+   Devuelvo maximo
+```
+
+
+#### Media
+
+Como es necesario recorrer todos los elementos de la lista para obtener la sumatoria, esto es O(n), esto se guarda en una variable por lo que es O(1) en espacio.
+* Temporal: *O(n)*
+* Espacial: *O(1)*
+
+```
+  suma = 0
+
+  Para cada elemento del vector:
+    suma + = vector[i]
+
+  media = suma / largo(vector)
+
+  Devuelvo media
+```
+
+#### Moda
+
+Como recorremos toda la lista, esto es O(n) y como usamos una lista para guardar los elementos mas frecuentes, en espacio es O(n) en el peor caso, que seria que todos los elementos tienen igual frecuencia, en ese caso devolvemos la lista entera.
+* Temporal: *O(n)*
+* Espacial: *O(n)*
+
+```
+  Opi hizo la moda
+```
+
+#### Mediana
+
+Lo que hacemos primero es ordenar la lista, lo cual es O(n log n) en tiempo. Luego, si la lista tiene una cantidad par de elementos, devolvemos el promedio de los 2 elementos medios de la lista, de lo contrario la mediana es el valor en el medio.
+* Temporal: *O(n log n)*
+* Espacial: *O(1)*
+
+```
+  Ordeno el vector de menor a mayor
+
+  Si largo(vector) es impar :
+    La mediana es el elemento vector[(( largo -1 ) / 2)]
+  Sino:
+    La mediana es el promedio de los 2 elementos medios del vector
+```
+
+#### Desviación estándar
+
+Calcular la media es O(n) en tiempo y O(1) en espacio, despues se recorre toda la lista calculando la suma de las distancias medias siendo la distancia media de cada elemento, el elemento menos la media al cuadrado, lo cual es O(n) en tiempo y O(1) en espacio, almacenar le media de sumas es O(1) en espacio y O(n) en tiempo (porque calculamos el largo de la lista, esto se podria haber calculado en el ciclo anterior pero O(n) + O(n) = O(n)). Finalmente, calcular la raiz cuadrada es O(log n) en tiempo, y O(1) en espacio (es inplace). Finalmente, en complejidad temporal esta funcion es O(n) + O(n) + O(n) + O(log n) = O(n) + O(log n) = O(n) y en complejidad espacial es O(1).
+
+* Temporal: *O(n)*
+* Espacial: *O(1)*
+
+```
+  media = media(vector)
+
+  suma_distancias = 0
+
+  Por cada elemento del vector:
+    distancia_media = (vector[i] - media ) ^ 2
+
+    suma_distancias + = distancia_media
+
+  suma_media = suma_distancias / largo(vector)
+
+  desviacion_estandar = raiz_cuadrada(suma_media)
+
+  devuelvo desviacion_estandar
+```
+
 * Permutaciones del conjunto
   * pseudo codigo:
     * permutaciones(lista):
