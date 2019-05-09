@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Setteo titulo del grafico
-plt.title("Maximo")
+plt.title("Media")
 
 # Indico cantidad de benchmarks y nombres
 datapoints_number = 10
@@ -16,8 +16,7 @@ datapoints_names = ["1",
                     "10 000 000"]
 
 # Armo listas con los tiempos de ejecucion de cada implementacion
-tiempos_lista = [1.40E-6, 1.81E-6, 3.76E-6,
-                 2.32E-5, 0.0002, 0.002, 0.020, 0.200]
+tiempos_lista = []
 tiempos_lista_ordenada = []
 tiempos_arbol_abb = []
 
@@ -54,4 +53,4 @@ plt.yticks(np.arange(0, 1, 0.001))
 plt.legend()
 
 plt.tight_layout()
-plt.savefig("../../assets/images/maximo.png")
+plt.savefig("../../assets/images/media.png")
