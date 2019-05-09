@@ -436,7 +436,7 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
   * Pseudo codigo:
     * maximo(nodo_raiz):
       * actual = nodo_raiz
-      * while (actual.derecho is not NULL):
+      * while (actual.derecho != NULL):
         * actual = actual.derecho
       * return actual.dato
   * Bajamos todo a la derecha, donde va a estar el maximo, tarda O(log N) (caso normal) Tarda O(N) en el peor caso que seria que el arbol sea una lista enlazada. El mejor caso es O(1) (la raiz es el maximo)
@@ -444,7 +444,7 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
   * Espacial: *O(1)*
 * Media
   * pseudo codigo: 
-    * media(raiz):    # O(N) + O(log N)
+    * media(raiz):   
       * sumatoria = sumarNodos(raiz)
       * cont = contarNodos(raiz)
       * promedio = sumatoria / cont
@@ -453,18 +453,47 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
   * Temporal: *O(n)*
   * Espacial: *O(1)*
 * Moda
+  * Pseudo codigo:
+    * moda(raiz):
+      * val = 0
+      * count = 0
+      * max_count = 0
+      * moda = []
+      * inorder(root)
+    * return moda
+
+    * inorder(raiz):
+      * if (raiz == NULL):
+        * return
+      * inorder(raiz.izq)
+      * visit(raiz.data)
+      * inorder(raiz.der)
+  
+    * visit(valor):
+      * if (count > 0 and valor == val):
+        * count += 1
+      * else:
+        * val = valor
+        * count = 1
+      * if (count > max_count):
+        * max_count_ = count
+        * moda.clear()
+      * if (count == max_count):
+        * moda.append(valor)
+
+  * Recorremos de forma inorder calculando la frecuencia de cada elemento, y usamos un contador y variable maximo para guardar el/los elemento/s de mayor frecuencia. Es O(n) en espacio porque en el peor de los casos todos los elementos tienen igual frecuencia y tenemos que devolver todos los elementos. Es O(n) en tiempo porque hacemos simplemente recorridos inorder.
   * Temporal: *O(n)*
   * Espacial: *O(n)*
 * Mediana
   * pseudo codigo:
     * mediana(nodo_raiz):
-      * if (nodo_raiz is NULL):
+      * if (nodo_raiz == NULL):
         * return 0
       * contador = contarNodos(nodo_raiz)
       * contadorActual = 0
       * actual = nodo_raiz
-      * while (actual is not NULL):
-        * if (actual.izq is NULL):
+      * while (actual != NULL):
+        * if (actual.izq == NULL):
           * contadorActual ++
           * if (contador es impar and contadorActual == (contador + 1) // 2):
             * return previo.data
@@ -474,9 +503,9 @@ Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la ca
           * actual = actual.derecho
         * else:
             * pre = actual.izq
-            * while (pre.derecho is not NULL and pre.derecho != actual):
+            * while (pre.derecho != NULL and pre.derecho != actual):
               * pre = pre.derecho
-            * if (pre.derecho is NULL):
+            * if (pre.derecho == NULL):
               * pre.derecho = actual
               * actual = actual.izq
             * else:

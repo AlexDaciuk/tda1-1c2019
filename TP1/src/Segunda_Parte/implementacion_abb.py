@@ -162,10 +162,10 @@ def visit(valor):
         countGlobal += 1   
     else:
         valGlobal = valor
-        count = 1
+        countGlobal = 1
     
     if (countGlobal > max_count):
-        max_count_ = count
+        max_count_ = countGlobal
         ans.clear()
     
     if (countGlobal == max_count):
