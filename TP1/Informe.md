@@ -577,11 +577,9 @@ Calcular la media es O(n) en tiempo y O(1) en espacio, despues se recorre toda l
 
   ### 2.3 - Gráficos de Complejidad
 
-  Para armar los graficos de complejidad, usamos diferentes largos de vector para medir el tiempo real de ejecucion usando el comando **time** de Linux y tomando el tiempo de ejecucion total.
+  Para armar los graficos se uso la libreria **time** de Python
 
-  ![Gráfico lista y vector sin ordenar](graf_1.png)
-
-  ![Gráfico vector ordenado](graf_2.png)
+  FALTAN GRAFICOS
 
   ### 2.4 - Programación Algoritmos
 
