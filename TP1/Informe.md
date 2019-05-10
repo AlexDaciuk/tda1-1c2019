@@ -237,9 +237,10 @@ en *implementación_abb.py* estan implementadas todas las funciones para nuestra
 
 
 ### 2.2 - Analisis de complejidad algorítmica
+Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la cantidad de elementos de la estructura a menos que se indique lo contrario
 
 #### Lista y vector en python:
-Antes que nada aclaramos que para el calculo de complejidad "n" siempre es la cantidad de elementos de la estructura a menos que se indique lo contrario
+
 ##### Máximo
 
 Recorremos todo el vector / lista quedandonos con el mayor elemento visitado, esto claramente es O(n) en tiempo y O(1) en espacio porque usamos una variable para guardar el maximo.
@@ -282,7 +283,24 @@ Como recorremos toda la lista, esto es O(n) y como usamos una lista para guardar
 * Espacial: *O(n)*
 
 ```
-  Opi hizo la moda
+  inicializo la lista de mas frecuentes y mi actual con el primer elemento del vector
+  frecuencia = 0
+  frecuencia_actual = 0
+  recorro el vector:
+
+    si el numero que estoy parado no es el actual:
+      mi actual pasa a ser el nuevo numero y seteo su frecuencia en 0
+
+    sumo 1 a la frecuencia del actual
+
+    si por ahora mi actual es el unico elemento de maxima frecuencia:
+      mi lista de mas frecuentes es solo el actual
+      y la frecuencia maxima es la frecuencia del actual
+
+    si el actual tiene igual frecuencia que los demas elementos de mayor frecuencia:
+      agrego el actual a la lista de mas frecuentes
+
+    Devuelvo lista de los mas frecuentes
 ```
 
 #### Mediana
@@ -324,55 +342,61 @@ Calcular la media es O(n) en tiempo y O(1) en espacio, despues se recorre toda l
   devuelvo desviacion_estandar
 ```
 
-* Permutaciones del conjunto
-  * pseudo codigo:
-    * permutaciones(lista):
-      * permutaciones = []
-
-      * generar_permutaciones(k, lista):
-        * if k == 1:
-          * permutaciones.append(lista)
-          * return
-        * for i in range(0, k-1):
-          * generar_permutaciones(k-1, lista)
-            * if i es par:
-              * swap(i, k-1)
-            * else:
-              * swap(0, k-1)
-
-      * generar_permutaciones(largo(lista), lista)
-    * return permutaciones
-  * Como este algoritmo tiene que generar todas las permutaciones posibles y a la vez tiene que devolver dichas combinaciones (guardadas en una lista de listas) este algoritmo es tanto O(n!) en espacio como en tiempo.
+#### Permutaciones del conjunto
+  
+  Como este algoritmo tiene que generar todas las permutaciones posibles y a la vez tiene que devolver dichas combinaciones (guardadas en una lista de listas) este algoritmo es tanto O(n!) en espacio como en tiempo.
   * Temporal: *O(n!)*
   * Espacial: *O(n|)*
-* Variaciones del conjunto tomados de r elementos (r«n)
-  * pseudo codigo:
-    * variaciones_r_elementos_sin_repeticion(lista, r):  # O(n*r)
-      * n = largo(lista)
-      * variaciones = []
-      * indices = list(range(r))
-      * variaciones.append(list(lista[i] for i in indices))
-      * while True:
-        * for i in reversed(range(r)):
-          * if indices[i] != i + n - r:
-            * break
-        * else:
-          * break
-        * indices[i] ++
-        * for j in range(i + 1, r):
-          * indices[j] = indices[j - 1] + 1
-          * variaciones.append(list(lista[i] for i in indices))
-      * return variaciones
-  * Este algoritmo es una version modificada de una implementacion de la libreria standard de Python, la cual es "itertools.combinations(iterable, r)":
-  * Devuelve subsecuencias de r elementos de la lista permitiendo que los elementos individuales se repitan más de una vez.
-  * Las combinaciones se emiten en ordenamiento lexicográfico. Entonces si la lista está ordenada, las tuplas combinadas se producirán en forma ordenada.
-  * Los elementos se tratan como únicos en función de su posición, no de su valor. Entonces, si los elementos de la lista son únicos, las combinaciones generadas también serán únicas.
-  * La complejidad de este algoritmo es O(n+r-1)! en tiempo, pero dado que el 1 se desprecia y r siempre es menor a n se deduce:
-  * O(n+r-1)! = O(n+r)! = O(n+n)! = O(2*n)! = O(n)!
-  * En complejidad espacial tambien es O(n)! ya que guardamos una lista de todas las combinaciones posibles de longitud r.
+  ```
+    permutaciones = []
+
+    generar_permutaciones(k, lista):
+      si k == 1:
+        agrego la lista a la lista de permutaciones
+        Retorno
+      para i entre 0 y k-1:
+        generar_permutaciones(k-1, lista)
+        si i es par:
+          swap(i, k-1)
+        sino:
+          swap(0, k-1)
+
+    generar_permutaciones(largo(lista), lista)
+    Devuelvo la lista de permutaciones
+  ```
+
+#### Variaciones del conjunto tomados de r elementos (r«n)
+  
+Este algoritmo es una version modificada de una implementacion de la libreria standard de Python, la cual es "itertools.combinations(iterable, r)":
+Devuelve subsecuencias de r elementos de la lista permitiendo que los elementos individuales se repitan más de una vez.
+Las combinaciones se emiten en ordenamiento lexicográfico. Entonces si la lista está ordenada, las tuplas combinadas se producirán en forma ordenada.
+Los elementos se tratan como únicos en función de su posición, no de su valor. Entonces, si los elementos de la lista son únicos, las combinaciones generadas también serán únicas.
+La complejidad de este algoritmo es O(n+r-1)! en tiempo, pero dado que el 1 se desprecia y r siempre es menor a n se deduce:
+    
+  O(n+r-1)! = O(n+r)! = O(n+n)! = O(2*n)! = O(n)!
+  
+En complejidad espacial tambien es O(n)! ya que guardamos una lista de todas las combinaciones posibles de longitud r.
   * Temporal: *O(n!)*
   * Espacial: *O(n!)*
-* Variaciones con repetición del conjunto de r elementos (r«n)
+```
+  n = largo(lista)
+  variaciones = []
+  indices = lista de rango r
+  variaciones.append(list(lista[i] for i in indices))
+  Cilo:
+      para i en reversa hasta r:
+        si indices[i] != i + n - r:
+          me tomo un break
+        sino:
+          otro break
+        indices[i] ++
+        para j entre i+1 y r:
+          indices[j] = indices[j - 1] + 1
+          variaciones.append(list(number_list[i] for i in indices))
+  Devuelvo la lista de variaciones
+```
+
+#### Variaciones con repetición del conjunto de r elementos (r«n)
   * pseudo codigo:
     * variaciones_r_elementos(lista, r):
       * n = largo(lista)
@@ -399,108 +423,103 @@ Calcular la media es O(n) en tiempo y O(1) en espacio, despues se recorre toda l
 
 #### Vector ordenado:
 
-* Máximo
-  * Pseudo codigo:
-    * maximo(lista):
-      * return lista[0]
-  * En un vector ordenado descendente el primer elemento siempre tiene el maximo valor. Por ello esto solo requiere visitar un solo elemento y guardarlo en una sola variable.
+#### Máximo
+
+En un vector ordenado descendente el primer elemento siempre tiene el maximo valor. Por ello esto solo requiere visitar un solo elemento y guardarlo en una sola variable.
   * Temporal: *O(1)*
   * Espacial: *O(1)*
-* Media
-  * Pseudo codigo:
-    * media(lista):
-      * for elemento in lista:
-        * sumatoria = sumar todos los elementos
-    * return sumatoria / largo(lista)
-  * Es el mismo algoritmo que el usado para la lista y el vector, ya que en ambas estructuras no cambia el como se obtiene la media.
+  ```
+  Devuelvo el primer elemento del vector
+  ```
+#### Media  
+Es el mismo algoritmo que el usado para la lista y el vector, ya que en ambas estructuras no cambia el como se obtiene la media.
   * Temporal: *O(n)*
   * Espacial: *O(1)*
-* Moda
-  * pseudo codigo: Es exactamente el mismo algoritmo usado en 'lista y vector'.
+  ```
+    recorro el vector:
+      sumatoria = sumar todos los elementos
+    Devuelvo la sumatoria dividido el largo de la lista
+  ```
+
+#### Moda
+El pseudo codigo es exactamente el mismo algoritmo usado en 'lista y vector'.
   * Temporal: *O(1)*
   * Espacial: *O(n)*
-* Mediana
-  * Pseudo codigo:
-    * mediana(lista):
-      * if lista es impar:
-        * return el elemento del medio
-      * sino:
-        * return el promedio de los 2 elementos del medio
-  * Como sabemos que posiciones del vector hay que visitar y solo son un par de posiciones, esto es O(1), tanto en tiempo como en espacio.
+
+#### Mediana
+ 
+Como sabemos que posiciones del vector hay que visitar y solo son un par de posiciones, esto es O(1), tanto en tiempo como en espacio.
   * Temporal: *O(1)*
   * Espacial: *O(1)*
-* Desviación estándar
-  * pseudo codigo: Es exactamente el mismo algoritmo usado en 'lista y vector'.
+```
+    si el vector es impar:
+      Devuelvo el elemento del medio
+    sino:
+      Devuelvo el promedio de los 2 elementos del medio
+```
+
+#### Desviación estándar
+El pseudo codigo es exactamente el mismo algoritmo usado en 'lista y vector'.
   * Temporal: *O(n)*
   * Espacial: *O(1)*
-* Permutaciones del conjunto
-  * pseudo codigo: Es exactamente el mismo algoritmo usado en 'lista y vector'.
+#### Permutaciones del conjunto
+El pseudo codigo es exactamente el mismo algoritmo usado en 'lista y vector'.
   * Temporal: *O(n!)*
   * Espacial: *O(n|)*
-* Variaciones del conjunto tomados de r elementos (r«n)
-  * pseudo codigo: Es exactamente el mismo algoritmo usado en 'lista y vector'.
+#### Variaciones del conjunto tomados de r elementos (r«n)
+El pseudo codigo es exactamente el mismo algoritmo usado en 'lista y vector'.
   * Temporal: *O(n!)*
   * Espacial: *O(n|)*
-* Variaciones con repetición del conjunto de r elementos (r«n)
-  * pseudo codigo: Es exactamente el mismo algoritmo usado en 'lista y vector'.
+### Variaciones con repetición del conjunto de r elementos (r«n)
+El pseudo codigo es exactamente el mismo algoritmo usado en 'lista y vector'.
   * Temporal: *O(n!)*
   * Espacial: *O(n|)*
 
 
 #### Arboy de Busquda Binaria:
-* Máximo
-  * Pseudo codigo:
-    * maximo(nodo_raiz):
-      * actual = nodo_raiz
-      * while (actual.derecho != NULL):
-        * actual = actual.derecho
-      * return actual.dato
+
+#### Máximo
   * Bajamos todo a la derecha, donde va a estar el maximo, tarda O(log N) (caso normal) Tarda O(N) en el peor caso que seria que el arbol sea una lista enlazada. El mejor caso es O(1) (la raiz es el maximo)
   * Temporal: *O(log n)*
   * Espacial: *O(1)*
-* Media
-  * pseudo codigo:
-    * media(raiz):   
-      * sumatoria = sumarNodos(raiz)
-      * cont = contarNodos(raiz)
-      * promedio = sumatoria / cont
-    * return promedio
-  * Recorremos inorder el ABB contando y sumando todos los nodos, lo cual es O(n) en tiempo. Y usamos un par de variables para guardar los resultados, O(1) en espacio.
+```
+  mientras el nodo a la derecho no sea nulo:
+      mi actual es el nodo derecho
+  Devuelvo el actual que va a ser el maximo
+```
+#### Media
+ 
+Recorremos inorder el ABB contando y sumando todos los nodos, lo cual es O(n) en tiempo. Y usamos un par de variables para guardar los resultados, O(1) en espacio.
   * Temporal: *O(n)*
   * Espacial: *O(1)*
-* Moda
-  * Pseudo codigo:
-    * moda(raiz):
-      * val = 0
-      * count = 0
-      * max_count = 0
-      * moda = []
-      * inorder(root)
-    * return moda
+```
+  suma = sumo todos los nodos
+  cantidad = cuento todos los nodos
+  calculo el promedio como suma / cantidad
+  Devuelvo el promedio
+```
 
-    * inorder(raiz):
-      * if (raiz == NULL):
-        * return
-      * inorder(raiz.izq)
-      * visit(raiz.data)
-      * inorder(raiz.der)
-
-    * visit(valor):
-      * if (count > 0 and valor == val):
-        * count += 1
-      * else:
-        * val = valor
-        * count = 1
-      * if (count > max_count):
-        * max_count_ = count
-        * moda.clear()
-      * if (count == max_count):
-        * moda.append(valor)
-
-  * Recorremos de forma inorder calculando la frecuencia de cada elemento, y usamos un contador y variable maximo para guardar el/los elemento/s de mayor frecuencia. Es O(n) en espacio porque en el peor de los casos todos los elementos tienen igual frecuencia y tenemos que devolver todos los elementos. Es O(n) en tiempo porque hacemos simplemente recorridos inorder.
+#### Moda
+Recorremos de forma inorder calculando la frecuencia de cada elemento, y usamos un contador y variable maximo para guardar el/los elemento/s de mayor frecuencia. Es O(n) en espacio porque en el peor de los casos todos los elementos tienen igual frecuencia y tenemos que devolver todos los elementos. Es O(n) en tiempo porque hacemos simplemente recorridos inorder.
   * Temporal: *O(n)*
   * Espacial: *O(n)*
-* Mediana
+```
+  val = 0
+  contador = 0
+  contador_max = 0
+  moda = []
+  Recorro el arbol inorder "visitando" cada nodo
+  Cada vez que visito un nodo:
+    si el siguiente elemento es el mismo:
+      sumo uno al contador
+    sino:
+      seteo el contador y mi valor actual es el nuevo elemento
+    luego si la frecuencia de ese valor es mayor a mi maximo anterior:
+      lo guardo en la moda
+  Devuelvo la moda
+```
+
+#### Mediana
   * pseudo codigo:
     * mediana(nodo_raiz):
       * if (nodo_raiz == NULL):
@@ -534,44 +553,45 @@ Calcular la media es O(n) en tiempo y O(1) en espacio, despues se recorre toda l
                 * return (previo.data + actual.data) // 2
               * previo = actual
               * actual = actual.derecho
-  * Lo que hacemos es recorrer Inorder el arbol, teniendo un contador del nodo actual, chequeando si el nodo actual es la mediana. Obviament en caso de encontrarse la media se chequea si hay que devolver el valor medio o el promedio de los valores medios. La mediana se guarda en una variable y al ser un recorrido inorder (recorrido lineal de los nodos) es O(n) en tiempo.
+
+Lo que hacemos es recorrer Inorder el arbol, teniendo un contador del nodo actual, chequeando si el nodo actual es la mediana. Obviamente en caso de encontrarse la media se chequea si hay que devolver el valor medio o el promedio de los valores medios. La mediana se guarda en una variable y al ser un recorrido inorder (recorrido lineal de los nodos) es O(n) en tiempo.
   * Temporal: *O(n)*
   * Espacial: *O(1)*
-* Desviación estándar
-  * Pseudo codigo:
-    * desviacion_estandar(raiz):
-      * suma = suma(raiz)
-      * cont = counNodes(raiz)
-      * media = suma / cont
-      * suma_distancias = 0
-      * suma_distancias = aux_desviacion(raiz, media)
-      * media_de_suma = suma_distancias / cont
-    * return raiz_cuadrada(media_de_suma)
-
-    * aux_desviacion(raiz, media):
-      * if (raiz == NULL):
-        * return 0
-      * dist_media = raiz.key - media
-      * suma_dist = + (dist_media ^ 2)
-      * return (suma_dist +
-            * aux_desviacion(raiz.izq, media) +
-            * aux_desviacion(raiz.der, media))
-
-  * Lo que se hace es contar la cantidad de nodos, sumar todos los nodos, con esto obtenemos la media. Luego para todos los nodos de forma inorder, sumamos todas las distancias.
-  * La desviacion estandar es la raiz cuadrada de la media de la sumatoria de distancias. Sumar, contar y calcular la suma de distancias de todos los nodos son O(n), porque las 3 se hacen de forma inorder, calcular la raiz cuadrada es O(log(n)). Entonces la complejidad temporal de esta funcion es O(n) y su complejidad espacial es O(1), solo necesitamos algunas variables para guardar los resultados.
+#### Desviación estándar
+Lo que se hace es contar la cantidad de nodos, sumar todos los nodos, con esto obtenemos la media. Luego para todos los nodos de forma inorder, sumamos todas las distancias. La desviacion estandar es la raiz cuadrada de la media de la sumatoria de distancias. Sumar, contar y calcular la suma de distancias de todos los nodos son O(n), porque las 3 se hacen de forma inorder, calcular la raiz cuadrada es O(log(n)). Entonces la complejidad temporal de esta funcion es O(n) y su complejidad espacial es O(1), solo necesitamos algunas variables para guardar los resultados.
   * Temporal: *O(n)*
   * Espacial: *O(1)*
-* Permutaciones del conjunto
-  * Pseudo codigo: Decidimos re utilizar la funcion de permutaciones de la lista para la implementacion del arbol, sabemos que no es este el espiritu de la materia, pero lo hacemos por los siguientes motivos:
-    * 1) La implementacion de esta solucion no tiene un orden menor a O(n!). Al menos no de una forma trivial, podria haber una solucion extremadamente compleja que sea mas optima que esta, pero al menos nosotros no encontramos una mejor.
-    * 2) Guardar todos los elementos del arbol con un recorrido inorder y calcular las variaciones con dicha lista tiene la misma complejidad en temporal y espacial que hacerlo directamente sobre la lista, por lo que no solo es una solucion practica sino que no agrega complejidad al algoritmo.
-  * Por los mismos motivos decidimos hacer lo mismo para ambas variaciones.
+```
+  suma = sumo todos los nodos
+  cont = cuento todos los nodos
+  media = suma / cont
+  suma_distancias = 0
+  suma_distancias = aux_desviacion(actual, media)
+  media_de_suma = suma_distancias / cont
+  Devuelvo la raiz cuadrada de media_de_suma
+
+  aux_desviacion(raiz, media):
+    si el arbol esta vacio:
+      Devuelvo 0
+    distancia_media = actual - media
+    suma_dist += dist_media^2
+    Recorro inorder el arbol calculando suma_dist para cada nodo
+    Devuelvo la suma de todos los suma_dist
+```
+
+#### Permutaciones del conjunto
+
+Pseudo codigo: Decidimos re utilizar la funcion de permutaciones de la lista para la implementacion del arbol, sabemos que no es este el espiritu de la materia, pero lo hacemos por los siguientes motivos:
+  1) La implementacion de esta solucion no tiene un orden menor a O(n!). Al menos no de una forma trivial, podria haber una solucion extremadamente compleja que sea mas optima que esta, pero al menos nosotros no encontramos una mejor.
+  2) Guardar todos los elementos del arbol con un recorrido inorder y calcular las variaciones con dicha lista tiene la misma complejidad en temporal y espacial que hacerlo directamente sobre la lista, por lo que no solo es una solucion practica sino que no agrega complejidad al algoritmo.
+  
+Por los mismos motivos decidimos hacer lo mismo para ambas variaciones.
   * Temporal: *O(n!)*
   * Espacial: *O(n!)*
-* Variaciones del conjunto tomados de r elementos (r«n)
+### Variaciones del conjunto tomados de r elementos (r«n)
   * Temporal: *O(n!)*
   * Espacial: *O(n!)*
-* Variaciones con repetición del conjunto de r elementos (r«n)
+### Variaciones con repetición del conjunto de r elementos (r«n)
   * Temporal: *O(n!)*
   * Espacial: *O(n!)*
 
