@@ -8,6 +8,10 @@ curval = 0
 maxcount = 0
 modecount = 0
 mode = []
+valGlobal = 0
+countGlobal = 0
+max_count = 0
+
 i = 0
 try:
     r = sys.argv[3]
@@ -142,22 +146,16 @@ def mediana(root):
 # Temporal : O(n)
 # Espacial : O(n)
 def moda(root):
-    valGlobal = 0
-    countGlobal = 0
-    max_count = 0
     ans = []    
-    inorder(root)    
-    return ans
+    inorder(root, ans)    
+    archivo_resultados(ans)
 
 
-def inorder(root):
-    if (root is None):
-        return
-    inorder(root.left)
-    visit(root.data)
-    inorder(root.right)
   
-def visit(valor):
+def visit(valor, ans):
+    global valGlobal
+    global countGlobal
+    global max_count 
     if (countGlobal > 0 and valor == valGlobal):
         countGlobal += 1   
     else:
@@ -171,6 +169,13 @@ def visit(valor):
     if (countGlobal == max_count):
         ans.append(valor)
 
+
+def inorder(root, ans):
+    if (root is None):
+        return
+    inorder(root.left, ans)
+    visit(root.data, ans)
+    inorder(root.right, ans)
  
 
 
