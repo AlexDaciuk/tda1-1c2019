@@ -584,10 +584,10 @@ Pseudo codigo: Decidimos re utilizar la funcion de permutaciones de la lista par
 Por los mismos motivos decidimos hacer lo mismo para ambas variaciones.
   * Temporal: *O(n!)*
   * Espacial: *O(n!)*
-### Variaciones del conjunto tomados de r elementos (r«n)
+#### Variaciones del conjunto tomados de r elementos (r«n)
   * Temporal: *O(n!)*
   * Espacial: *O(n!)*
-### Variaciones con repetición del conjunto de r elementos (r«n)
+#### Variaciones con repetición del conjunto de r elementos (r«n)
   * Temporal: *O(n!)*
   * Espacial: *O(n!)*
 
