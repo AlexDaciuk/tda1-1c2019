@@ -386,9 +386,9 @@ En complejidad espacial tambien es O(n)! ya que guardamos una lista de todas las
   Cilo:
       para i en reversa hasta r:
         si indices[i] != i + n - r:
-          me tomo un break
+          return
         sino:
-          otro break
+          return
         indices[i] ++
         para j entre i+1 y r:
           indices[j] = indices[j - 1] + 1
@@ -397,28 +397,28 @@ En complejidad espacial tambien es O(n)! ya que guardamos una lista de todas las
 ```
 
 #### Variaciones con repetición del conjunto de r elementos (r«n)
-  * pseudo codigo:
-    * variaciones_r_elementos(lista, r):
-      * n = largo(lista)
-      * variaciones = []
-      * indices = [0] * r
-      * variaciones.append(list(lista[i] for i in indices))
-      * while True:
-        * for i in reversed(range(r)):
-          * if indices[i] != n - 1:
-            * break
-          * else:
-            * break
-        * indices[i:] = [indices[i] + 1] * (r - i)
-        * variaciones.append(list(lista[i] for i in indices))
-    * return variaciones
-  * Este algoritmo, al igual que el anterior, es una version modificada de una implementacion de la libreria standard de Python, exactamente esta "itertools.combinations_with_replacement(iterable, r)":
-  * La unica diferencia con las varicaiones sin elementos repetidos es esta:
-  * Los elementos se tratan como únicos en función de su posición, no de su valor. Entonces, si los elementos de la lista son únicos, las combinaciones generadas también serán únicas.
-  * La complejidad tanto espacial y temporal es la misma que la de variaciones de r elementons no repetidos, ya que en esencia son la misma idea con un poco de variacion.
+
+Este algoritmo, al igual que el anterior, es una version modificada de una implementacion de la libreria standard de Python, exactamente esta "itertools.combinations_with_replacement(iterable, r)":
+La unica diferencia con las varicaiones sin elementos repetidos es esta:
+Los elementos se tratan como únicos en función de su posición, no de su valor. Entonces, si los elementos de la lista son únicos, las combinaciones generadas también serán únicas.
+La complejidad tanto espacial y temporal es la misma que la de variaciones de r elementons no repetidos, ya que en esencia son la misma idea con un poco de variacion.
   * Temporal: *O(n!)*
   * Espacial: *O(n!)*
-
+```
+  n = largo(lista)
+  variaciones = []
+  indices = [0] * r
+  variaciones.append(list(lista[i] for i in indices))
+  Ciclo:
+    desde i en reversa hasta r:
+    si indices[i] != n - 1:
+      return
+    else:
+      return
+    indices[i:] = [indices[i] + 1] * (r - i)
+    variaciones.append(list(lista[i] for i in indices))
+    Devuelvo la lista de variaciones
+```
 
 
 #### Vector ordenado:
@@ -520,43 +520,39 @@ Recorremos de forma inorder calculando la frecuencia de cada elemento, y usamos 
 ```
 
 #### Mediana
-  * pseudo codigo:
-    * mediana(nodo_raiz):
-      * if (nodo_raiz == NULL):
-        * return 0
-      * contador = contarNodos(nodo_raiz)
-      * contadorActual = 0
-      * actual = nodo_raiz
-      * while (actual != NULL):
-        * if (actual.izq == NULL):
-          * contadorActual ++
-          * if (contador es impar and contadorActual == (contador + 1) // 2):
-            * return previo.data
-          * elif (contador es par and contadorActual == (contador // 2) + 1):
-            * return (previo.data + actual.data) // 2
-          * previo = actual
-          * actual = actual.derecho
-        * else:
-            * pre = actual.izq
-            * while (pre.derecho != NULL and pre.derecho != actual):
-              * pre = pre.derecho
-            * if (pre.derecho == NULL):
-              * pre.derecho = actual
-              * actual = actual.izq
-            * else:
-              * pre.derecho = NULL
-              * previo = pre
-              * contadorActual ++
-              * if (contador es impar and contadorActual == (contador + 1) // 2):
-                * return actual.data
-              * elif (contador es par and contadorActual == (contador // 2) + 1):
-                * return (previo.data + actual.data) // 2
-              * previo = actual
-              * actual = actual.derecho
-
+  
 Lo que hacemos es recorrer Inorder el arbol, teniendo un contador del nodo actual, chequeando si el nodo actual es la mediana. Obviamente en caso de encontrarse la media se chequea si hay que devolver el valor medio o el promedio de los valores medios. La mediana se guarda en una variable y al ser un recorrido inorder (recorrido lineal de los nodos) es O(n) en tiempo.
   * Temporal: *O(n)*
   * Espacial: *O(1)*
+```
+    si el arbol esta vacio:
+      Devuelvo 0
+    contador = cuento los nodos del arbol
+    contadorActual = 0
+    actual = nodo_raiz
+    mientras no me caiga del arbol:
+      si no hay hijo izquierdo:
+        contadorActual ++
+        si el nodo actual es la mediana):
+          Devuelvo el dato
+        de no serlo:
+          Devuelvo el promedio de este nodo con el anterior
+        avanzo por el lado derecho
+      sino:
+          Busco el predecesor inorder del actual
+
+          Convierto al actual como hijo derecho del predecesor inorder
+          si no puedo avanzar por el lado derecho:
+            avanzo por el lado izquierdo
+          sino:
+            contadorActual ++
+            si el actual es la mediana:
+              Devuelvo el dato
+            si la moda es el promedio del actual con el anterior:
+              Devuelvo el promedio de este nodo con el anterior
+            avanzo por el lado derecho
+```
+
 #### Desviación estándar
 Lo que se hace es contar la cantidad de nodos, sumar todos los nodos, con esto obtenemos la media. Luego para todos los nodos de forma inorder, sumamos todas las distancias. La desviacion estandar es la raiz cuadrada de la media de la sumatoria de distancias. Sumar, contar y calcular la suma de distancias de todos los nodos son O(n), porque las 3 se hacen de forma inorder, calcular la raiz cuadrada es O(log(n)). Entonces la complejidad temporal de esta funcion es O(n) y su complejidad espacial es O(1), solo necesitamos algunas variables para guardar los resultados.
   * Temporal: *O(n)*
