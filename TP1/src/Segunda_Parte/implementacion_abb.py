@@ -94,7 +94,7 @@ def maximo(node):
     while (current.right is not None):
         current = current.right
 
-    archivo_resultados(current.data)
+    return current.data
 
 
 # Implementación:
@@ -115,10 +115,8 @@ def mediana(root):
             currCount += 1
             # se fija si el nodo actual es la mediana
             if (count % 2 != 0 and currCount == (count + 1) // 2):
-                archivo_resultados(prev.data)
                 return prev.data
             elif (count % 2 == 0 and currCount == (count // 2) + 1):
-                archivo_resultados((prev.data + current.data) // 2)
                 return (prev.data + current.data) // 2
             prev = current
             current = current.right
@@ -134,10 +132,8 @@ def mediana(root):
                 prev = pre
                 currCount += 1
                 if (count % 2 != 0 and currCount == (count + 1) // 2):
-                    archivo_resultados(current.data)
                     return current.data
                 elif (count % 2 == 0 and currCount == (count // 2) + 1):
-                    archivo_resultados((prev.data + current.data) // 2)
                     return (prev.data + current.data) // 2
                 prev = current
                 current = current.right
@@ -148,7 +144,7 @@ def mediana(root):
 def moda(root):
     ans = []    
     inorder(root, ans)    
-    archivo_resultados(ans)
+    return ans
 
 
   
@@ -183,7 +179,6 @@ def media(root):    # O(N) + O(log N)
     sumatoria = int(suma(root))
     cont = counNodes(root)
     promedio = sumatoria / cont
-    archivo_resultados(promedio)
     return promedio
 
 
@@ -197,7 +192,7 @@ def desviacion_estandar(root):
     media_de_suma = suma_distancias / cont
     print("Mi media de suma es :" + str(media_de_suma))
     # sqrt O(log n)
-    archivo_resultados(math.sqrt(media_de_suma))
+    return (math.sqrt(media_de_suma))
 
 # Es la misma idea que suma
 
@@ -243,8 +238,7 @@ def variaciones_r_elementos_sin_repeticion(root, r):
             indices[j] = indices[j - 1] + 1
             variaciones.append(list(lista[i] for i in indices))
 
-    # return variaciones
-    archivo_resultados(variaciones)
+    return variaciones
 
 
 def variaciones_r_elementos(root, r):
@@ -273,6 +267,8 @@ def variaciones_r_elementos(root, r):
         indices[i:] = [indices[i] + 1] * (r - i)
 
         variaciones.append(list(lista[i] for i in indices))
+    
+    return variaciones
 
 # devuelve una lista de los valores
 # de los nodos usando recorrido inorder
@@ -340,7 +336,7 @@ def permutaciones(root):  # O(n!)
     # Llamo a la funcion
     generar_permutaciones(len(lista), lista)
 
-    archivo_resultados(permutaciones)
+    return permutaciones
 
 
 

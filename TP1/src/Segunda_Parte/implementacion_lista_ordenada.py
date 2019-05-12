@@ -40,16 +40,16 @@ def archivo_resultados(resultados):
 
 # O(1)
 def maximo(lista):
-    archivo_resultados(lista[0])
+    return lista[0]
 
 
 # O(1)
 def mediana(lista):
     pos = (len(lista) - 1) // 2
     if (len(lista) % 2) == 0:
-        archivo_resultados((lista[pos] + lista[pos + 1]) / 2.0)
+        return ((lista[pos] + lista[pos + 1]) / 2.0)
     else:
-        archivo_resultados(lista[pos])
+        return lista[pos]
 
 
 # O(n)
@@ -57,7 +57,7 @@ def media(lista):
     suma = 0
     for number in lista:
         suma += number
-    archivo_resultados(suma / len(lista))
+    return (suma / len(lista))
 
 
 # O(n)
@@ -81,7 +81,7 @@ def moda(lista):
         elif frecuencia_actual == frecuencia:
             mas_frecuentes.append(actual)
 
-    archivo_resultados(mas_frecuentes)
+    return mas_frecuentes
 
 
 def desviacion_estandar(number_list):  # O(n^2)
@@ -99,7 +99,7 @@ def desviacion_estandar(number_list):  # O(n^2)
 
     media_de_suma = suma_distancias / len(number_list)
 
-    archivo_resultados(math.sqrt(media_de_suma))  # sqrt O(log n)
+    return (math.sqrt(media_de_suma))  # sqrt O(log n)
 
 # Entran todos los elementos del array
 # Importa el orden
@@ -130,7 +130,7 @@ def permutaciones(lista):  # O(n!)
     # Llamo a la funcion
     generar_permutaciones(len(lista), lista)
 
-    archivo_resultados(permutaciones)
+    return permutaciones
 
 
 # No entran todos los elementos, entran r
@@ -166,7 +166,7 @@ def variaciones_r_elementos_sin_repeticion(number_list, r):  # O(nr)
             indices[j] = indices[j - 1] + 1
             variaciones.append(list(number_list[i] for i in indices))
 
-    archivo_resultados(variaciones)
+    return variaciones
 
 
 # No entran todos los elementos, entran r
@@ -199,7 +199,7 @@ def variaciones_r_elementos(number_list, r):
 
         variaciones.append(list(number_list[i] for i in indices))
 
-    archivo_resultados(variaciones)
+    return variaciones
 
 
 if __name__ == "__main__":
