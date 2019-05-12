@@ -1,6 +1,7 @@
 # !/usr/bin/env python3
 import sys
 import math
+import time
 
 file_path = sys.argv[1]
 
@@ -201,7 +202,7 @@ def variaciones_r_elementos(number_list, r):
     archivo_resultados(variaciones)
 
 
-def main():
+if __name__ == "__main__":
     cargar_numeros(file_path)
 
     number_lista.sort()  # O(n*log n)
@@ -220,12 +221,16 @@ def main():
         "variaciones_con_repeticion": variaciones_r_elementos
     }
 
+    start = time.time()
     if hay_r and operation in operations_with_r:
-        operations_with_r[operation](number_lista, r)
+        resultado = operations_with_r[operation](number_lista, r)
     elif not hay_r and operation in operations_without_r:
-        operations_without_r[operation](number_lista)
+        resultado = operations_without_r[operation](number_lista)
     else:
         print("Argumentos invalidos")
+    end = time.time()
 
+    print("Tiempo de ejecucion de " + operation + " en lista con " +
+          str(len(number_lista)) + " elementos : " + str(end - start))
 
-main()
+    archivo_resultados(resultado)
