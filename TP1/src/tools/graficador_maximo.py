@@ -7,8 +7,6 @@ plt.style.use('seaborn-whitegrid')
 plt.xlabel("Tamaño de vector.")
 plt.ylabel("Segundos")
 
-# Indico cantidad de benchmarks y nombres
-datapoints_number = 10
 datapoints_names = ["1",
                     "10",
                     "100",
