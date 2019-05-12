@@ -343,7 +343,7 @@ Calcular la media es O(n) en tiempo y O(1) en espacio, despues se recorre toda l
 ```
 
 #### Permutaciones del conjunto
-  
+
   Como este algoritmo tiene que generar todas las permutaciones posibles y a la vez tiene que devolver dichas combinaciones (guardadas en una lista de listas) este algoritmo es tanto O(n!) en espacio como en tiempo.
   * Temporal: *O(n!)*
   * Espacial: *O(n|)*
@@ -366,15 +366,15 @@ Calcular la media es O(n) en tiempo y O(1) en espacio, despues se recorre toda l
   ```
 
 #### Variaciones del conjunto tomados de r elementos (r«n)
-  
+
 Este algoritmo es una version modificada de una implementacion de la libreria standard de Python, la cual es "itertools.combinations(iterable, r)":
 Devuelve subsecuencias de r elementos de la lista permitiendo que los elementos individuales se repitan más de una vez.
 Las combinaciones se emiten en ordenamiento lexicográfico. Entonces si la lista está ordenada, las tuplas combinadas se producirán en forma ordenada.
 Los elementos se tratan como únicos en función de su posición, no de su valor. Entonces, si los elementos de la lista son únicos, las combinaciones generadas también serán únicas.
 La complejidad de este algoritmo es O(n+r-1)! en tiempo, pero dado que el 1 se desprecia y r siempre es menor a n se deduce:
-    
+
   O(n+r-1)! = O(n+r)! = O(n+n)! = O(2*n)! = O(n)!
-  
+
 En complejidad espacial tambien es O(n)! ya que guardamos una lista de todas las combinaciones posibles de longitud r.
   * Temporal: *O(n!)*
   * Espacial: *O(n!)*
@@ -447,7 +447,7 @@ El pseudo codigo es exactamente el mismo algoritmo usado en 'lista y vector'.
   * Espacial: *O(n)*
 
 #### Mediana
- 
+
 Como sabemos que posiciones del vector hay que visitar y solo son un par de posiciones, esto es O(1), tanto en tiempo como en espacio.
   * Temporal: *O(1)*
   * Espacial: *O(1)*
@@ -488,7 +488,7 @@ El pseudo codigo es exactamente el mismo algoritmo usado en 'lista y vector'.
   Devuelvo el actual que va a ser el maximo
 ```
 #### Media
- 
+
 Recorremos inorder el ABB contando y sumando todos los nodos, lo cual es O(n) en tiempo. Y usamos un par de variables para guardar los resultados, O(1) en espacio.
   * Temporal: *O(n)*
   * Espacial: *O(1)*
@@ -520,7 +520,7 @@ Recorremos de forma inorder calculando la frecuencia de cada elemento, y usamos 
 ```
 
 #### Mediana
-  
+
 Lo que hacemos es recorrer Inorder el arbol, teniendo un contador del nodo actual, chequeando si el nodo actual es la mediana. Obviamente en caso de encontrarse la media se chequea si hay que devolver el valor medio o el promedio de los valores medios. La mediana se guarda en una variable y al ser un recorrido inorder (recorrido lineal de los nodos) es O(n) en tiempo.
   * Temporal: *O(n)*
   * Espacial: *O(1)*
@@ -580,7 +580,7 @@ Lo que se hace es contar la cantidad de nodos, sumar todos los nodos, con esto o
 Pseudo codigo: Decidimos re utilizar la funcion de permutaciones de la lista para la implementacion del arbol, sabemos que no es este el espiritu de la materia, pero lo hacemos por los siguientes motivos:
   1) La implementacion de esta solucion no tiene un orden menor a O(n!). Al menos no de una forma trivial, podria haber una solucion extremadamente compleja que sea mas optima que esta, pero al menos nosotros no encontramos una mejor.
   2) Guardar todos los elementos del arbol con un recorrido inorder y calcular las variaciones con dicha lista tiene la misma complejidad en temporal y espacial que hacerlo directamente sobre la lista, por lo que no solo es una solucion practica sino que no agrega complejidad al algoritmo.
-  
+
 Por los mismos motivos decidimos hacer lo mismo para ambas variaciones.
   * Temporal: *O(n!)*
   * Espacial: *O(n!)*
@@ -591,36 +591,61 @@ Por los mismos motivos decidimos hacer lo mismo para ambas variaciones.
   * Temporal: *O(n!)*
   * Espacial: *O(n!)*
 
-  ### 2.3 - Gráficos de Complejidad
+### 2.3 - Gráficos de Complejidad
+Para armar los graficos se uso la libreria **time** de Python
 
-  Para armar los graficos se uso la libreria **time** de Python
+#### Maximo
 
-  FALTAN GRAFICOS
+!(Grafico Maximo)[../assets/images/maximo.png]
 
-  ### 2.4 - Programación Algoritmos
+#### Media
 
-  Como ejecutar las distintas implementaciones
+!(Grafico Media)[../assets/images/media.png]
 
-  1) Generamos el archivo txt con la cantidad de numeros que queremos, siendo **n** la cantidad de numeros
-  ```bash
-  cd TP1/src/Tools
-  python number_generator.py n
-  ```
-  2) Ejecutar la implementacion deseada y funcion deseada conjunto
-  ```bash
-  cd TP1/src/Segunda_Parte/
-  implentacion_lista.py ruta_archivo funcion r
-  ```
-  Siendo **r** un argumento necesario solo para las variaciones
+#### Moda
 
-  Las funciones son las siguientes:
-  * Maximo : **maximo**
-  * Media : **media**
-  * Moda : **moda**
-  * Mediana : **mediana**
-  * Desviacion Estandar : **desviacion_estandar**
-  * Permutaciones : **permutaciones**
-  * Variaciones de r en r : **variaciones**
-  * Variaciones de r en r con repeticion : **variaciones_con_repeticion**
+!(Grafico Moda)[../assets/images/moda.png]
 
-  La ruta del archivo, si fue generado con el script en **tools** esta en **../assets/txt/numbers.txt**
+#### Mediana
+
+!(Grafico Mediana)[../assets/images/mediana.png]
+
+#### Desviacion Estandar
+
+!(Grafico Desviacion Estandar)[../assets/images/mediana.png]
+
+#### Permutaciones
+
+!(Grafico Permutaciones)[../assets/images/permutaciones.png]
+
+#### Variaciones sin repeticion
+
+!(Grafico Variaciones)[../assets/images/variaciones.png]
+
+#### Variaciones con repeticion
+
+!(Grafico Variaciones con repeticion)[../assets/images/variaciones_con_repeticion.png]
+
+### 2.4 - Programación Algoritmos
+Como ejecutar las distintas implementaciones
+1) Generamos el archivo txt con la cantidad de numeros que queremos, siendo **n** la cantidad de numeros
+```bash
+cd TP1/src/Tools
+python number_generator.py n
+```
+2) Ejecutar la implementacion deseada y funcion deseada conjunto
+```bash
+cd TP1/src/Segunda_Parte/
+implentacion_lista.py ruta_archivo funcion r
+```
+Siendo **r** un argumento necesario solo para las variaciones
+Las funciones son las siguientes:
+* Maximo : **maximo**
+* Media : **media**
+* Moda : **moda**
+* Mediana : **mediana**
+* Desviacion Estandar : **desviacion_estandar**
+* Permutaciones : **permutaciones**
+* Variaciones de r en r : **variaciones**
+* Variaciones de r en r con repeticion : **variaciones_con_repeticion**
+La ruta del archivo, si fue generado con el script en **tools** esta en **../assets/txt/numbers.txt**
