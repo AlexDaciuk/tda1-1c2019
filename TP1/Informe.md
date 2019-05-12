@@ -639,6 +639,7 @@ cd TP1/src/Segunda_Parte/
 implentacion_lista.py ruta_archivo funcion r
 ```
 Siendo **r** un argumento necesario solo para las variaciones
+
 Las funciones son las siguientes:
 * Maximo : **maximo**
 * Media : **media**
