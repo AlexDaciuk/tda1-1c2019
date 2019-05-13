@@ -106,7 +106,7 @@ ver 1.6 para ejecutar el algoritmo
 
 analizamos por partes:
 
-#### parte inicial en el main.py
+#### parte inicial en l main.py
 
 ```python
     if punto == "1.5":
