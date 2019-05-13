@@ -6,3 +6,26 @@ Tiempo de ejecucion de moda en lista con 10000 elementos : 0.0012253284454346
 Tiempo de ejecucion de moda en lista con 100000 elementos : 0.011426067352295
 Tiempo de ejecucion de moda en lista con 1000000 elementos : 0.11411015987396
 Tiempo de ejecucion de moda en lista con 10000000 elementos : 1.1398842334747
+Tiempo de ejecucion de moda en lista ordenada con 1 elementos : 2.86102294921875e-06
+Tiempo de ejecucion de moda en lista ordenada con 10 elementos : 3.5762786865234375e-06
+Tiempo de ejecucion de moda en lista ordenada con 100 elementos : 1.5020370483398438e-05
+Tiempo de ejecucion de moda en lista ordenada con 1000 elementos : 0.0001227855682373047
+Tiempo de ejecucion de moda en lista ordenada con 10000 elementos : 0.001203775405883789
+Tiempo de ejecucion de moda en lista ordenada con 100000 elementos : 0.01582932472229004
+Tiempo de ejecucion de moda en lista ordenada con 1000000 elementos : 0.19614005088806152
+Tiempo de ejecucion de moda en lista ordenada con 10000000 elementos : 2.0142405033111572
+Tiempo de ejecucion de moda en abb con 1 elementos : 3.6716461181641E-6
+Tiempo de ejecucion de moda en abb con 10 elementos : 8.4400177001953E-6
+Tiempo de ejecucion de moda en abb con 100 elementos : 5.5170059204102E-5
+Tiempo de ejecucion de moda en abb con 1000 elementos : 0.00056190490722656
+Tiempo de ejecucion de moda en abb con 10000 elementos : 0.0069002151489258
+Tiempo de ejecucion de moda en abb con 100000 elementos : 0.084106779098511
+Tiempo de ejecucion de moda en abb con 1000000 elementos : 0.85912760098775
+Tiempo de ejecucion de moda en abb con 10000000 elementos : 9.417571544647217
+
+
+
+
+
+
+

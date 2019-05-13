@@ -391,9 +391,9 @@ if __name__ == "__main__":
 
     start = time.time()
     if hay_r and operation in operations_with_r:
-        operations_with_r[operation](root, r)
+        resultado = operations_with_r[operation](root, r)
     elif not hay_r and operation in operations_without_r:
-        operations_without_r[operation](root)
+        resultado = operations_without_r[operation](root)
     else:
         print("Argumentos invalidos")
     end = time.time()
