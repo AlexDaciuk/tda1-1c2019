@@ -142,26 +142,25 @@ def mediana(root):
 # Temporal : O(n)
 # Espacial : O(n)
 def moda(root):
-    ans = []    
-    inorder(root, ans)    
+    ans = []
+    inorder(root, ans)
     return ans
 
 
-  
 def visit(valor, ans):
     global valGlobal
     global countGlobal
-    global max_count 
+    global max_count
     if (countGlobal > 0 and valor == valGlobal):
-        countGlobal += 1   
+        countGlobal += 1
     else:
         valGlobal = valor
         countGlobal = 1
-    
+
     if (countGlobal > max_count):
         max_count_ = countGlobal
         ans.clear()
-    
+
     if (countGlobal == max_count):
         ans.append(valor)
 
@@ -172,7 +171,6 @@ def inorder(root, ans):
     inorder(root.left, ans)
     visit(root.data, ans)
     inorder(root.right, ans)
- 
 
 
 def media(root):    # O(N) + O(log N)
@@ -267,7 +265,7 @@ def variaciones_r_elementos(root, r):
         indices[i:] = [indices[i] + 1] * (r - i)
 
         variaciones.append(list(lista[i] for i in indices))
-    
+
     return variaciones
 
 # devuelve una lista de los valores
@@ -306,7 +304,6 @@ def listNodes(root):
     return lista
 
 
-
 # Entran todos los elementos del arbol
 # Importa el orden
 # No se repiten los elementos
@@ -315,6 +312,7 @@ def listNodes(root):
 def permutaciones(root):  # O(n!)
     permutaciones = []
     lista = listNodes(root)
+
     def swap(n1, n2):
         tmp = lista[n1]
         lista[n1] = lista[n2]
@@ -337,7 +335,6 @@ def permutaciones(root):  # O(n!)
     generar_permutaciones(len(lista), lista)
 
     return permutaciones
-
 
 
 # encuentra la suma de todos los elementos.
@@ -378,10 +375,10 @@ def main():
     root = cargar_numeros(file_path)
 
     operations_without_r = {
-        "maximo": maximo,   
-        "media": media,     
+        "maximo": maximo,
+        "media": media,
         "moda": moda,
-        "mediana": mediana, 
+        "mediana": mediana,
         "desviacion_estandar": desviacion_estandar,
         "permutaciones": permutaciones
     }
