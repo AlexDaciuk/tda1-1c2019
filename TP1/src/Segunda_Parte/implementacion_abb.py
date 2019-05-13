@@ -1,5 +1,6 @@
 import sys
 import math
+import time
 
 file_path = sys.argv[1]
 
@@ -8,9 +9,14 @@ curval = 0
 maxcount = 0
 modecount = 0
 mode = []
+valGlobal = 0
+countGlobal = 0
+max_count = 0
+
 i = 0
 try:
-    r = sys.argv[3]
+    r = int(sys.argv[3])
+    hay_r = True
 except IndexError:
     hay_r = False
 
@@ -90,7 +96,7 @@ def maximo(node):
     while (current.right is not None):
         current = current.right
 
-    archivo_resultados(current.data)
+    return current.data
 
 
 # Implementación:
@@ -105,16 +111,15 @@ def mediana(root):
     count = counNodes(root)
     currCount = 0
     current = root
+    prev = root
     while (current is not None):
         if (current.left is None):
             # contador del nodo actual
             currCount += 1
             # se fija si el nodo actual es la mediana
             if (count % 2 != 0 and currCount == (count + 1) // 2):
-                archivo_resultados(prev.data)
                 return prev.data
             elif (count % 2 == 0 and currCount == (count // 2) + 1):
-                archivo_resultados((prev.data + current.data) // 2)
                 return (prev.data + current.data) // 2
             prev = current
             current = current.right
@@ -130,10 +135,8 @@ def mediana(root):
                 prev = pre
                 currCount += 1
                 if (count % 2 != 0 and currCount == (count + 1) // 2):
-                    archivo_resultados(current.data)
                     return current.data
                 elif (count % 2 == 0 and currCount == (count // 2) + 1):
-                    archivo_resultados((prev.data + current.data) // 2)
                     return (prev.data + current.data) // 2
                 prev = current
                 current = current.right
@@ -142,57 +145,53 @@ def mediana(root):
 # Temporal : O(n)
 # Espacial : O(n)
 def moda(root):
-    valGlobal = 0
-    countGlobal = 0
-    max_count = 0
-    ans = []    
-    inorder(root)    
+    ans = []
+    inorder(root, ans)
     return ans
 
 
-def inorder(root):
-    if (root is None):
-        return
-    inorder(root.left)
-    visit(root.data)
-    inorder(root.right)
-  
-def visit(valor):
+def visit(valor, ans):
+    global valGlobal
+    global countGlobal
+    global max_count
     if (countGlobal > 0 and valor == valGlobal):
-        countGlobal += 1   
+        countGlobal += 1
     else:
         valGlobal = valor
-        count = 1
-    
+        countGlobal = 1
+
     if (countGlobal > max_count):
-        max_count_ = count
+        max_count_ = countGlobal
         ans.clear()
-    
+
     if (countGlobal == max_count):
         ans.append(valor)
 
- 
+
+def inorder(root, ans):
+    if (root is None):
+        return
+    inorder(root.left, ans)
+    visit(root.data, ans)
+    inorder(root.right, ans)
 
 
 def media(root):    # O(N) + O(log N)
     sumatoria = int(suma(root))
     cont = counNodes(root)
     promedio = sumatoria / cont
-    archivo_resultados(promedio)
     return promedio
 
 
 def desviacion_estandar(root):
-    suma = suma(root)
+    suma1 = suma(root)
     cont = counNodes(root)
-    media = suma / cont
-    print("Mi media es : " + str(media))
+    media = suma1 / cont
     suma_distancias = 0
     suma_distancias = aux_desviacion(root, media)
     media_de_suma = suma_distancias / cont
-    print("Mi media de suma es :" + str(media_de_suma))
     # sqrt O(log n)
-    archivo_resultados(math.sqrt(media_de_suma))
+    return (math.sqrt(media_de_suma))
 
 # Es la misma idea que suma
 
@@ -200,7 +199,7 @@ def desviacion_estandar(root):
 def aux_desviacion(root, media):
     if (root is None):
         return 0
-    dist_media = root.key - media
+    dist_media = root.data - media
     suma_dist = + (dist_media ** 2)
     return (suma_dist +
             aux_desviacion(root.left, media) +
@@ -238,8 +237,7 @@ def variaciones_r_elementos_sin_repeticion(root, r):
             indices[j] = indices[j - 1] + 1
             variaciones.append(list(lista[i] for i in indices))
 
-    # return variaciones
-    archivo_resultados(variaciones)
+    return variaciones
 
 
 def variaciones_r_elementos(root, r):
@@ -268,6 +266,8 @@ def variaciones_r_elementos(root, r):
         indices[i:] = [indices[i] + 1] * (r - i)
 
         variaciones.append(list(lista[i] for i in indices))
+
+    return variaciones
 
 # devuelve una lista de los valores
 # de los nodos usando recorrido inorder
@@ -305,7 +305,6 @@ def listNodes(root):
     return lista
 
 
-
 # Entran todos los elementos del arbol
 # Importa el orden
 # No se repiten los elementos
@@ -314,6 +313,7 @@ def listNodes(root):
 def permutaciones(root):  # O(n!)
     permutaciones = []
     lista = listNodes(root)
+
     def swap(n1, n2):
         tmp = lista[n1]
         lista[n1] = lista[n2]
@@ -335,8 +335,7 @@ def permutaciones(root):  # O(n!)
     # Llamo a la funcion
     generar_permutaciones(len(lista), lista)
 
-    archivo_resultados(permutaciones)
-
+    return permutaciones
 
 
 # encuentra la suma de todos los elementos.
@@ -373,14 +372,14 @@ def archivo_resultados(resultados):  # O(1)
     raise SystemExit
 
 
-def main():
+if __name__ == "__main__":
     root = cargar_numeros(file_path)
 
     operations_without_r = {
-        "maximo": maximo,   
-        "media": media,     
+        "maximo": maximo,
+        "media": media,
         "moda": moda,
-        "mediana": mediana, 
+        "mediana": mediana,
         "desviacion_estandar": desviacion_estandar,
         "permutaciones": permutaciones
     }
@@ -390,12 +389,19 @@ def main():
         "variaciones_con_repeticion": variaciones_r_elementos
     }
 
+    start = time.time()
     if hay_r and operation in operations_with_r:
-        operations_with_r[operation](root, r)
+        resultado = operations_with_r[operation](root, r)
     elif not hay_r and operation in operations_without_r:
-        operations_without_r[operation](root)
+        resultado = operations_without_r[operation](root)
     else:
         print("Argumentos invalidos")
+    end = time.time()
+    abb = counNodes(root)
+    print("Tiempo de ejecucion de " + operation + " en abb con " +
+          str(abb) + " elementos : " + str(end - start))
+    archivo_resultados(resultado)
+
 
 
 main()

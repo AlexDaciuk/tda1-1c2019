@@ -6,3 +6,19 @@ Tiempo de ejecucion de media en lista con 10000 elementos : 0.00030820369720459
 Tiempo de ejecucion de media en lista con 100000 elementos :  0.0032543659210205
 Tiempo de ejecucion de media en lista con 1000000 elementos : 0.033268404006958
 Tiempo de ejecucion de media en lista con 10000000 elementos : 0.33476405143738
+Tiempo de ejecucion de media en lista ordenada con 1 elementos : 2.3126602172852E-6 (media)
+Tiempo de ejecucion de media en lista ordenada con 10 elementos : 3.2901763916016E-6 (media)
+Tiempo de ejecucion de media en lista ordenada con 100 elementos : 6.0399373372396E-6 (media)
+Tiempo de ejecucion de media en lista ordenada con 1000 elementos : 3.6978721618652E-5 (media)
+Tiempo de ejecucion de media en lista ordenada con 10000 elementos : 0.00029794375101725 (media)
+Tiempo de ejecucion de media en lista ordenada con 100000 elementos : 0.0061196804046631 (media)
+Tiempo de ejecucion de media en lista ordenada con 1000000 elementos : 0.10062315728929 (media)
+Tiempo de ejecucion de media en lista ordenada con 10000000 elementos : 1.317305326461792 (media)
+Tiempo de ejecucion de media en abb con 1 elementos : 4.5564439561632E-6 (media)
+Tiempo de ejecucion de media en abb con 10 elementos : 1.1364618937174E-5 (media)
+Tiempo de ejecucion de media en abb con 100 elementos : 6.4897537231445E-5 (media)
+Tiempo de ejecucion de media en abb con 1000 elementos : 0.00064725875854492 (media)
+Tiempo de ejecucion de media en abb con 10000 elementos : 0.0079109191894531 (media)
+Tiempo de ejecucion de media en abb con 100000 elementos : 0.11481966972351 (media)
+Tiempo de ejecucion de media en abb con 1000000 elementos : 1.2078702926636 (media)
+Tiempo de ejecucion de media en abb con 10000000 elementos : 13.286153316497803 (media)

@@ -6,3 +6,19 @@ Tiempo de ejecucion de mediana en lista con 10000 elementos : 0.0010531425476074
 Tiempo de ejecucion de mediana en lista con 100000 elementos : 0.013353490829468
 Tiempo de ejecucion de mediana en lista con 1000000 elementos : 0.21971921920776
 Tiempo de ejecucion de mediana en lista con 10000000 elementos : 3.3758974313736
+Tiempo de ejecucion de mediana en lista ordenada con 1 elementos : 2.4318695068359E-6
+Tiempo de ejecucion de mediana en lista ordenada con 10 elementos : 3.4332275390625E-6
+Tiempo de ejecucion de mediana en lista ordenada con 100 elementos : 4.1484832763672E-6
+Tiempo de ejecucion de mediana en lista ordenada con 1000 elementos : 3.9100646972656E-6
+Tiempo de ejecucion de mediana en lista ordenada con 10000 elementos : 4.8637390136719E-6
+Tiempo de ejecucion de mediana en lista ordenada con 100000 elementos : 1.063346862793E-5
+Tiempo de ejecucion de mediana en lista ordenada con 1000000 elementos : 1.0108947753906E-5
+Tiempo de ejecucion de mediana en lista ordenada con 10000000 elementos : 1.1396408081055E-5
+Tiempo de ejecucion de mediana en abb con 1 elementos : 3.814697265625E-6
+Tiempo de ejecucion de mediana en abb con 10 elementos : 1.1825561523438E-5
+Tiempo de ejecucion de mediana en abb con 100 elementos : 6.3848495483398E-5
+Tiempo de ejecucion de mediana en abb con 1000 elementos : 0.00063753128051758
+Tiempo de ejecucion de mediana en abb con 10000 elementos : 0.00862135887146
+Tiempo de ejecucion de mediana en abb con 100000 elementos : 0.097518062591553
+Tiempo de ejecucion de mediana en abb con 1000000 elementos : 0.99385237693787
+Tiempo de ejecucion de mediana en abb con 10000000 elementos : 10.867225885391235
