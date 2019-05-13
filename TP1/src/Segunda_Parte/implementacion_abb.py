@@ -183,14 +183,12 @@ def media(root):    # O(N) + O(log N)
 
 
 def desviacion_estandar(root):
-    suma = suma(root)
+    suma1 = suma(root)
     cont = counNodes(root)
-    media = suma / cont
-    print("Mi media es : " + str(media))
+    media = suma1 / cont
     suma_distancias = 0
     suma_distancias = aux_desviacion(root, media)
     media_de_suma = suma_distancias / cont
-    print("Mi media de suma es :" + str(media_de_suma))
     # sqrt O(log n)
     return (math.sqrt(media_de_suma))
 
@@ -200,7 +198,7 @@ def desviacion_estandar(root):
 def aux_desviacion(root, media):
     if (root is None):
         return 0
-    dist_media = root.key - media
+    dist_media = root.data - media
     suma_dist = + (dist_media ** 2)
     return (suma_dist +
             aux_desviacion(root.left, media) +

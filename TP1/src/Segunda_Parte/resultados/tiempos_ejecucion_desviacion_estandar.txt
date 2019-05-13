@@ -1,15 +1,24 @@
 Tiempo de ejecucion de desviacion_estandar en lista con 1 elementos : 6.9618225097656E-6
-
 Tiempo de ejecucion de desviacion_estandar en lista con 10 elementos : 9.2744827270508E-6
-
 Tiempo de ejecucion de desviacion_estandar en lista con 100 elementos : 2.7656555175781E-5
-
 Tiempo de ejecucion de desviacion_estandar en lista con 1000 elementos : 0.00014138221740723
-
 Tiempo de ejecucion de desviacion_estandar en lista con 10000 elementos : 0.0014086008071899
-
 Tiempo de ejecucion de desviacion_estandar en lista con 100000 elementos : 0.013951063156128
-
 Tiempo de ejecucion de desviacion_estandar en lista con 1000000 elementos : 0.13861186504364
-
 Tiempo de ejecucion de desviacion_estandar en lista con 10000000 elementos : 1.4076882123947
+Tiempo de ejecucion de desviacion_estandar en lista ordenada con 1 elementos : 1.1634826660156E-5
+Tiempo de ejecucion de desviacion_estandar en lista ordenada con 10 elementos : 9.6797943115234E-6
+Tiempo de ejecucion de desviacion_estandar en lista ordenada con 100 elementos : 2.6750564575195E-5
+Tiempo de ejecucion de desviacion_estandar en lista ordenada con 1000 elementos : 0.00016322135925293
+Tiempo de ejecucion de desviacion_estandar en lista ordenada con 10000 elementos :  0.0012621879577637
+Tiempo de ejecucion de desviacion_estandar en lista ordenada con 100000 elementos : 0.020315456390381
+Tiempo de ejecucion de desviacion_estandar en lista ordenada con 1000000 elementos : 0.26651592254639
+Tiempo de ejecucion de desviacion_estandar en lista ordenada con 10000000 elementos : 2.8531895160675
+Tiempo de ejecucion de desviacion_estandar en abb con 1 elementos : 1.373291015625E-5
+Tiempo de ejecucion de desviacion_estandar en abb con 10 elementos : 2.3794174194336E-5
+Tiempo de ejecucion de desviacion_estandar en abb con 100 elementos : 0.00023374557495117
+Tiempo de ejecucion de desviacion_estandar en abb con 1000 elementos : 0.0010933876037598
+Tiempo de ejecucion de desviacion_estandar en abb con 10000 elementos : 0.013066482543945
+Tiempo de ejecucion de desviacion_estandar en abb con 100000 elementos : 0.18362212181091
+Tiempo de ejecucion de desviacion_estandar en abb con 1000000 elementos : 1.8743564605713
+Tiempo de ejecucion de desviacion_estandar en abb con 10000000 elementos : 20.772789478302002
