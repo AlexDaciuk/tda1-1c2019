@@ -596,35 +596,35 @@ Para armar los graficos se uso la libreria **time** de Python
 
 #### Maximo
 
-!(Grafico Maximo)[../assets/images/maximo.png]
+![Grafico Maximo](assets/images/maximo.png)
 
 #### Media
 
-!(Grafico Media)[../assets/images/media.png]
+![Grafico Media](assets/images/media.png)
 
 #### Moda
 
-!(Grafico Moda)[../assets/images/moda.png]
+![Grafico Moda](assets/images/moda.png)
 
 #### Mediana
 
-!(Grafico Mediana)[../assets/images/mediana.png]
+![Grafico Mediana](assets/images/mediana.png)
 
 #### Desviacion Estandar
 
-!(Grafico Desviacion Estandar)[../assets/images/mediana.png]
+![Grafico Desviacion Estandar](assets/images/desviacion_estandar.png)
 
 #### Permutaciones
 
-!(Grafico Permutaciones)[../assets/images/permutaciones.png]
+![Grafico Permutaciones](assets/images/permutaciones.png)
 
 #### Variaciones sin repeticion
 
-!(Grafico Variaciones)[../assets/images/variaciones.png]
+![Grafico Variaciones](assets/images/variaciones.png)
 
 #### Variaciones con repeticion
 
-!(Grafico Variaciones con repeticion)[../assets/images/variaciones_con_repeticion.png]
+![Grafico Variaciones con repeticion](assets/images/variaciones_con_repeticion.png)
 
 ### 2.4 - Programación Algoritmos
 Como ejecutar las distintas implementaciones
