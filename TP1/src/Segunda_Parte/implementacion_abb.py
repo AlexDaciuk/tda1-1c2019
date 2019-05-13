@@ -110,6 +110,7 @@ def mediana(root):
     count = counNodes(root)
     currCount = 0
     current = root
+    prev = root
     while (current is not None):
         if (current.left is None):
             # contador del nodo actual
