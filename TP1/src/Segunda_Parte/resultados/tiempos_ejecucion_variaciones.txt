@@ -7,8 +7,7 @@ Tiempo de ejecucion de variaciones en lista con 7 elementos : 2.892017364502E-5
 Tiempo de ejecucion de variaciones en lista con 8 elementos : 3.4165382385254E-5
 Tiempo de ejecucion de variaciones en lista con 9 elementos : 4.4894218444824E-5
 Tiempo de ejecucion de variaciones en lista con 10 elementos : 5.4597854614258E-5
-Tiempo de ejecucion de variaciones en lista con 100 elementos : 0.02918758392334
-Tiempo de ejecucion de variaciones en lista con 500 elementos : 4.0955177783966
+Tiempo de ejecucion de variaciones en lista con 100 elementos : 48.38349285820
 Tiempo de ejecucion de variaciones en lista ordenada con 2 elementos : 9.2029571533203E-6
 Tiempo de ejecucion de variaciones en lista ordenada con 3 elementos :  1.3113021850586E-5
 Tiempo de ejecucion de variaciones en lista ordenada con 4 elementos : 1.521110534668E-5
