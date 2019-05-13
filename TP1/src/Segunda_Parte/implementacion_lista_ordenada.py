@@ -230,7 +230,7 @@ if __name__ == "__main__":
         print("Argumentos invalidos")
     end = time.time()
 
-    print("Tiempo de ejecucion de " + operation + " en lista con " +
+    print("Tiempo de ejecucion de " + operation + " en lista ordenada con " +
           str(len(number_lista)) + " elementos : " + str(end - start))
 
     archivo_resultados(resultado)

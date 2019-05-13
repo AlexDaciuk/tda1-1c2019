@@ -16,3 +16,7 @@ Tiempo de ejecucion de maximo en lista ordenada con 1000000 elementos : 5.531311
 Tiempo de ejecucion de maximo en lista ordenada con 10000000 elementos : 5.9127807617188E-6 (media)
 
 
+
+
+
+Tiempo de ejecucion de maximo en abb con 10 elementos : 1.6212463378906E-6 (media)

@@ -1,5 +1,6 @@
 import sys
 import math
+import time
 
 file_path = sys.argv[1]
 
@@ -371,7 +372,7 @@ def archivo_resultados(resultados):  # O(1)
     raise SystemExit
 
 
-def main():
+if __name__ == "__main__":
     root = cargar_numeros(file_path)
 
     operations_without_r = {
@@ -388,12 +389,19 @@ def main():
         "variaciones_con_repeticion": variaciones_r_elementos
     }
 
+    start = time.time()
     if hay_r and operation in operations_with_r:
         operations_with_r[operation](root, r)
     elif not hay_r and operation in operations_without_r:
         operations_without_r[operation](root)
     else:
         print("Argumentos invalidos")
+    end = time.time()
+    abb = counNodes(root)
+    print("Tiempo de ejecucion de " + operation + " en abb con " +
+          str(abb) + " elementos : " + str(end - start))
+    archivo_resultados(resultado)
+
 
 
 main()
