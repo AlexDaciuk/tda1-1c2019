@@ -21,4 +21,4 @@ Tiempo de ejecucion de maximo en abb con 1000 elementos : 3.1789143880208E-6 (me
 Tiempo de ejecucion de maximo en abb con 10000 elementos : 4.9829483032227E-6 (media)
 Tiempo de ejecucion de maximo en abb con 100000 elementos : 9.2267990112305E-6 (media)
 Tiempo de ejecucion de maximo en abb con 1000000 elementos : 1.0538101196289E-5 (media)
-Tiempo de ejecucion de maximo en abb con 10000000 elementos : 1.2874603271484375e-05 (media)
+Tiempo de ejecucion de maximo en abb con 10000000 elementos : 1.2874603271484375E-05 (media)
