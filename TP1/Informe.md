@@ -71,14 +71,14 @@ MIENTRAS (exista un proponente sin pareja)
   FIN SI
 FIN MIENTRAS
 ```
-
-
-### 1.2 - Estabilidad de la Variante
+### 1.2 - Estabilidad de la Variante y criterios de desempate
 Por lo visto en la introducción, el algoritmo de Gale-Shelley es por naturaleza estable, por lo cual analizamos nuestra variación para ver si su nueva implementación produce algún cambio que afecte su estabilidad a la hora de encontrar un posible bloqueo luego de formadas las parejas.
 
-Si definimos como criterio de desempate en el pareo (y por ende al consultar la preferencia) que la preferencia del proponente tiene que ser estrictamente mayor a la referencia de la pareja del propuesto, por más que esta sea la misma en más de un caso, el algoritmo de Gale-Shapley no encuentra alteraciones en su estabilidad. Esto se debe a que con el criterio mencionado, ante cada intento de formar una pareja entre los jugadores de ambos grupos, al tener que ser esta preferencia estrictamente mayor,  ningún jugador podrá cambiar su pareja para ninguno de los casos en los que se repita ese mismo valor de preferencia nen un pareo debilmente estable, conservándose la estabilidad al no generarse ningún bloqueo.
+#### Primer criterio desempate
+Si definimos como criterio de desempate en el pareo (y por ende al consultar la preferencia) que la preferencia del proponente tiene que ser estrictamente mayor a la referencia de la pareja del propuesto, por más que esta sea la misma en más de un caso, el algoritmo de Gale-Shapley no encuentra alteraciones en su estabilidad. Esto se debe a que con el criterio mencionado, ante cada intento de formar una pareja entre los jugadores de ambos grupos, al tener que ser esta preferencia estrictamente mayor,  ningún jugador podrá cambiar su pareja para ninguno de los casos en los que se repita ese mismo valor de preferencia, manteniendo la comprobación del pareo debilmente estable.
 
-Por el contrario, si se permite en un caso de empate que se pueda cambiar de pareja si la preferencia además de ser mayor pueda ser igual, algunas preferencias con el mismo número de preferencia podrían querer cambiar la pareja que forma la primera preferencia con número de preferencia repetida, rompiendo la estabilidad.
+#### Segundo criterio desempate (solicitado corrección)
+Otro ejemplo de desempate quedaría determinado por la comparación de los nombres de los participantes, comparando letra a letra para determinar cuál es estrictamente mayor (en termino de strings). Este criterio no genera redundancias, por lo tanto no afectaría la estabilidad del algoritmo. Frente a cada caso de igual ranking, la comparación de nombres pasa a ser otra relación de comparación "estrictamente mayor", al igual q el metodo del ranking. Solo fallaria si ambos participantes poseen el mismo nombre.
 
 ### 1.3 - Complejidad de la Variante
 La ejecución del algoritmo de Gale- Shappley se puede pensar como el recorrido de una matriz formada por las listas de preferencias de los integrantes de un grupo, por ejemplo *a,b,c* ∈ ***A*** -  *x,y,z* ∈ ***B*** representaría la matriz *3x3*
@@ -102,11 +102,11 @@ Al igual que el caso considerado al final del punto 1.2, no podemos permitir que
 
 ver 1.6 para ejecutar el algoritmo
 
-#### Análisis de Complejidad
+### Análisis de Complejidad
 
 analizamos por partes:
 
-hilo la parte inicial en el main.py
+#### parte inicial en el main.py
 
 ```python
     if punto == "1.5":
@@ -123,7 +123,7 @@ hilo la parte inicial en el main.py
 
 *O(algoritmo 1.5) = O(armarParejas(n,a)) + O(n) + O(parejasEstables(n,n))*
 
-carga de parejas por archivo
+#### carga de parejas por archivo
 ```python
 def armarParejas(jugadores, nombre_archivo_pareo):    
     grupoA = jugadores[slice(0,len(jugadores)//2)] # O(1)
@@ -158,6 +158,28 @@ por lo tanto
 *O(algoritmo 1.5) = O(n^2) + O(n) + O(n^2)*
 *O(algoritmo 1.5) = O(n^2)*
 
+#### carga de estructuras iniciales (solicitado corrección)
+```python
+def cargarJugadores(nombre_archivo_jugadores):    
+    archivoJugadores = open(Path("../../assets/txt/" + nombre_archivo_jugadores),"r")#O(1)    
+    lineasJugadores = archivoJugadores.read().splitlines()#O(n)
+    
+    jugadores = [Jugador(x.split(',')[0],x.split(',')[1],x.split(',')[2]) for x in lineasJugadores] #O(n)
+    jugadores.sort(key= lambda x : x.ranking) #O(n.log(n))
+    
+    archivoJugadores.close()#O(1)
+
+    for j in  jugadores: #O(n)
+        archivoPrefs = open(Path("../../assets/txt/" + j.archivoPrefs),"r") #O(1)
+        prefs = archivoPrefs.read().splitlines() #O(n)    
+        j.asignarPreferencias([{"jugador":next(filter(lambda y: y.nombre == x.split(',')[0],jugadores)),  "nPref":int(x.split(',')[1])} for x in prefs]) #O(nlog(n)) - O(for x in prefs).O(filter)
+ 
+    archivoPrefs.close()
+
+    return jugadores
+```
+*O(cargarJugadores(n)) = #O(n) + O(n.log(n)) + O(n).(O(n)+O(nlog(n)))*
+*O(cargarJugadores(n)) = #O((n^2)log(n))*
 
 ### 1.6 - Programación de los algoritmos
 
@@ -196,10 +218,9 @@ python main.py 1.5 archivo_jugadores.rank parejas_alternativas.txt
 La salida del programa imprimira las parejas cargadas y si las mismas son estables o no segun sus archivos de preferencias.
 
 
-### 1.7 - ¿Tiene su programa la misma complejidad algorítmica que la teórica?
+### 1.7 - ¿Tiene su programa la misma complejidad algorítmica que la teórica? (revisión para correción)
 
-Analizo complejidad del algoritmo de Gale-Shapley
-
+Analizo complejidad del algoritmo de Gale-Shapley implementado
 ```python
 def armarParejasEstables(jugadores):    
     grupoA = jugadores[slice(0,len(jugadores)//2)] # O(1)
@@ -214,14 +235,14 @@ def armarParejasEstables(jugadores):
                 if propuesto.pareja is None: # O(1)
                     proponente.formarPareja(propuesto) # O(1)
                     proponentesLibres -= 1  # O(1)
-                elif propuesto.prefiere(proponente): # O(n) (prefiere(a) recorre la lista de jugadores)
+                elif propuesto.prefiere(proponente): # O(log(n)) (prefiere(a) busqueda binaria de vector ordenado)
                     proponente.formarPareja(propuesto) # O(1)                
     return grupoA, grupoB
 ```
 
-*O(armarParejasEstables(n)) = O(n^3)*
+*O(armarParejasEstables(n)) = O((n^2).log(n))*
 
-Esta complejidad difiere de la complejidad teórica de gale shapley tradicional, que es O(n^2), porque a diferencia de esta, en este caso la complejidad de comparar las preferencias pasa de O(1) (comparar index en un vector) a O(n) (buscar los números de preferencia de cada jugador y su pareja y compararlo)
+Esta complejidad difiere de la complejidad teórica de gale shapley tradicional O(n^2), pero mejora frente a la complejidad de la primer entrega que marcaba O(n^3).
 
 ## Parte 2 - Funciones matemáticas / estadísticas
 
