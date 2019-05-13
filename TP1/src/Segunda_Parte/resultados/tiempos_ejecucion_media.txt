@@ -6,3 +6,5 @@ Tiempo de ejecucion de media en lista con 10000 elementos : 0.00030820369720459
 Tiempo de ejecucion de media en lista con 100000 elementos :  0.0032543659210205
 Tiempo de ejecucion de media en lista con 1000000 elementos : 0.033268404006958
 Tiempo de ejecucion de media en lista con 10000000 elementos : 0.33476405143738
+
+Tiempo de ejecucion de media en lista ordenada con 1 elementos : 2.3126602172852E-6 (media)
