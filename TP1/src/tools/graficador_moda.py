@@ -17,13 +17,17 @@ datapoints_names = ["1",
                     "10 000 000"]
 
 # Armo listas con los tiempos de ejecucion de cada implementacion
-tiempos_lista = []
-tiempos_lista_ordenada = []
-tiempos_arbol_abb = []
+tiempos_lista = [2.90E-6, 3.88E-6, 1.58E-5, 0.0001, 0.0012, 0.011, 0.114, 1.13]
+tiempos_lista_ordenada = [2.86E-6, 3.57E-6,
+                          1.50E-5, 0.0001, 0.0012, 0.015, 0.19, 2.04]
+tiempos_arbol_abb = [3.67E-6, 8.44E-6,
+                     5.51E-6, 0.0005, 0.0069, 0.084, 0.85, 9.41]
 
-plt.plot(datapoints_names, tiempos_lista, '--g')
-plt.plot(datapoints_names, tiempos_lista_ordenada, ':r')
-plt.plot(datapoints_names, tiempos_arbol_abb, '-.k')
+plt.plot(datapoints_names, tiempos_lista, '--g', label="Vector / Lista")
+plt.plot(datapoints_names, tiempos_lista_ordenada,
+         ':r', label="Vector / Lista Ordenada")
+plt.plot(datapoints_names, tiempos_arbol_abb, '-.k', label="Arbol ABB")
+plt.legend()
 
 plt.tight_layout()
 plt.savefig("../../assets/images/moda.png")
