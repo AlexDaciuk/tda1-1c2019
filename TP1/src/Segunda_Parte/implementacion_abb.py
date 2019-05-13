@@ -15,7 +15,8 @@ max_count = 0
 
 i = 0
 try:
-    r = sys.argv[3]
+    r = int(sys.argv[3])
+    hay_r = True
 except IndexError:
     hay_r = False
 
