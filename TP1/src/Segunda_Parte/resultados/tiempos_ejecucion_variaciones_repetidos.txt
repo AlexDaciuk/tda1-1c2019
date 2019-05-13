@@ -1,0 +1,3 @@
+Tiempo de ejecucion de variaciones_con_repeticion en lista con 100 elementos : 164.92170476913452
+Tiempo de ejecucion de variaciones_con_repeticion en lista ordenada con 100 elementos : 165.8192195892334
+Tiempo de ejecucion de variaciones_con_repeticion en abb con 100 elementos : 167.52820777893066
