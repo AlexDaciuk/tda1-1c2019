@@ -9,4 +9,23 @@ Tiempo de ejecucion de variaciones en lista con 9 elementos : 4.4894218444824E-5
 Tiempo de ejecucion de variaciones en lista con 10 elementos : 5.4597854614258E-5
 Tiempo de ejecucion de variaciones en lista con 100 elementos : 0.02918758392334
 Tiempo de ejecucion de variaciones en lista con 500 elementos : 4.0955177783966
-
+Tiempo de ejecucion de variaciones en lista ordenada con 2 elementos : 9.2029571533203E-6
+Tiempo de ejecucion de variaciones en lista ordenada con 3 elementos :  1.3113021850586E-5
+Tiempo de ejecucion de variaciones en lista ordenada con 4 elementos : 1.521110534668E-5
+Tiempo de ejecucion de variaciones en lista ordenada con 5 elementos : 1.8119812011719E-5
+Tiempo de ejecucion de variaciones en lista ordenada con 6 elementos : 3.0279159545898E-5
+Tiempo de ejecucion de variaciones en lista ordenada con 7 elementos : 5.955696105957E-5
+Tiempo de ejecucion de variaciones en lista ordenada con 8 elementos : 0.00014219284057617
+Tiempo de ejecucion de variaciones en lista ordenada con 9 elementos : 0.00020179748535156
+Tiempo de ejecucion de variaciones en lista ordenada con 10 elementos : 0.00034914016723633
+Tiempo de ejecucion de variaciones en lista ordenada con 100 elementos : 51.09101843833923
+Tiempo de ejecucion de variaciones en abb con 2 elementos : 1.1539459228516E-5
+Tiempo de ejecucion de variaciones en abb con 3 elementos : 1.6212463378906E-5
+Tiempo de ejecucion de variaciones en abb con 4 elementos : 2.2490819295247E-5
+Tiempo de ejecucion de variaciones en abb con 5 elementos : 3.3060709635417E-5
+Tiempo de ejecucion de variaciones en abb con 6 elementos : 3.0438105265299E-5
+Tiempo de ejecucion de variaciones en abb con 7 elementos : 6.707509358724E-5
+Tiempo de ejecucion de variaciones en abb con 8 elementos : 0.0001372496287028
+Tiempo de ejecucion de variaciones en abb con 9 elementos : 0.00021131833394368
+Tiempo de ejecucion de variaciones en abb con 10 elementos : 0.00060820579528809
+Tiempo de ejecucion de variaciones en abb con 100 elementos : 51.636553843816
