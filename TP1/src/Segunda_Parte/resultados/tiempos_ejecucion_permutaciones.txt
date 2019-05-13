@@ -1,21 +1,30 @@
 Tiempo de ejecucion de permutaciones en lista con 1 elementos : 2.741813659668E-6
-
 Tiempo de ejecucion de permutaciones en lista con 2 elementos :  5.1259994506836E-6
-
 Tiempo de ejecucion de permutaciones en lista con 3 elementos : 7.5817108154297E-6
-
 Tiempo de ejecucion de permutaciones en lista con 4 elementos : 1.2087821960449E-5
-
 Tiempo de ejecucion de permutaciones en lista con 5 elementos : 3.9434432983398E-5
-
 Tiempo de ejecucion de permutaciones en lista con 6 elementos : 0.00016105175018311
-
 Tiempo de ejecucion de permutaciones en lista con 7 elementos : 0.00093519687652588
-
 Tiempo de ejecucion de permutaciones en lista con 8 elementos : 0.0064598321914673
-
 Tiempo de ejecucion de permutaciones en lista con 9 elementos :  0.049509382247925
-
 Tiempo de ejecucion de permutaciones en lista con 10 elementos : 0.45338418483734
-
 Tiempo de ejecucion de permutaciones en lista con 11 elementos : 4.6651665210724
+Tiempo de ejecucion de permutaciones en lista ordenada con 1 elementos : 3.3378601074219E-6
+Tiempo de ejecucion de permutaciones en lista ordenada con 2 elementos : 7.1048736572266E-6
+Tiempo de ejecucion de permutaciones en lista ordenada con 3 elementos : 9.1075897216797E-6
+Tiempo de ejecucion de permutaciones en lista ordenada con 4 elementos : 1.52587890625E-5
+Tiempo de ejecucion de permutaciones en lista ordenada con 5 elementos : 4.420280456543E-5
+Tiempo de ejecucion de permutaciones en lista ordenada con 6 elementos : 0.00018320083618164
+Tiempo de ejecucion de permutaciones en lista ordenada con 7 elementos : 0.00095510482788086
+Tiempo de ejecucion de permutaciones en lista ordenada con 8 elementos : 0.0068742275238037
+Tiempo de ejecucion de permutaciones en lista ordenada con 9 elementos : 0.052155447006226
+Tiempo de ejecucion de permutaciones en lista ordenada con 10 elementos : 0.47531943321228
+Tiempo de ejecucion de permutaciones en lista ordenada con 11 elementos : 4.628892660141
+Tiempo de ejecucion de permutaciones en abb con 1 elementos : 4.5299530029296875e-06
+Tiempo de ejecucion de permutaciones en abb con 2 elementos : 8.3446502685547E-6
+Tiempo de ejecucion de permutaciones en abb con 3 elementos : 1.6212463378906E-5
+Tiempo de ejecucion de permutaciones en abb con 4 elementos : 0.00016260147094727
+Tiempo de ejecucion de permutaciones en abb con 5 elementos : 0.00016125043233236
+Tiempo de ejecucion de permutaciones en abb con 6 elementos : 0.0065779685974121
+Tiempo de ejecucion de permutaciones en abb con 7 elementos : 0.05510934193929
+Tiempo de ejecucion de permutaciones en abb con 8 elementos : 50.525577306747

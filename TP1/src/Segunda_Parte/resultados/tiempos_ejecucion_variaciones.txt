@@ -9,3 +9,4 @@ Tiempo de ejecucion de variaciones en lista con 9 elementos : 4.4894218444824E-5
 Tiempo de ejecucion de variaciones en lista con 10 elementos : 5.4597854614258E-5
 Tiempo de ejecucion de variaciones en lista con 100 elementos : 0.02918758392334
 Tiempo de ejecucion de variaciones en lista con 500 elementos : 4.0955177783966
+
