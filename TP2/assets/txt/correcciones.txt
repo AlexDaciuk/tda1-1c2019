@@ -1,0 +1,7 @@
+1) Poner que es N en el calculo de complejidades
+2) Hacer un analisis de complejidad mejor (ver analisis de complejidad de DFS)
+3) Hacer comparaciones de complejidad para DyC
+4) Agregar explicacion de ejecuciones
+5) Agregar algun archivo de prueba para "entender su formato"
+6) Hacer validaciones
+7) Hacer analisis de complejidad espacial 

@@ -96,7 +96,7 @@ Que genera el archivo **assets/txt/laberinto_dyc.txt** donde los asteriscos repr
 
 ## Depth-First Search y Recursive Backtracking
 
-La técnica dfs tiene utilidad para generar laberintos. Comenzamos con un grafo plano del cual, mediante una búsqueda en profundidad aleatoria vamos generando un subgrafo que vaya avanzando entre los nodos vecinos mascándolos como visitidos hasta que se encuentre sin salida, es decir que el nodo actual no posea vecinos no visitados.  A partir de ese instante, haciendo uso de una pila, aplicamos un técnica conocida como backtraking mediante la cual comenzamos a revisar los nodos anteriores ya recorridos hasta encontrar un nuevo vecino sin visitar y volver a aplicar una búsqueda en profundidad aleatoria. Cuando la pila se quede sin elementos habremos recorrido todo el grafo inicial y el laberinto habrá quedado conformado.
+La técnica dfs tiene utilidad para generar laberintos. Comenzamos con un grafo plano del cual, mediante una búsqueda en profundidad aleatoria vamos generando un subgrafo que vaya avanzando entre los nodos vecinos mascándolos como visitados hasta que se encuentre sin salida, es decir que el nodo actual no posea vecinos no visitados.  A partir de ese instante, haciendo uso de una pila, aplicamos un técnica conocida como backtraking mediante la cual comenzamos a revisar los nodos anteriores ya recorridos hasta encontrar un nuevo vecino sin visitar y volver a aplicar una búsqueda en profundidad aleatoria. Cuando la pila se quede sin elementos habremos recorrido todo el grafo inicial y el laberinto habrá quedado conformado.
 
 ### **Pseudocodigo**
 
@@ -125,7 +125,7 @@ Mientras queden nodos por visitar
 ```
 ### **Analisis de Complejidad**
 
-El algoritmo DFS tiene una complejidad *O(n)*, done n es el número de nodos del grafo. Y el backtraking es un proceso recursive donde ante cada recursión se ve reducido el numero de nodos n que quedan sin visitar. La complejidad de dicha recursión se puede modelar como  *T(n) <= T(n/2) + T(n/3) + T(n/4) + ... + T(1)*, generarndo una complejidad O(log(n))
+El algoritmo DFS tiene una complejidad *O(n)*, done n es el número de nodos del grafo. Y el backtraking es un proceso recursivo donde ante cada recursión se ve reducido el numero de nodos n que quedan sin visitar. La complejidad de dicha recursión se puede modelar como  *T(n) <= T(n/2) + T(n/3) + T(n/4) + ... + T(1)*, generarndo una complejidad O(log(n))
 
 Por lo tanto la complejidad queda determinada por *O(n.log(n))*
 
