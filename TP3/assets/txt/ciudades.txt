@@ -1,0 +1,8 @@
+Washington,0
+Moscu,0
+Buenos Aires,10
+Rio de Janeiro,7
+Paris,5
+Roma,4
+Disneylandia, 6 
+Atlantis, 8
