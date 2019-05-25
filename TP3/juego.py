@@ -42,7 +42,7 @@ class Ciudad:
         self.cantEspecias  = 0
         
         # Cantidad de ejercitos en la ciudad, al tomarse una ciudad esta empieza con un ejercito
-        self.ejercitos  = ejercitos
+        self.cantEjercitos  = ejercitos
         
         # Este atributo guarda una cantidad de ejercitos que tiene la ciudad pero que no puede usar en ese turno
         self.ejercitosNoAtq = 0
@@ -51,7 +51,7 @@ class Ciudad:
         self.ejercitosParaAtq = 0
 
     def agregarEjercitos(self, refuerzos):
-        self.ejercitos += refuerzos
+        self.cantEjercitos += refuerzos
     
     # Recibe la cantidad de especias que quiere convertir a ejercitos
     # Cada especia equivale a 2 ejercitos
@@ -59,20 +59,37 @@ class Ciudad:
     def transformarEspeciaEnEjercito(self, especias):
         # No puedo transformar mas especias de las que poseo
         if (especias > self.cantEspecias):
-            print("Error, no puede producir mas especias de las que posee")
+            print("Error: no puede convertir mas especias de las que posee")
             return False
         
         # Descuento la cantidad de especias que paso a ejercitos
         self.cantEspecias -= especias
         
         # Agrego la nueva cantidad de ejercitos
+        self.cantEjercitos
         # Dichos ejercitos no podran atacar hasta el siguiente turno
         self.ejercitosNoAtq += especias * 2
         return True
 
 
-    # Como máximo se pueden transformar 5 ejercitos en especia.
-    def transformarEjercitoEnEspecia(self):
+
+    # Recibe la cantidad de ejercitos que quiere trasnformar a especia
+    def transformarEjercitoEnEspecia(self, ejercitos):
+        # No puedo transformar mas ejercitos de las que poseo
+        # Para evitar problemas asumo que solo puedo transformar ejercitos que puedo usar para atacar
+        if (ejercitos > self.ejercitosParaAtq):
+            print("Error: no puede convertir mas ejercitos de los que posee")
+            return False
+
+        # Como máximo se pueden transformar 5 ejercitos en especia.
+        if (ejercitos > 5):
+            print("Error: no puede convertir mas de 5 ejercitos")
+            return False
+        
+        self.cantEjercitos    -= ejercitos 
+        self.ejercitosParaAtq -= ejercitos
+        self.cantEspecias     += ejercitos
+        return True
 
 
 
