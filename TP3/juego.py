@@ -23,7 +23,14 @@ class Jugador:
     def obtenerCantCiudades(self):
         return self.cantCiudades
 
+    def obtenerListaDeCiudades(self):
+        return self.listaCiudades
+
+    def obtenerMetropolis(self):
+        return self.metropolis
+
     # El metodo recibe la ciudad con la que va a atacar y la ciudad que va a atacar
+    # Este metodo ahora que lo pienso es probable que deberia pertenecer a la clase Partida o Mapa
     def atacarCiudad(self, ciudadAtq, ciudadDef):
         # Chequear si las ciudades son vecinas
         int ataque  = 
@@ -31,7 +38,7 @@ class Jugador:
         if (ataque > defensa):
             # Tomar ciudad
             # Actualizar ejercitos
-        else
+        return NotImplementedError
 
 class Ciudad:
     def __init__(self, produccion, ejercitos = 1):
@@ -50,8 +57,14 @@ class Ciudad:
         # Cantidad de ejercitos con la que ciudad va a atacar a la ciudad vecina
         self.ejercitosParaAtq = 0
 
+        # Lista de vecinos de la ciudad, o sea, todas las ciudades con las que esta conectada
+        self.listaVecinos = []
+
     def agregarEjercitos(self, refuerzos):
         self.cantEjercitos += refuerzos
+
+    def obtenerListaDeVecinos(self):
+        return self.listaVecinos
     
     # Recibe la cantidad de especias que quiere convertir a ejercitos
     # Cada especia equivale a 2 ejercitos
@@ -100,6 +113,42 @@ class Partida:
     def __init__(self, jugador1, jugador2):  
         self.jugador1 = jugador1
         self.jugador2 = jugador2
+        # Contador de turnos
+        self.cantTurnos = 0
+
+    def finDeParida(self):
+        # Primera condicion de fin de partida: un jugador recolecto mas de 100 especias
+        int especia1 = self.jugador1.obtenerCantEspecias()
+        int especia2 = self.jugador2.obtenerCantEspecias()
+
+        if (especia1 > 100):
+            return True
+
+        if (especia2 > 100):
+            return True
+
+        # segunda condicion de fin de partida: el rival quedo con su metropolis aislada
+        # Deberia chequear solo si el rival tiene su metropoli desconexa
+        # pero no estoy seguro por ahora como hacer eso asi que lo hago para
+        # ambas ciudades
+        lista1 = []
+        lista2 = []
+        ciudad1 = self.jugador1.obtenerMetropolis()
+        ciudad2 = self.jugador2.obtenerMetropolis()
+        lista1  = self.ciudad1.obtenerListaDeVecinos()
+        lista2  = self.ciudad2.obtenerListaDeVecinos()
+        
+        if (len(lista1) == 0):
+            return True
+        
+        if (len(lista2) == 0):
+            return True
+
+        # Tercera condicion de fin de partida: pasaron 50 turnos
+        if (self.cantTurnos >= 50):
+            return True
+
+        return False
 
     def determinar_ganador(self):
         int especia1 = self.jugador1.obtenerCantEspecias()
