@@ -11,15 +11,72 @@ class Jugador:
         self.cantEspecias  = 0
         self.cantEjercitos = 0
         self.cantCiudades  = 1
+        self.listaCiudades = []
+        self.listaCiudades.append(metropolis)
 
     def obtenerCantEspecias(self):
-         return self.cantEspecias
+        return self.cantEspecias
     
     def obtenerCantEjercitos(self):
-         return self.cantEjercitos
+        return self.cantEjercitos
     
-      def obtenerCantCiudades(self):
-         return self.cantCiudades
+    def obtenerCantCiudades(self):
+        return self.cantCiudades
+
+    # El metodo recibe la ciudad con la que va a atacar y la ciudad que va a atacar
+    def atacarCiudad(self, ciudadAtq, ciudadDef):
+        # Chequear si las ciudades son vecinas
+        int ataque  = 
+        int defensa = 
+        if (ataque > defensa):
+            # Tomar ciudad
+            # Actualizar ejercitos
+        else
+
+class Ciudad:
+    def __init__(self, produccion, ejercitos = 1):
+        # Atributo para la cantidad de especias que puede producir la ciudad
+        self.produccion = produccion 
+        
+        # Cantidad de especias en la ciudad
+        self.cantEspecias  = 0
+        
+        # Cantidad de ejercitos en la ciudad, al tomarse una ciudad esta empieza con un ejercito
+        self.ejercitos  = ejercitos
+        
+        # Este atributo guarda una cantidad de ejercitos que tiene la ciudad pero que no puede usar en ese turno
+        self.ejercitosNoAtq = 0
+
+        # Cantidad de ejercitos con la que ciudad va a atacar a la ciudad vecina
+        self.ejercitosParaAtq = 0
+
+    def agregarEjercitos(self, refuerzos):
+        self.ejercitos += refuerzos
+    
+    # Recibe la cantidad de especias que quiere convertir a ejercitos
+    # Cada especia equivale a 2 ejercitos
+    # Los ejércitos transformados en especia no se pueden usar en ese turno
+    def transformarEspeciaEnEjercito(self, especias):
+        # No puedo transformar mas especias de las que poseo
+        if (especias > self.cantEspecias):
+            print("Error, no puede producir mas especias de las que posee")
+            return False
+        
+        # Descuento la cantidad de especias que paso a ejercitos
+        self.cantEspecias -= especias
+        
+        # Agrego la nueva cantidad de ejercitos
+        # Dichos ejercitos no podran atacar hasta el siguiente turno
+        self.ejercitosNoAtq += especias * 2
+        return True
+
+
+    # Como máximo se pueden transformar 5 ejercitos en especia.
+    def transformarEjercitoEnEspecia(self):
+
+
+
+
 
 #clase que funciona de moderador para el juego    
 class Partida:
