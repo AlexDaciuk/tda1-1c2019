@@ -44,20 +44,18 @@ class Ciudad:
     def __init__(self, produccion, ejercitos = 1):
         # Atributo para la cantidad de especias que puede producir la ciudad
         self.produccion = produccion 
-        
         # Cantidad de especias en la ciudad
         self.cantEspecias  = 0
-        
-        # Cantidad de ejercitos en la ciudad, al tomarse una ciudad esta empieza con un ejercito
+        # Cantidad de ejercitos en la ciudad
+        # al tomarse una ciudad esta empieza con un ejercito
         self.cantEjercitos  = ejercitos
-        
-        # Este atributo guarda una cantidad de ejercitos que tiene la ciudad pero que no puede usar en ese turno
+        # Este atributo guarda una cantidad de ejercitos 
+        # que tiene la ciudad pero que no puede usar en ese turno
         self.ejercitosNoAtq = 0
-
         # Cantidad de ejercitos con la que ciudad va a atacar a la ciudad vecina
         self.ejercitosParaAtq = 0
-
-        # Lista de vecinos de la ciudad, o sea, todas las ciudades con las que esta conectada
+        # Lista de vecinos de la ciudad, o sea, 
+        # todas las ciudades con las que esta conectada
         self.listaVecinos = []
 
     def agregarEjercitos(self, refuerzos):
@@ -115,6 +113,21 @@ class Partida:
         self.jugador2 = jugador2
         # Contador de turnos
         self.cantTurnos = 0
+        # aca guardo quien tiene permiso de jugar en el turno/ronda
+        # 0 si el jugador1 le toca jugar
+        # 1 si le toca al jugador2 
+        self.turnoJugador = 0
+
+    def verDeQuienEsElTurno(self):
+        return self.turnoJugador
+
+    def cambiarDeQuienEsElTurno(self):
+        if (self.turnoJugador == 0):
+            self.turnoJugador = 1
+            return
+        else:
+            self.turnoJugador = 0
+            return
 
     def finDeParida(self):
         # Primera condicion de fin de partida: un jugador recolecto mas de 100 especias
@@ -128,20 +141,15 @@ class Partida:
             return True
 
         # segunda condicion de fin de partida: el rival quedo con su metropolis aislada
-        # Deberia chequear solo si el rival tiene su metropoli desconexa
-        # pero no estoy seguro por ahora como hacer eso asi que lo hago para
-        # ambas ciudades
-        lista1 = []
-        lista2 = []
-        ciudad1 = self.jugador1.obtenerMetropolis()
-        ciudad2 = self.jugador2.obtenerMetropolis()
-        lista1  = self.ciudad1.obtenerListaDeVecinos()
-        lista2  = self.ciudad2.obtenerListaDeVecinos()
+        lista = []
+        ciudad = self.jugador1.obtenerMetropolis()
         
-        if (len(lista1) == 0):
-            return True
+        if (self.verDeQuienEsElTurno() == 1):
+            ciudad = self.jugador2.obtenerMetropolis()
+
+        lista  = self.ciudad.obtenerListaDeVecinos()
         
-        if (len(lista2) == 0):
+        if (len(lista) == 0):
             return True
 
         # Tercera condicion de fin de partida: pasaron 50 turnos
