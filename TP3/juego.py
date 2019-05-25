@@ -47,13 +47,15 @@ class Ciudad:
         # Cantidad de especias en la ciudad
         self.cantEspecias  = 0
         # Cantidad de ejercitos en la ciudad
-        # al tomarse una ciudad esta empieza con un ejercito
+        # al tomarse una ciudad esta empieza con un ejercito.
+        # Aclaro que tiene que cumplirse siempre que: 
+        # cantEjercitos = ejercitosParaAtq + ejercitosNoAtq
         self.cantEjercitos  = ejercitos
         # Este atributo guarda una cantidad de ejercitos 
         # que tiene la ciudad pero que no puede usar en ese turno
         self.ejercitosNoAtq = 0
         # Cantidad de ejercitos con la que ciudad va a atacar a la ciudad vecina
-        self.ejercitosParaAtq = 0
+        self.ejercitosParaAtq = ejercitos
         # Lista de vecinos de la ciudad, o sea, 
         # todas las ciudades con las que esta conectada
         self.listaVecinos = []
