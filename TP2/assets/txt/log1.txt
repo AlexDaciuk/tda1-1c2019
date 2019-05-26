@@ -1,0 +1,16 @@
+Jackie Chiles,0,20
+Lady Agatha,5,75
+Ihor Ihorovich,5,75
+Cosmo Kramer,10,40
+Carmen Sandiego,15,60
+George Constanza,15,25
+Jerry Seinfeld,15,55
+Merey LaRoc,30,55
+Dazzle Annie,40,60
+Nick Brunch,50,40
+Len Bulk,60,40
+Elaine Benes,60,5
+Scar Graynolt,70,50
+Fast Eddie B,80,40
+Katherine Drib,80,5
+Crazy Joe Davola,90,10
