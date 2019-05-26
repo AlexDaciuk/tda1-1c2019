@@ -14,23 +14,14 @@ def cargar_planilla(file_path):
 
     for line in lines:
         persona_tmp = line.split(",")
-        persona_tmp[1] = [persona_tmp[1][:2], persona_tmp[1][2:]]
+        persona_tmp[1] = int(persona_tmp[1])
         persona_tmp[2] = int(persona_tmp[2].rstrip())
 
         planilla.append(persona_tmp)
 
 
-def pasar_a_minutos(hora_sospechoso, hora_lista):
-    hora_tmp = [int(hora_sospechoso[0]) - int(hora_lista[0]),
-                int(hora_sospechoso[1]) - int(hora_lista[1])]
-
-    minutos = hora_tmp[0] * 60 + hora_tmp[1]
-
-    return minutos
-
-
 def validar_hora(hora_sospechoso, hora_lista):
-    diff_sospechoso_min = pasar_a_minutos(hora_sospechoso, hora_lista)
+    diff_sospechoso_min = hora_sospechoso - hora_lista
 
     if int(diff_sospechoso_min) < 120:
         return True
@@ -58,10 +49,9 @@ def buscar_sospechosos(planilla):
             else:
                 lista_tmp.append([persona[0], persona[1]])
 
-    for lista in lista_tmp:
-        lista[0] = str(lista[0][0]) + ":" + str(lista[0][1])
-        lista = list(dict.fromkeys(lista))
-        sospechosos.append(lista)
+    # for lista in lista_tmp:
+    #     lista = list(dict.fromkeys(lista))
+    #     sospechosos.append(lista)
 
     return sospechosos
 
