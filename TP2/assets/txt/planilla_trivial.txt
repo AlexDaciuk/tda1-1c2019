@@ -1,5 +1,0 @@
-Juan,0700,50
-Jose,0700,50
-Pedro,0700,50
-Marcos,0700,50
-Julian,0700,50
