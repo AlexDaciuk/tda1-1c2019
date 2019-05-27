@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import sys
 from pathlib import Path
-import copy
 
 file_path = sys.argv[1]
 
@@ -34,8 +33,7 @@ def cargar_planilla(file):
     lines = file.readlines()
 
     for line in lines:
-        if int(line.split(",")[2]) <= 120:
-            datos.append(Entrada(line))
+        datos.append(Entrada(line))
 
     return datos
 
@@ -59,7 +57,8 @@ class ListaSospechosos:
 
     def califica(self, sospechoso):
         # Chequeo que haya entrado en los 120 minutos de la ventana de la lista
-        if sospechoso.horario_entrada - self.primer_entrada > 120:
+        if sospechoso.horario_entrada - self.primer_entrada > 120 \
+                and sospechoso.tiempo_estadia <= 120:
             return False
 
         # Chequeo que el que voy a agregar, estuvo en algun momento con todo el
@@ -118,10 +117,10 @@ class ArmadorListas:
         self.definitiva = []
 
         for lista in self.listas:
-            # lista.mostrar()
-            # print("Mi tiempo total es de :" + str(lista.tiempo_total()))
-            # print(lista.horario_primer_entrada)
-            # print(lista.horario_ultimo_en_salir)
+            lista.mostrar()
+            print("Mi tiempo total es de :" + str(lista.tiempo_total()))
+            print(lista.primer_entrada)
+            print(lista.ultima_salida)
             if self.largo_valido(lista) and self.tiempo_valido(lista):
                 # print("Entre")
                 self.definitiva.append(lista)
@@ -138,6 +137,6 @@ if __name__ == "__main__":
     if len(planilla) > 0:
         armador = ArmadorListas(planilla)
         listas = armador.armar_listas()
-
+        print("-------------------------------")
         for lista in listas:
             lista.mostrar()
