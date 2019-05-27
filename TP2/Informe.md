@@ -20,7 +20,7 @@
 ```
 1) Generas el mapa con el alto y ancho pedido
 
-2) Mientras que el tamaño del sub-laberinto sea mayor a 4x4 
+2) Mientras que el tamaño del sub-laberinto sea mayor a 4x4
 
     2.1) Decidir orientacion de la pared nueva
 
@@ -280,12 +280,12 @@ def dijkstra(self):
     self.grilla[0][0].distancia = 0 #0(1)
     self.grilla[0][0].caminoMin = True #0(1)
     nodos = [] #0(1)
-    for x in self.grilla: #0(n) 
+    for x in self.grilla: #0(n)
         for celda in x:
-            nodos.append(celda) 
+            nodos.append(celda)
 
-    while nodos: #0(n) 
-        nodoPos = [n for n in nodos if n.distancia != -1]  #0(n) 
+    while nodos: #0(n)
+        nodoPos = [n for n in nodos if n.distancia != -1]  #0(n)
         u = min(nodoPos, key=lambda x: x.distancia) #0(n)
         nodos.remove(u) #0(1)
         for v in u.obtenerConexiones(): #0(4)
@@ -295,7 +295,7 @@ def dijkstra(self):
                 v.anterior = u #0(1)
 
     return self.marcarCaminoMin(self.grilla[self.cols-1] [self.fils-1]) #O(n)
-    
+
 def marcarCaminoMin(self,celda):
     if celda.anterior is not None: #O(1)
         celda.caminoMin = True #O(1)
@@ -314,47 +314,28 @@ por lo tanto la complejidad queda igual que la teorica
 ### **Algoritmo**
 
 ```
-Tengo una lista con todos los ingresos
+Tengo :
+- Un objeto Planilla, que es una lista de entradas
+- Un objeto Entrada que tiene nombre, horario de entrada y tiempo de estadia
+- Un objeto ListaSospechosos que tiene una lista de entradas sospechosas y un horario de primera entrada
 
-Y voy generando listas de sospechosos de la siguiente forma:
+Para cada persona en la Planilla, chequeo con cada ListaSospechosos si califica o no
 
-  Cada lista de sospechosos es de la forma [hora_ingreso_primer_sospechoso, sospechoso_1 , ... , sospechoso_n]
-
-  Tomo a la primera persona que ingreso como primer sospechoso y creo la primera lista
-
-  Ahora, recorro la lista de ingresos (sin la primera persona)
-    Por cada persona, chequeo que su hora de entrada este en el rango de los 120 minutos posteriores a la entrada de cada lista de sospechosos, si lo esta, entra en esa lista, sino, crea otra con la hora de entrada de esa persona
-
-  Filtro duplicados de cada lista de sospechosos e imprimo todas las listas de sospechosos  
+Para calificar como sospechoso la entrada tiene que :
+- Estar dentro de los 120 minutos de la entrada del primer sospechoso
+- No durar mas de 120 minutos
+- Que el nuevo sospechoso este en el mismo momento que toda la lista, hay que comparar la hora de entrada del nuevo sospechoso con la de cada uno de la lista
+  Esta condicion tiene 2 casos :
+   - La entrada es posterior a la entrada de X sospechoso del grupo, entonces, la hora de entrada del nuevo sospechoso tiene que se anterior a la de salida del sospechoso actual
+   - La entrada es a la misma hora que X sospechoso del grupo, entonces, cumple con la condicion, ya que no hay estadia de 0 minutos
+   Como el archivo (y por ende, la planilla) estan ordenadas ascendentemente mediante la hora de entrada, no existe el caso que la hora de entrada del nuevo sospechoso sea anterior a la del sospechoso X
 ```
 
 ### *Codigo*
 ```python
-def buscar_sospechosos(planilla):
-    lista_tmp = []
-    sospechosos = []
 
-    planilla_copia = list(planilla)
-
-    lista_tmp.append([planilla[0][1], planilla[0][0]])
-
-    planilla_copia.remove(planilla[0])
-
-    for persona in planilla_copia:  # O(n)
-        for lista in lista_tmp:     # O(n)
-            if validar_hora(persona[1], lista[0]):
-                lista.append(persona[0])
-            else:
-                lista_tmp.append([persona[0], persona[1]])
-
-    for lista in lista_tmp:     # O (n)
-        lista[0] = str(lista[0][0]) + ":" + str(lista[0][1])
-        lista = list(dict.fromkeys(lista))    # O(n)
-        sospechosos.append(lista)
-
-    return sospechosos
 ```
 
 ### **Análisis de Complejidad**
 
-La complejidad es **O(n^2)** por que lo mas costoso son 2 for's anidados
+TODO
