@@ -41,8 +41,8 @@ def cargar_planilla(file):
 class ListaSospechosos:
     def __init__(self, primer_sospechoso):
         self.lista_sospechosos = []
-        self.primer_entrada = primer_sospechoso.horario_entrada
         self.lista_sospechosos.append(primer_sospechoso)
+        self.primer_entrada = primer_sospechoso.horario_entrada
         self.primer_salida = primer_sospechoso.horario_salida
         self.ultima_salida = primer_sospechoso.horario_salida
 
@@ -84,15 +84,14 @@ class ListaSospechosos:
     def tiempo_total(self):
         return self.ultima_salida - self.primer_entrada
 
+    def primer_sospechoso(self):
+        return self.lista_sospechosos[0]
+
 
 class ArmadorListas:
     def __init__(self, planilla):
         self.planilla = planilla
         self.listas = []
-        # Creo la primera listas trivial con la primera persona que ingresa
-        self.listas.append(ListaSospechosos(planilla[0]))
-        # Saco a esa persona asi no lo tomo 2 veces
-        self.planilla = self.planilla[1:]
 
     def largo_valido(self, lista):
         if lista.largo() >= 5 and lista.largo() <= 10:
@@ -106,23 +105,32 @@ class ArmadorListas:
         else:
             return False
 
+    def validar_escape(self, lista, planilla):
+
+
     def armar_listas(self):
-        for entrada in self.planilla:
-            for lista in self.listas:
-                if lista.califica(entrada):
-                    lista.agregar_sospechoso(entrada)
-                else:
-                    self.listas.append(ListaSospechosos(entrada))
+        # Armo una lista por cada sospechoso en la planilla de 1 a n - 5
+        for sospechoso in planilla[:len(planilla) - 4]:
+            self.listas.append(ListaSospechosos(sospechoso))
+
+        # Recorro cada lista de sospechosos y busco mas sospechosos en la
+        # planilla, pero solo desde el primer sospechoso de la lista en
+        # adelante
+        for lista in self.listas:
+            posicion = planilla.index(lista.primer_sospechoso())
+            for sospechoso in planilla[posicion:]:
+                if lista.califica(sospechoso):
+                    lista.agregar_sospechoso(sospechoso)
+            lista.mostrar()
 
         self.definitiva = []
 
+        # Chequeo condiciones, largo de lista, tiempo total de duracion
+        # y que no haya personas ajenas a la banda cuando se retira la persona
+        # con el botin
         for lista in self.listas:
-            lista.mostrar()
-            print("Mi tiempo total es de :" + str(lista.tiempo_total()))
-            print(lista.primer_entrada)
-            print(lista.ultima_salida)
-            if self.largo_valido(lista) and self.tiempo_valido(lista):
-                # print("Entre")
+            if self.largo_valido(lista) and self.tiempo_valido(lista) and \
+                    validar_escape(lista, self.planilla):
                 self.definitiva.append(lista)
 
         return self.definitiva
@@ -134,9 +142,8 @@ if __name__ == "__main__":
     for entrada in planilla:
         entrada.mostrar()
 
-    if len(planilla) > 0:
-        armador = ArmadorListas(planilla)
-        listas = armador.armar_listas()
-        print("-------------------------------")
-        for lista in listas:
-            lista.mostrar()
+    armador = ArmadorListas(planilla)
+    listas = armador.armar_listas()
+    print("-------------------------------")
+    for lista in listas:
+        lista.mostrar()
