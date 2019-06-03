@@ -314,28 +314,164 @@ por lo tanto la complejidad queda igual que la teorica
 ### **Algoritmo**
 
 ```
-Tengo :
-- Un objeto Planilla, que es una lista de entradas
-- Un objeto Entrada que tiene nombre, horario de entrada y tiempo de estadia
-- Un objeto ListaSospechosos que tiene una lista de entradas sospechosas y un horario de primera entrada
+Cargar cada entrada de la planilla en un objeto "Entrada" y agregarlo a una lista
 
-Para cada persona en la Planilla, chequeo con cada ListaSospechosos si califica o no
+Armar una lista de sospechosos por cada persona en la planilla desde 1 a n - 5
 
-Para calificar como sospechoso la entrada tiene que :
-- Estar dentro de los 120 minutos de la entrada del primer sospechoso
-- No durar mas de 120 minutos
-- Que el nuevo sospechoso este en el mismo momento que toda la lista, hay que comparar la hora de entrada del nuevo sospechoso con la de cada uno de la lista
-  Esta condicion tiene 2 casos :
-   - La entrada es posterior a la entrada de X sospechoso del grupo, entonces, la hora de entrada del nuevo sospechoso tiene que se anterior a la de salida del sospechoso actual
-   - La entrada es a la misma hora que X sospechoso del grupo, entonces, cumple con la condicion, ya que no hay estadia de 0 minutos
-   Como el archivo (y por ende, la planilla) estan ordenadas ascendentemente mediante la hora de entrada, no existe el caso que la hora de entrada del nuevo sospechoso sea anterior a la del sospechoso X
+Recorrer la lista de lista de sospechosos buscando mas sospechosos en la planilla
+pero solo desde el primer sospechoso de la lista en adelante
+
+Recorrer la lista de sospechosos y chequear que las listas cumplan las condiciones de
+tamaño valido, tiempo valido y escape valido
+
 ```
+Una persona califica para una lista de sospecosos si:
+  - Esta dentro de los 120 minutos de la primer entrada de la lista
+  - Su estadia es menor a 120 minutos
+  - Si no rompe la condicion de que el grupo estuvo junto en algun momento
+
+
+El escape es valido si toda persona que no pertenece al grupo, se fue antes o ingreso despues
+de la primer salida del grupo, considero valido los casos donde la salida es exactamente en el mismo
+horaraio que la entrada o salida de una persona ajena.
+
+
 
 ### *Codigo*
 ```python
+  # Cargo la planilla
+  planilla = cargar_planilla(file_path)
 
+  # Armo las listas de sospechosos
+  armador = ArmadorListas(planilla)
+  listas = armador.armar_listas()
+
+  def armar_listas(self):
+        # Armo una lista por cada sospechoso en la planilla de 1 a n - 5
+        for sospechoso in planilla[:len(planilla) - 4]:
+            self.listas.append(ListaSospechosos(sospechoso))
+
+        # Recorro cada lista de sospechosos y busco mas sospechosos en la
+        # planilla, pero solo desde el primer sospechoso de la lista en
+        # adelante
+        for lista in self.listas:
+            posicion = planilla.index(lista.primer_sospechoso())
+            for sospechoso in planilla[posicion:]:
+                if lista.califica(sospechoso):
+                    lista.agregar_sospechoso(sospechoso)
+
+        self.definitiva = []
+
+        # Chequeo condiciones, largo de lista, tiempo total de duracion
+        # y que no haya personas ajenas a la banda cuando se retira la persona
+        # con el botin
+        for lista in self.listas:
+            largo_valido = self.largo_valido(lista)
+            tiempo_valido = self.tiempo_valido(lista)
+            escape_valido = self.validar_escape(lista, self.planilla)
+            if largo_valido and tiempo_valido and escape_valido:
+                self.definitiva.append(lista)
+
+        return self.definitiva
+```
+
+#### Metodo auxiliares
+```python
+def largo_valido(self, lista):
+    if lista.largo() >= 5 and lista.largo() <= 10:
+        return True
+    else:
+        return False
+
+def tiempo_valido(self, lista):
+    if lista.tiempo_total() >= 40 and lista.tiempo_total() <= 120:
+        return True
+    else:
+        return False
+
+def validar_escape(self, lista, planilla):
+    planilla_tmp = [sospechoso
+                    for sospechoso in planilla if sospechoso
+                    not in lista.obtener_sospechosos()]
+
+    # Tengo 2 casos
+    # Caso 1 : Persona que entro y salio antes de que salga el sospechoso
+    # con el botin
+    # Caso 2 : Persona que entro y salio despues de que salga el sospechoso
+    # con el botin
+    # Entonces si el horario de entrada es menor al horario de
+    # primera salida y el horario de salida es mayor al horario de primera
+    # salida, el escape es invalido
+    # Tomo como valido el caso que la salida del primer sospechoso de una
+    # lista sea en el mismo momento que la entrada de una persona que no
+    # pertenece al grupo
+    for sospechoso in planilla_tmp:
+        if sospechoso.horario_entrada < lista.primer_salida and \
+                sospechoso.horario_salida > lista.primer_salida:
+            return False
+
+    return True
+
+
+    def agregar_sospechoso(self, sospechoso):
+        if sospechoso not in self.lista_sospechosos:
+            self.lista_sospechosos.append(sospechoso)
+
+        if sospechoso.horario_salida < self.primer_salida:
+            self.primer_salida = sospechoso.horario_salida
+        elif sospechoso.horario_salida > self.ultima_salida:
+            self.ultima_salida = sospechoso.horario_salida
+
+    def califica(self, nuevo_sospechoso):
+        # Chequeo que haya entrado en los 120 minutos de la ventana de la lista
+        if nuevo_sospechoso.horario_entrada - self.primer_entrada > 120 \
+                and nuevo_sospechoso.tiempo_estadia <= 120:
+            return False
+
+        # Chequeo que el que voy a agregar, estuvo en algun momento con todo el
+        # grupo de sospechosos
+        # Caso 1 : entrada posterior a X persona de la lista, la entrada del
+        # nuevo sospechoso tiene que ser anterior a la hora de salida de X
+        # Caso 2 : la entrada es a la misma hora que la del sospechoso X,
+        # cumple, ya que no existen estadias de 0 minutos
+        for actual_sospechoso in self.lista_sospechosos:
+            if actual_sospechoso.horario_salida <=\
+                    nuevo_sospechoso.horario_entrada:
+                return False
+
+        return True
+
+def agregar_sospechoso(self, sospechoso):
+    if sospechoso not in self.lista_sospechosos:
+        self.lista_sospechosos.append(sospechoso)
+
+    if sospechoso.horario_salida < self.primer_salida:
+        self.primer_salida = sospechoso.horario_salida
+    elif sospechoso.horario_salida > self.ultima_salida:
+        self.ultima_salida = sospechoso.horario_salida
+
+def califica(self, nuevo_sospechoso):
+    # Chequeo que haya entrado en los 120 minutos de la ventana de la lista
+    if nuevo_sospechoso.horario_entrada - self.primer_entrada > 120 \
+            and nuevo_sospechoso.tiempo_estadia <= 120:
+        return False
+
+    # Chequeo que el que voy a agregar, estuvo en algun momento con todo el
+    # grupo de sospechosos
+    # Caso 1 : entrada posterior a X persona de la lista, la entrada del
+    # nuevo sospechoso tiene que ser anterior a la hora de salida de X
+    # Caso 2 : la entrada es a la misma hora que la del sospechoso X,
+    # cumple, ya que no existen estadias de 0 minutos
+    for actual_sospechoso in self.lista_sospechosos:    # O(n)
+        if actual_sospechoso.horario_salida <=\
+                nuevo_sospechoso.horario_entrada:
+            return False
+
+    return True        
 ```
 
 ### **Análisis de Complejidad**
 
-TODO
+Lo que mayor complejidad temporal tiene, es buscar nuevos sospechosos en el metodo
+armar_listas que tiene complejidad O(n * m), siendo n el largo de la planilla y m
+la cantidad de lista de sospechosos
