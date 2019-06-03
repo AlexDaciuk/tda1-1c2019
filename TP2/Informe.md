@@ -475,3 +475,15 @@ def califica(self, nuevo_sospechoso):
 Lo que mayor complejidad temporal tiene, es buscar nuevos sospechosos en el metodo
 armar_listas que tiene complejidad O(n * m), siendo n el largo de la planilla y m
 la cantidad de lista de sospechosos
+
+### Instrucciones de ejecución
+
+```bash
+cd TP2/src/Segunta_Parte
+python3 sospechosos.py ../../assets/txt/
+```
+
+En la carpeta **assets/txt** estan los logs subidos al classroom
+
+El resultado se guarda en un archivo en el mismo directorio del script, llamado
+**sospechosos.txt**
