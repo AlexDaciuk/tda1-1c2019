@@ -51,14 +51,14 @@ class ListaSospechosos:
             self.lista_sospechosos.append(sospechoso)
 
         if sospechoso.horario_salida < self.primer_salida:
-            self.primero_salir = sospechoso.horario_salida
+            self.primer_salida = sospechoso.horario_salida
         elif sospechoso.horario_salida > self.ultima_salida:
             self.ultima_salida = sospechoso.horario_salida
 
-    def califica(self, sospechoso):
+    def califica(self, nuevo_sospechoso):
         # Chequeo que haya entrado en los 120 minutos de la ventana de la lista
-        if sospechoso.horario_entrada - self.primer_entrada > 120 \
-                and sospechoso.tiempo_estadia <= 120:
+        if nuevo_sospechoso.horario_entrada - self.primer_entrada > 120 \
+                and nuevo_sospechoso.tiempo_estadia <= 120:
             return False
 
         # Chequeo que el que voy a agregar, estuvo en algun momento con todo el
@@ -68,7 +68,8 @@ class ListaSospechosos:
         # Caso 2 : la entrada es a la misma hora que la del sospechoso X,
         # cumple, ya que no existen estadias de 0 minutos
         for actual_sospechoso in self.lista_sospechosos:
-            if actual_sospechoso.horario_salida < sospechoso.horario_entrada:
+            if actual_sospechoso.horario_salida <=\
+                    nuevo_sospechoso.horario_entrada:
                 return False
 
         return True
@@ -86,6 +87,9 @@ class ListaSospechosos:
 
     def primer_sospechoso(self):
         return self.lista_sospechosos[0]
+
+    def obtener_sospechosos(self):
+        return self.lista_sospechosos
 
 
 class ArmadorListas:
@@ -106,10 +110,30 @@ class ArmadorListas:
             return False
 
     def validar_escape(self, lista, planilla):
+        planilla_tmp = [sospechoso
+                        for sospechoso in planilla if sospechoso
+                        not in lista.obtener_sospechosos()]
 
+        # Tengo 2 casos
+        # Caso 1 : Persona que entro y salio antes de que salga el sospechoso
+        # con el botin
+        # Caso 2 : Persona que entro y salio despues de que salga el sospechoso
+        # con el botin
+        # Entonces si el horario de entrada es menor al horario de
+        # primera salida y el horario de salida es mayor al horario de primera
+        # salida, el escape es invalido
+        # Tomo como valido el caso que la salida del primer sospechoso de una
+        # lista sea en el mismo momento que la entrada de una persona que no
+        # pertenece al grupo
+        for sospechoso in planilla_tmp:
+            if sospechoso.horario_entrada < lista.primer_salida and \
+                    sospechoso.horario_salida > lista.primer_salida:
+                return False
+
+        return True
 
     def armar_listas(self):
-        # Armo una lista por cada sospechoso en la planilla de 1 a n - 5
+        # Armo una lista por cada sospechoso en la planilla de 1 a n - 4
         for sospechoso in planilla[:len(planilla) - 4]:
             self.listas.append(ListaSospechosos(sospechoso))
 
@@ -121,7 +145,6 @@ class ArmadorListas:
             for sospechoso in planilla[posicion:]:
                 if lista.califica(sospechoso):
                     lista.agregar_sospechoso(sospechoso)
-            lista.mostrar()
 
         self.definitiva = []
 
@@ -129,21 +152,35 @@ class ArmadorListas:
         # y que no haya personas ajenas a la banda cuando se retira la persona
         # con el botin
         for lista in self.listas:
-            if self.largo_valido(lista) and self.tiempo_valido(lista) and \
-                    validar_escape(lista, self.planilla):
+            largo_valido = self.largo_valido(lista)
+            tiempo_valido = self.tiempo_valido(lista)
+            escape_valido = self.validar_escape(lista, self.planilla)
+            if largo_valido and tiempo_valido and escape_valido:
                 self.definitiva.append(lista)
 
         return self.definitiva
 
 
 if __name__ == "__main__":
+    # Cargo la planilla
     planilla = cargar_planilla(file_path)
 
-    for entrada in planilla:
-        entrada.mostrar()
-
+    # Armo las listas de sospechosos
     armador = ArmadorListas(planilla)
     listas = armador.armar_listas()
-    print("-------------------------------")
-    for lista in listas:
-        lista.mostrar()
+
+    # Guardo el archivo
+    file_path = "sospechosos.txt"
+    file = open(Path(file_path), 'w+')
+
+    if len(listas) > 0:
+        file.write("La/s lista/s de sospechosos es/son: ")
+        for lista in listas:
+            file.write("\n")
+            for sospechoso in lista.obtener_sospechosos():
+                file.write(sospechoso.nombre + "_"
+                           + str(sospechoso.tiempo_estadia) + ",")
+    else:
+        file.write("No hay sospechosos")
+
+    file.close()
