@@ -9,11 +9,12 @@ planilla = []
 
 class Entrada:
     def __init__(self, line):
-        entrada_tmp = line.split(",")
+        entrada_tmp = line.split(",")  # O(n*m) siendo n el largo del string
+        # y m el largo del separador
 
         self.nombre = entrada_tmp[0]
-        self.horario_entrada = int(entrada_tmp[1])
-        self.tiempo_estadia = int(entrada_tmp[2].rstrip())
+        self.horario_entrada = int(entrada_tmp[1])  # O(n)
+        self.tiempo_estadia = int(entrada_tmp[2].rstrip())  # O(n)
         self.horario_salida = self.horario_entrada + self.tiempo_estadia
 
     def mostrar(self):
@@ -32,7 +33,7 @@ def cargar_planilla(file):
 
     lines = file.readlines()
 
-    for line in lines:
+    for line in lines:  # O(n)
         datos.append(Entrada(line))
 
     return datos
@@ -67,7 +68,7 @@ class ListaSospechosos:
         # nuevo sospechoso tiene que ser anterior a la hora de salida de X
         # Caso 2 : la entrada es a la misma hora que la del sospechoso X,
         # cumple, ya que no existen estadias de 0 minutos
-        for actual_sospechoso in self.lista_sospechosos:
+        for actual_sospechoso in self.lista_sospechosos:    # O(n)
             if actual_sospechoso.horario_salida <=\
                     nuevo_sospechoso.horario_entrada:
                 return False
@@ -79,7 +80,7 @@ class ListaSospechosos:
 
     def mostrar(self):
         print("Lista de sospechosos : ")
-        for sospechoso in self.lista_sospechosos:
+        for sospechoso in self.lista_sospechosos:   # O(n)
             print(sospechoso.nombre)
 
     def tiempo_total(self):
@@ -112,7 +113,7 @@ class ArmadorListas:
     def validar_escape(self, lista, planilla):
         planilla_tmp = [sospechoso
                         for sospechoso in planilla if sospechoso
-                        not in lista.obtener_sospechosos()]
+                        not in lista.obtener_sospechosos()]     # O(n)
 
         # Tengo 2 casos
         # Caso 1 : Persona que entro y salio antes de que salga el sospechoso
@@ -125,7 +126,7 @@ class ArmadorListas:
         # Tomo como valido el caso que la salida del primer sospechoso de una
         # lista sea en el mismo momento que la entrada de una persona que no
         # pertenece al grupo
-        for sospechoso in planilla_tmp:
+        for sospechoso in planilla_tmp:     # O(n)
             if sospechoso.horario_entrada < lista.primer_salida and \
                     sospechoso.horario_salida > lista.primer_salida:
                 return False
@@ -133,16 +134,16 @@ class ArmadorListas:
         return True
 
     def armar_listas(self):
-        # Armo una lista por cada sospechoso en la planilla de 1 a n - 4
-        for sospechoso in planilla[:len(planilla) - 4]:
+        # Armo una lista por cada sospechoso en la planilla de 0 a n - 4
+        for sospechoso in planilla[:len(planilla) - 4]:     # O(n - 4)
             self.listas.append(ListaSospechosos(sospechoso))
 
         # Recorro cada lista de sospechosos y busco mas sospechosos en la
         # planilla, pero solo desde el primer sospechoso de la lista en
         # adelante
-        for lista in self.listas:
+        for lista in self.listas:   # O(m)
             posicion = planilla.index(lista.primer_sospechoso())
-            for sospechoso in planilla[posicion:]:
+            for sospechoso in planilla[posicion:]:  # O(n)
                 if lista.califica(sospechoso):
                     lista.agregar_sospechoso(sospechoso)
 
@@ -151,7 +152,7 @@ class ArmadorListas:
         # Chequeo condiciones, largo de lista, tiempo total de duracion
         # y que no haya personas ajenas a la banda cuando se retira la persona
         # con el botin
-        for lista in self.listas:
+        for lista in self.listas:   # O(m)
             largo_valido = self.largo_valido(lista)
             tiempo_valido = self.tiempo_valido(lista)
             escape_valido = self.validar_escape(lista, self.planilla)
