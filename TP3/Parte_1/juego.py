@@ -63,9 +63,6 @@ class Ciudad:
         # todas las ciudades con las que esta conectada
         self.listaVecinos = []
 
-    # En estos metodos deberia tambien actualizar los de defensa y ataque?
-    # creo que ya lo hago en otra parte 
-    # VER
     def agregarEjercitos(self, refuerzos):
         self.cantEjercitos += refuerzos
 
@@ -172,6 +169,34 @@ class Partida:
         # 0 si el jugador1 le toca jugar
         # 1 si le toca al jugador2 
         self.turnoJugador = 0
+        # con estos bits puedo saber en que fase esta el turno
+        self.recoleccion = 0
+        self.produccion  = 0
+        self.ataques     = 0
+
+    def pasarAFaseDeRecoleccion(self):
+        self.recoleccion = 1
+        self.produccion  = 0
+        self.ataques     = 0
+    
+    def pasarAFaseDeProduccion(self):
+        self.recoleccion = 0
+        self.produccion  = 1
+        self.ataques     = 0
+            
+    def pasarAFaseDeAtaques(self):
+        self.recoleccion = 0
+        self.produccion  = 0
+        self.ataques     = 1
+    
+    def verFaseDeTurno(self):
+        if (self.recoleccion == 1):
+            return self.recoleccion
+        if (self.produccion == 1): 
+            return self.produccion   
+        if (self.ataques == 1):
+            return self.ataques
+        return None 
 
     def verDeQuienEsElTurno(self):
         return self.turnoJugador
@@ -262,27 +287,28 @@ class Partida:
         # La ciudad metrópoli no se puede atacar 
         # (CHEQUEAR CON EL METODO QUE LLAME A ESTO)
 
-        # si las ciudades son vecinas, realizo el ataque
-        if (ciudadAtq.enListaDeVecinos(ciudadDef)):
-            # Se supone que alguien debe decidir con cuantos ejercitos atacar en
-            # vez de usar todos los disponibles
-            # VER
-            int defensa = ciudadDef.obtenerCantEjercitos()
-            ciudadDef.perderEjercitosPorDef(defensa)
-            if (ataque > defensa):
-                # actualizar ejercitos
-                ciudadAtq.perderEjercitosPorAtq(defensa)
-                # Tomar ciudad
-                self.ciudadCambiarBando(ciudadDef, jugDef, jugAtq)
-            if (ataque == defensa):
-                ciudadAtq.perderEjercitosPorAtq(defensa)
-                self.ciudadLibre(ciudadDef)
+        # si las ciudades son vecinas y estoy en fase de ataques, realizo el ataque
+        if (self.verFaseDeTurno() == self.ataques):
+            if (ciudadAtq.enListaDeVecinos(ciudadDef)):
+                # Se supone que alguien debe decidir con cuantos ejercitos atacar en
+                # vez de usar todos los disponibles
+                # VER
+                int defensa = ciudadDef.obtenerCantEjercitos()
+                ciudadDef.perderEjercitosPorDef(defensa)
+                if (ataque > defensa):
+                    # actualizar ejercitos
+                    ciudadAtq.perderEjercitosPorAtq(defensa)
+                    # Tomar ciudad
+                    self.ciudadCambiarBando(ciudadDef, jugDef, jugAtq)
+                if (ataque == defensa):
+                    ciudadAtq.perderEjercitosPorAtq(defensa)
+                    self.ciudadLibre(ciudadDef)
 
-            # El ataque fracaso
-            # Calculo que el atacante pierde  los ejercitos con los que ataco
-            # y no mas de eso, como en el TEG
-            else:
-                ciudadAtq.perderEjercitosPorAtq(ataque) 
+                # El ataque fracaso
+                # Calculo que el atacante pierde  los ejercitos con los que ataco
+                # y no mas de eso, como en el TEG
+                else:
+                    ciudadAtq.perderEjercitosPorAtq(ataque) 
         # sino, no puedo atacar 
         # o el ataque ya termino
         return
