@@ -29,16 +29,6 @@ class Jugador:
     def obtenerMetropolis(self):
         return self.metropolis
 
-    # El metodo recibe la ciudad con la que va a atacar y la ciudad que va a atacar
-    # Este metodo ahora que lo pienso es probable que deberia pertenecer a la clase Partida o Mapa
-    def atacarCiudad(self, ciudadAtq, ciudadDef):
-        # Chequear si las ciudades son vecinas
-        int ataque  = 
-        int defensa = 
-        if (ataque > defensa):
-            # Tomar ciudad
-            # Actualizar ejercitos
-        return NotImplementedError
 
 class Ciudad:
     def __init__(self, produccion, ejercitos = 1):
@@ -65,6 +55,20 @@ class Ciudad:
 
     def obtenerListaDeVecinos(self):
         return self.listaVecinos
+
+    # Devuelve la cantidad de ejercitos que posee la ciudad para atacar
+    def obtenerCantEjercitosAtq(self):
+        return self.ejercitosParaAtq
+
+    # Devuelve la cantidad total de ejercitos que posee la ciudad
+    def obtenerCantEjercitos(self):
+        return self.cantEjercitos
+
+    def enListaDeVecinos(self, ciudadVecina):
+        if ciudadVecina in self.enListaDeVecinos:
+            return True 
+        
+        return False
     
     # Recibe la cantidad de especias que quiere convertir a ejercitos
     # Cada especia equivale a 2 ejercitos
@@ -193,3 +197,16 @@ class Partida:
         # Si llego aca, es empate, por ahora devuelvo None
         else:
             return None
+
+     # El metodo recibe la ciudad con la que va a atacar y la ciudad que va a atacar
+    # Este metodo ahora que lo pienso es probable que deberia pertenecer a la clase Partida o Mapa
+    def atacarCiudad(self, ciudadAtq, ciudadDef):
+        # si las ciudades son vecinas, realizo el ataque
+        if (ciudadAtq.enListaDeVecinos(ciudadDef)):
+            int ataque  = ciudadAtq.obtenerCantEjercitosAtq()
+            int defensa = ciudadDef.obtenerCantEjercitos()
+            if (ataque > defensa):
+                # Tomar ciudad
+                # Actualizar ejercitos
+        # sino, no puedo atacar 
+        return NotImplementedError
