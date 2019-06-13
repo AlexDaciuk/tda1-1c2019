@@ -252,6 +252,7 @@ class Partida:
         nuevoDueño.agregarCiudad(ciudad)
         return
 
+    # El mapa debe marcar en el nodo de esa ciudad que no pertenece a nadie
     def ciudadLibre(ciudad):
         return NotImplementedError
 
@@ -267,20 +268,21 @@ class Partida:
             # vez de usar todos los disponibles
             # VER
             int defensa = ciudadDef.obtenerCantEjercitos()
+            ciudadDef.perderEjercitosPorDef(defensa)
             if (ataque > defensa):
                 # actualizar ejercitos
-                resto = ataque - defensa
-                ciudadDef.perderEjercitos(defensa)
-                ciudadAtq.perderEjercitos(defensa)
-
+                ciudadAtq.perderEjercitosPorAtq(defensa)
                 # Tomar ciudad
                 self.ciudadCambiarBando(ciudadDef, jugDef, jugAtq)
             if (ataque == defensa):
-                ciudadDef.perderEjercitos(defensa)
-                ciudadAtq.perderEjercitos(defensa)
+                ciudadAtq.perderEjercitosPorAtq(defensa)
                 self.ciudadLibre(ciudadDef)
 
             # El ataque fracaso
+            # Calculo que el atacante pierde  los ejercitos con los que ataco
+            # y no mas de eso, como en el TEG
             else:
+                ciudadAtq.perderEjercitosPorAtq(ataque) 
         # sino, no puedo atacar 
-        return NotImplementedError
+        # o el ataque ya termino
+        return
