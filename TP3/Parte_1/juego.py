@@ -29,6 +29,19 @@ class Jugador:
     def obtenerMetropolis(self):
         return self.metropolis
 
+    def agregarCiudad(self, ciudad):
+        self.listaCiudades.append(ciudad)
+
+    def eliminarCiudad(self, ciudad):
+        int index = 0
+        for city in self.listaCiudades:
+            if (city == ciudad):
+                self.listaCiudades.pop(index)
+                return
+            index += 1
+        return
+    
+
 
 class Ciudad:
     def __init__(self, produccion, ejercitos = 1):
@@ -50,8 +63,44 @@ class Ciudad:
         # todas las ciudades con las que esta conectada
         self.listaVecinos = []
 
+    # En estos metodos deberia tambien actualizar los de defensa y ataque?
+    # creo que ya lo hago en otra parte 
+    # VER
     def agregarEjercitos(self, refuerzos):
         self.cantEjercitos += refuerzos
+
+    # La ciudad pierde ejercitos por hacer un ataque
+    def perderEjercitosPorAtq(self, perdidas):
+        if (self.ejercitosParaAtq >= perdidas):
+            self.cantEjercitos    -= perdidas
+            self.ejercitosParaAtq -= perdidas
+        return
+
+    # La ciudad pierde ejercitos por defenderse
+    # Como la ciudad puede defenderse con todos los ejercitos 
+    # sigo un criterio para tener orden:
+    # si puedo, pierdo los ejercitos que no son para atacar
+    # si no me quedan mas ejercitos de ese tipo, descuento 
+    # de los que si pueden atacar
+    def perderEjercitosPorDef(self, perdidas):
+        self.cantEjercitos  -= perdidas
+        if (self.cantEjercitos <= 0):
+            self.cantEjercitos    = 0
+            self.ejercitosNoAtq   = 0
+            self.ejercitosParaAtq = 0
+        
+        int resto = perdidas - self.ejercitosNoAtq
+        if (self.ejercitosNoAtq != 0):
+            self.ejercitosNoAtq -= perdidas
+
+        # si el resto es negativo es porque todavia me sobran tropas de defensa
+        # entonces no le resto nada a las tropas de atq
+        if (resto < 0):
+            return 
+        # le resto a las tropas de atq lo que falta perder de tropas
+        self.ejercitosParaAtq -= resto
+        return
+            
 
     def obtenerListaDeVecinos(self):
         return self.listaVecinos
@@ -65,7 +114,7 @@ class Ciudad:
         return self.cantEjercitos
 
     def enListaDeVecinos(self, ciudadVecina):
-        if ciudadVecina in self.enListaDeVecinos:
+        if (ciudadVecina in self.enListaDeVecinos):
             return True 
         
         return False
@@ -198,15 +247,40 @@ class Partida:
         else:
             return None
 
-     # El metodo recibe la ciudad con la que va a atacar y la ciudad que va a atacar
-    # Este metodo ahora que lo pienso es probable que deberia pertenecer a la clase Partida o Mapa
-    def atacarCiudad(self, ciudadAtq, ciudadDef):
+    def ciudadCambiarBando(ciudad, exDueño, nuevoDueño):
+        exDueño.eliminarCiudad(ciudad)
+        nuevoDueño.agregarCiudad(ciudad)
+        return
+
+    def ciudadLibre(ciudad):
+        return NotImplementedError
+
+    # El metodo recibe la ciudad con la que va a atacar y la ciudad que va a atacar
+    # ataque son los ejercitos que usa ciudadAtq para atacar
+    def atacarCiudad(self, ciudadAtq, ciudadDef, ataque, jugAtq, jugDef):
+        # La ciudad metrópoli no se puede atacar 
+        # (CHEQUEAR CON EL METODO QUE LLAME A ESTO)
+
         # si las ciudades son vecinas, realizo el ataque
         if (ciudadAtq.enListaDeVecinos(ciudadDef)):
-            int ataque  = ciudadAtq.obtenerCantEjercitosAtq()
+            # Se supone que alguien debe decidir con cuantos ejercitos atacar en
+            # vez de usar todos los disponibles
+            # VER
             int defensa = ciudadDef.obtenerCantEjercitos()
             if (ataque > defensa):
+                # actualizar ejercitos
+                resto = ataque - defensa
+                ciudadDef.perderEjercitos(defensa)
+                ciudadAtq.perderEjercitos(defensa)
+
                 # Tomar ciudad
-                # Actualizar ejercitos
+                self.ciudadCambiarBando(ciudadDef, jugDef, jugAtq)
+            if (ataque == defensa):
+                ciudadDef.perderEjercitos(defensa)
+                ciudadAtq.perderEjercitos(defensa)
+                self.ciudadLibre(ciudadDef)
+
+            # El ataque fracaso
+            else:
         # sino, no puedo atacar 
         return NotImplementedError
