@@ -59,45 +59,29 @@ class Ciudad:
         self.ejercitosNoAtq = 0
         # Cantidad de ejercitos con la que ciudad va a atacar a la ciudad vecina
         self.ejercitosParaAtq = ejercitos
+        # Ejercitos para defender
+        self.ejercitosParaDef = 0
         # Lista de vecinos de la ciudad, o sea, 
         # todas las ciudades con las que esta conectada
         self.listaVecinos = []
 
-    def agregarEjercitos(self, refuerzos):
-        self.cantEjercitos += refuerzos
+    def agregarEjercitosAtq(self, refuerzos):
+        self.ejercitosParaAtq += refuerzos
 
     # La ciudad pierde ejercitos por hacer un ataque
     def perderEjercitosPorAtq(self, perdidas):
-        if (self.ejercitosParaAtq >= perdidas):
-            self.cantEjercitos    -= perdidas
-            self.ejercitosParaAtq -= perdidas
-        return
-
-    # La ciudad pierde ejercitos por defenderse
-    # Como la ciudad puede defenderse con todos los ejercitos 
-    # sigo un criterio para tener orden:
-    # si puedo, pierdo los ejercitos que no son para atacar
-    # si no me quedan mas ejercitos de ese tipo, descuento 
-    # de los que si pueden atacar
-    def perderEjercitosPorDef(self, perdidas):
-        self.cantEjercitos  -= perdidas
-        if (self.cantEjercitos <= 0):
-            self.cantEjercitos    = 0
-            self.ejercitosNoAtq   = 0
+        self.ejercitosParaAtq -= perdidas
+        # Para evitar tener numeros negativos
+        if (self.ejercitosParaAtq < 0):
             self.ejercitosParaAtq = 0
-        
-        int resto = perdidas - self.ejercitosNoAtq
-        if (self.ejercitosNoAtq != 0):
-            self.ejercitosNoAtq -= perdidas
-
-        # si el resto es negativo es porque todavia me sobran tropas de defensa
-        # entonces no le resto nada a las tropas de atq
-        if (resto < 0):
-            return 
-        # le resto a las tropas de atq lo que falta perder de tropas
-        self.ejercitosParaAtq -= resto
         return
-            
+
+    def perderEjercitosPorDef(self, perdidas):
+        self.ejercitosParaDef -= perdidas
+        # Para evitar tener numeros negativos
+        if (self.ejercitosParaDef < 0):
+            self.ejercitosParaDef = 0
+        return          
 
     def obtenerListaDeVecinos(self):
         return self.listaVecinos
@@ -107,8 +91,8 @@ class Ciudad:
         return self.ejercitosParaAtq
 
     # Devuelve la cantidad total de ejercitos que posee la ciudad
-    def obtenerCantEjercitos(self):
-        return self.cantEjercitos
+    def obtenerEjercitosDef(self):
+        return self.ejercitosParaDef
 
     def enListaDeVecinos(self, ciudadVecina):
         if (ciudadVecina in self.enListaDeVecinos):
@@ -129,7 +113,6 @@ class Ciudad:
         self.cantEspecias -= especias
         
         # Agrego la nueva cantidad de ejercitos
-        self.cantEjercitos
         # Dichos ejercitos no podran atacar hasta el siguiente turno
         self.ejercitosNoAtq += especias * 2
         return True
@@ -149,7 +132,6 @@ class Ciudad:
             print("Error: no puede convertir mas de 5 ejercitos")
             return False
         
-        self.cantEjercitos    -= ejercitos 
         self.ejercitosParaAtq -= ejercitos
         self.cantEspecias     += ejercitos
         return True
@@ -169,34 +151,20 @@ class Partida:
         # 0 si el jugador1 le toca jugar
         # 1 si le toca al jugador2 
         self.turnoJugador = 0
-        # con estos bits puedo saber en que fase esta el turno
-        self.recoleccion = 0
-        self.produccion  = 0
-        self.ataques     = 0
+        # con este string puedo saber en que fase esta el turno
+        self.fase = ""
 
     def pasarAFaseDeRecoleccion(self):
-        self.recoleccion = 1
-        self.produccion  = 0
-        self.ataques     = 0
+        self.fase = "recoleccion"
     
     def pasarAFaseDeProduccion(self):
-        self.recoleccion = 0
-        self.produccion  = 1
-        self.ataques     = 0
+        self.fase = "produccion"
             
     def pasarAFaseDeAtaques(self):
-        self.recoleccion = 0
-        self.produccion  = 0
-        self.ataques     = 1
+        self.fase = "ataques"
     
     def verFaseDeTurno(self):
-        if (self.recoleccion == 1):
-            return self.recoleccion
-        if (self.produccion == 1): 
-            return self.produccion   
-        if (self.ataques == 1):
-            return self.ataques
-        return None 
+        return self.fase 
 
     def verDeQuienEsElTurno(self):
         return self.turnoJugador
@@ -281,6 +249,17 @@ class Partida:
     def ciudadLibre(ciudad):
         return NotImplementedError
 
+    def pasarEjercitos(ciudadAtq, ciudadDef):
+        int paso = ciudadAtq.obtenerCantEjercitosAtq()
+        # ¿Casos borde? VER
+        if (paso <= 1):
+            print("Error: como minimo debe pasar 2 ejercitos")
+        # En realidad paso los ejercitos pero el metodo sirve igual
+        ciudadAtq.perderEjercitosPorAtq(paso)
+        # los ejercitos que paso decido pasarlos a Atq
+        ciudadDef.agregarEjercitosAtq(paso)
+
+
     # El metodo recibe la ciudad con la que va a atacar y la ciudad que va a atacar
     # ataque son los ejercitos que usa ciudadAtq para atacar
     def atacarCiudad(self, ciudadAtq, ciudadDef, ataque, jugAtq, jugDef):
@@ -288,26 +267,29 @@ class Partida:
         # (CHEQUEAR CON EL METODO QUE LLAME A ESTO)
 
         # si las ciudades son vecinas y estoy en fase de ataques, realizo el ataque
-        if (self.verFaseDeTurno() == self.ataques):
+        if (self.verFaseDeTurno() == "ataques"):
             if (ciudadAtq.enListaDeVecinos(ciudadDef)):
                 # Se supone que alguien debe decidir con cuantos ejercitos atacar en
                 # vez de usar todos los disponibles
                 # VER
-                int defensa = ciudadDef.obtenerCantEjercitos()
-                ciudadDef.perderEjercitosPorDef(defensa)
+                int defensa = ciudadDef.obtenerEjercitosDef()
                 if (ataque > defensa):
                     # actualizar ejercitos
+                    ciudadDef.perderEjercitosPorDef(defensa)
                     ciudadAtq.perderEjercitosPorAtq(defensa)
                     # Tomar ciudad
                     self.ciudadCambiarBando(ciudadDef, jugDef, jugAtq)
+                    self.pasarEjercitos(ciudadAtq, ciudadDef)
                 if (ataque == defensa):
+                    ciudadDef.perderEjercitosPorDef(defensa)
                     ciudadAtq.perderEjercitosPorAtq(defensa)
                     self.ciudadLibre(ciudadDef)
 
                 # El ataque fracaso
-                # Calculo que el atacante pierde  los ejercitos con los que ataco
-                # y no mas de eso, como en el TEG
+                # El atacante pierde los ejercitos con los que ataco
                 else:
+                    # ejercitos de ataque < ejercitos de def 
+                    ciudadDef.perderEjercitosPorDef(ataque)
                     ciudadAtq.perderEjercitosPorAtq(ataque) 
         # sino, no puedo atacar 
         # o el ataque ya termino
