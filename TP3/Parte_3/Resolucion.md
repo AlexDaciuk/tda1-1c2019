@@ -46,7 +46,11 @@ Si consideramos una instancia de 3-DM con {X,Y,Z} de dimension N y C el conjunto
 
 Armamos nuestro caso de 4-DM con {W,X,Y,Z} de dimension N y C' el conjunto de 4-tuplas definidas de tal manera que (Wi, Xj, Yk, Zl) con (Xj, Yk, Zl) en C y con i en 1 .. n
 
-Entonces, si tenemos un conjunto H de las 3-tuplas disjuntas en C, encontrar el conjunto de 4-tuplas disjuntas en C' se resuelve de forma polinomica, agregando los elementos Wi tal que las 4-tuplas sigan siendo disjuntas 
+Entonces, si tenemos un conjunto H de las 3-tuplas disjuntas en C, encontrar el conjunto de 4-tuplas disjuntas en C' se resuelve de forma polinomica, agregando los elementos Wi tal que las 4-tuplas sigan siendo disjuntas
 
 
 2.  Se tiene un conjunto de n tareas, con tiempo de ejecución ti​, una fecha límite de finalización di y una ganancia vi otorgada si se finaliza antes que su tiempo límite. Se pide devolver si existe alguna planificación que obtenga una ganancia total mayor o igual a K sin ejecutar dos tareas a la vez.
+
+Se puede ver que este problema es **NP** ya que se puede comprobar en tiempo polinomial que un conjunto de tareas cumple las condiciones necesarias.
+
+ 
