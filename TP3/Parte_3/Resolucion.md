@@ -8,18 +8,31 @@ Que un problema sea **P** significa que puede resolverse en tiempo polinomico, o
 
 La categoria **NP** corresponde a los problemas que dada una posible solucion, se puede comprobar que es valida o no en tiempo polinomico (aunque todavia no exista un algoritmo para encontrar soluciones en tiempo polinomico).
 
-La categoria **NP Completo** agrupa a los problemas que no se le puede encontrar una solucion en tiempo polinomico, pero, muchos problemas de esta categoria, pueden ser reducidos en tiempo polinomico a otros de la misma categoria, entonces, de encontrarse una solucion polinomica a cualquier problema de esta categoria, signifca que todos pueden resolverse en tiempo polinomial.
+La categoria **NP Completo** agrupa a los problemas **NP** que pueden ser reducidos en tiempo polinomico a otros de la misma categoria, entonces, de encontrarse una solucion polinomica a cualquier problema de esta categoria, signifca que todos pueden resolverse en tiempo polinomial.
 
-La categoria **NP-Hard** son problemas, que son, al menos, tan complejos como los **NP** y que cualquier problema **NP** puede ser reducido a esta categoria en tiempo polinomial
+La categoria **NP-Hard** son problemas, que son, al menos, tan complejos como los **NP** (sin necesariamente estar en esta cateporia) y que cualquier problema **NP Completo** puede ser reducido a esta categoria en tiempo polinomial
 
 
 #### 2. Tenemos un problema A, un problema B y una caja negra NA y NB que resuelven el problema A y B respectivamente. Sabiendo que B es NP
 
-Qué podemos decir de A si utilizamos NA para resolver el problema B (asumimos que la reducción realizada para adaptar el problema B al problema A el polinomial)
+- Qué podemos decir de A si utilizamos NA para resolver el problema B (asumimos que la reducción realizada para adaptar el problema B al problema A el polinomial)
+
+Siendo que no sabemos la categoria de **A**, **NA** o **NB**
+
+Si existe una reduccion polinomial de **B** a **A** y **B** es **NP** entonces A es **NP**
+
 
 - Qué podemos decir de A si utilizamos NB para resolver el problema A (asumimos que la reducción realizada para adaptar el problema A al problema B el polinomial)
 
+Si existe una reduccion polinomial de **A** a **B**, entonces, siendo que **B** es **NP**, entonces:
+
+**A** puede ser **P** siendo que todos los problemas **P** son **NP**, o, **NP Completo** ya que **B** es **NP** y **A** puede ser reducido a **NP**
+
 - Qué pasa con los puntos anteriores si no conocemos la complejidad de B, pero sabemos que A es P?.
+
+En caso de que **A** sea **P**, la reduccion de **B** (**NP**) a **A** (**P**) del primer problema, todavia no tiene solucion y es un problema abierto
+
+En el segundo caso, si **A** es **P** y se reduce a **B**, 
 
 ## B) Demostrar que los siguientes problemas son NPC. Justificar claramente, escribiendo en pseudocódigo los algoritmos si cree conveniente
 
