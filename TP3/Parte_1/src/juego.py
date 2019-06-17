@@ -42,8 +42,8 @@ class Partida:
 
     def finDeParida(self):
         # Primera condicion de fin de partida: un jugador recolecto mas de 100 especias
-        int especia1 = self.jugador1.obtenerCantEspecias()
-        int especia2 = self.jugador2.obtenerCantEspecias()
+        especia1 = self.jugador1.obtenerCantEspecias()
+        especia2 = self.jugador2.obtenerCantEspecias()
 
         if (especia1 > 100):
             return True
@@ -70,8 +70,8 @@ class Partida:
         return False
 
     def determinar_ganador(self):
-        int especia1 = self.jugador1.obtenerCantEspecias()
-        int especia2 = self.jugador2.obtenerCantEspecias()
+        especia1 = self.jugador1.obtenerCantEspecias()
+        especia2 = self.jugador2.obtenerCantEspecias()
 
         if (especia1 < especia2):
             return self.jugador2
@@ -80,8 +80,8 @@ class Partida:
             return self.jugador1
 
         # Resuelvo primer empate
-        int ciudades1 = self.jugador1.obtenerCantCiudades()
-        int ciudades2 = self.jugador2.obtenerCantCiudades()
+        ciudades1 = self.jugador1.obtenerCantCiudades()
+        ciudades2 = self.jugador2.obtenerCantCiudades()
         
         if (ciudades1 < ciudades2):
             return self.jugador2
@@ -90,8 +90,8 @@ class Partida:
             return self.jugador1
 
         # Resuelvo segundo empate
-        int ejercitos1 = self.jugador1.obtenerCantEjercitos()
-        int ejercitos2 = self.jugador2.obtenerCantEjercitos()
+        ejercitos1 = self.jugador1.obtenerCantEjercitos()
+        ejercitos2 = self.jugador2.obtenerCantEjercitos()
 
         if (ejercitos1 < ejercitos2):
             return self.jugador2 

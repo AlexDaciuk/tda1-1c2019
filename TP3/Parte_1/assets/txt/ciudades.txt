@@ -1,8 +1,13 @@
 Washington,0
 Moscu,0
-Buenos Aires,10
-Rio de Janeiro,7
-Paris,5
-Roma,4
-Disneylandia, 6 
-Atlantis, 8
+Paris,8
+Berlin,8
+Mexico,5
+San Pablo,8
+Buenos Aires,5
+Johannesburgo,3
+El Cairo,4
+Teheran,4
+Shanghai,10
+Tokio,7
+Sydney,5

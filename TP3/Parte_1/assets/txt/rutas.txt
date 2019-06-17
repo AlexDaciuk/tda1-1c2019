@@ -1,3 +1,34 @@
-Paris,Roma,3
-Buenos Aires,Rio de Janeiro,4
-Rio de Janeiro,Buenos Aires,3
+Washington,Paris,8
+Paris,Washington,8
+Washington,Mexico,7
+Mexico,Washington,7
+Washington,Tokio,4
+Tokio,Washington,4
+Moscu,Berlin,8
+Berlin,Moscu,8
+Moscu,El Cairo,3
+El Cairo,Moscu,3
+Moscu,Shanghai,5
+Shanghai,Moscu,5
+Paris,Berlin,10
+Berlin,Paris,10
+Paris,El Cairo,5
+El Cairo,Paris,5
+Mexico,San Pablo,4
+San Pablo,Mexico,4
+San Pablo,Buenos Aires,6
+Buenos Aires,San Pablo,6
+San Pablo,Johannesburgo,4
+Johannesburgo,San Pablo,4
+Buenos Aires,Sydney,4
+Sydney,Buenos Aires,4
+Sydney,Tokio,4
+Tokio,Sydney,4
+El Cairo,Johannesburgo,2
+Johannesburgo,El Cairo,2
+El Cairo,Teheran,4
+Teheran,El Cairo,4
+Teheran,Shanghai,4
+Shanghai,Teheran,4
+Shanghai,Tokio,6
+Tokio,Shanghai,6

@@ -1,11 +1,8 @@
-import sys
-from pathlib import Path
-from random import randint
-from tkinter import Tk, Canvas, mainloop
-
+from Ruta import Ruta
 
 class Ciudad:
-    def __init__(self, produccion, ejercitos = 1):
+    def __init__(self,nombre, produccion, ejercitos = 1):
+        self.nombre = nombre
         # Atributo para la cantidad de especias que puede producir la ciudad
         self.produccion = produccion 
         # Cantidad de especias en la ciudad
@@ -22,7 +19,10 @@ class Ciudad:
         self.ejercitosParaDef = 0
         # Lista de vecinos de la ciudad, o sea, 
         # todas las ciudades con las que esta conectada
-        self.listaVecinos = []
+        self.rutas = []
+
+    def agregarRuta(self, destino,trafico):
+        self.rutas.append(Ruta(destino,trafico))
 
     def agregarEjercitosAtq(self, refuerzos):
         self.ejercitosParaAtq += refuerzos
@@ -43,7 +43,7 @@ class Ciudad:
         return          
 
     def obtenerListaDeVecinos(self):
-        return self.listaVecinos
+        return self.rutas
 
     # Devuelve la cantidad de ejercitos que posee la ciudad para atacar
     def obtenerCantEjercitosAtq(self):
@@ -54,7 +54,7 @@ class Ciudad:
         return self.ejercitosParaDef
 
     def enListaDeVecinos(self, ciudadVecina):
-        if (ciudadVecina in self.enListaDeVecinos):
+        if (ciudadVecina in self.rutas):
             return True 
         
         return False
