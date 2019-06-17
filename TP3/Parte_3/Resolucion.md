@@ -15,9 +15,12 @@ La categoria **NP-Hard** son problemas, que son, al menos, tan complejos como lo
 
 #### 2. Tenemos un problema A, un problema B y una caja negra NA y NB que resuelven el problema A y B respectivamente. Sabiendo que B es NP
 
-Qué podemos decir de A si utilizamos NA para resolver el problema B (asumimos que la reducción realizada para adaptar el problema B al problema A el polinomial)
+- Qué podemos decir de A si utilizamos NA para resolver el problema B (asumimos que la reducción realizada para adaptar el problema B al problema A el polinomial)
+
+
 
 - Qué podemos decir de A si utilizamos NB para resolver el problema A (asumimos que la reducción realizada para adaptar el problema A al problema B el polinomial)
+
 
 - Qué pasa con los puntos anteriores si no conocemos la complejidad de B, pero sabemos que A es P?.
 
