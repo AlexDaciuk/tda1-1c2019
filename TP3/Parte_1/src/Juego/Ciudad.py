@@ -1,4 +1,4 @@
-from Ruta import Ruta
+from .Ruta import Ruta
 
 class Ciudad:
     def __init__(self,nombre, produccion, ejercitos = 1):
@@ -20,6 +20,9 @@ class Ciudad:
         # Lista de vecinos de la ciudad, o sea, 
         # todas las ciudades con las que esta conectada
         self.rutas = []
+
+        #para armar arbol en BFS utilizado en la selección
+        self.anterior = None
 
     def agregarRuta(self, destino,trafico):
         self.rutas.append(Ruta(destino,trafico))

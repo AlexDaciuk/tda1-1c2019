@@ -1,5 +1,5 @@
 from pathlib import Path
-from Ciudad import Ciudad
+from .Ciudad import Ciudad
 
 class Mapa:    
     def __init__(self,archivoCiudades,archivoRutas):
