@@ -53,4 +53,4 @@ Entonces, si tenemos un conjunto H de las 3-tuplas disjuntas en C, encontrar el 
 
 Se puede ver que este problema es **NP** ya que se puede comprobar en tiempo polinomial que un conjunto de tareas cumple las condiciones necesarias.
 
- 
+Ahora, para ver que es **NP Completo**, nos bastaria con encontrar una reduccion a otro problema que sabemos que es **NP Completo** TODO
