@@ -22,7 +22,7 @@ recolección de especia, ya que ambas condiciones son necesarias para ganar.
 #### Pseudocodigo de BFS:
 -Dada la metropolis del jugador, BFS sistemáticamente explora las ciudades del mapa para “encontrar” todos las ciudades a las que la metropolis puede acceder.
 -Calcula la distancia (menor número de ciudades) desde la metropolis a todos las ciudades que puede acceder.
--Después produce una lista de recorridos desde la metropolis y que contiene a todas las ciudades accesibles.
+-Después produce un arbol de recorrido desde la metropolis y que contiene a todas las ciudades accesibles.
 -El camino desde la metropolis a cada vértice contiene el mínimo número de ciudades. Es el camino más corto medido en número de vértices.
 -Llega a las ciudades de distancia k, sólo tras haber llegado a todos los ciudades a distancia k-1
 
