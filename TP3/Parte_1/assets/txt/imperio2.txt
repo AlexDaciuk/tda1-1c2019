@@ -1,0 +1,6 @@
+Moscu,1
+Shanghai,1
+Berlin,1
+El Cairo,1
+Teheran,1
+Johannesburgo,1

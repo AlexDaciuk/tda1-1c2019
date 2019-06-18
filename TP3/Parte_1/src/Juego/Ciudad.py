@@ -1,8 +1,10 @@
 from .Ruta import Ruta
 
 class Ciudad:
-    def __init__(self,nombre, produccion, ejercitos = 1):
-        self.nombre = nombre
+    def __init__(self,nombre, produccion, ejercitos = 0, imperio = None, metropolis = False):
+        self.nombre = nombre        
+        self.metropolis = metropolis
+        self.imperio = imperio
         # Atributo para la cantidad de especias que puede producir la ciudad
         self.produccion = produccion 
         # Cantidad de especias en la ciudad
@@ -11,14 +13,14 @@ class Ciudad:
         # ataque, defensa, no se puede usar (AKA: noAtq)
         # ----
         # Este atributo guarda una cantidad de ejercitos 
+        self.ejercitos = ejercitos
         # que tiene la ciudad pero que no puede usar en ese turno
         self.ejercitosNoAtq = 0
         # Cantidad de ejercitos con la que ciudad va a atacar a la ciudad vecina
-        self.ejercitosParaAtq = ejercitos
+        self.ejercitosParaAtq = 0
         # Ejercitos para defender
         self.ejercitosParaDef = 0
-        # Lista de vecinos de la ciudad, o sea, 
-        # todas las ciudades con las que esta conectada
+        # Lista de Jugador.Ruta
         self.rutas = []
 
         #para armar arbol en BFS utilizado en la selección

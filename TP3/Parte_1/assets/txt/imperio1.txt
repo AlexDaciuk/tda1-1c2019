@@ -1,0 +1,7 @@
+Washington,1
+Paris,1
+Tokio,1
+Mexico,1
+San Pablo,1
+Sydney,1
+Buenos Aires,1
