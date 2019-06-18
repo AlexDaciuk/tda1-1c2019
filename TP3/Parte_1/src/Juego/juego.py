@@ -58,7 +58,7 @@ class Partida:
         if (self.verDeQuienEsElTurno() == 1):
             ciudad = self.jugador2.obtenerMetropolis()
 
-        lista  = self.ciudad.obtenerListaDeVecinos()
+        lista  = ciudad.obtenerListaDeVecinos()
         
         if (len(lista) == 0):
             return True
@@ -103,17 +103,17 @@ class Partida:
         else:
             return None
 
-    def ciudadCambiarBando(ciudad, exDueño, nuevoDueño):
+    def ciudadCambiarBando(self,ciudad, exDueño, nuevoDueño):
         exDueño.eliminarCiudad(ciudad)
         nuevoDueño.agregarCiudad(ciudad)
         return
 
     # El mapa debe marcar en el nodo de esa ciudad que no pertenece a nadie
-    def ciudadLibre(ciudad):
+    def ciudadLibre(self,ciudad):
         return NotImplementedError
 
-    def pasarEjercitos(ciudadAtq, ciudadDef):
-        int paso = ciudadAtq.obtenerCantEjercitosAtq()
+    def pasarEjercitos(self,ciudadAtq, ciudadDef):
+        paso = ciudadAtq.obtenerCantEjercitosAtq()
         # ¿Casos borde? VER
         if (paso <= 1):
             print("Error: como minimo debe pasar 2 ejercitos")
@@ -135,7 +135,7 @@ class Partida:
                 # Se supone que alguien debe decidir con cuantos ejercitos atacar en
                 # vez de usar todos los disponibles
                 # VER
-                int defensa = ciudadDef.obtenerEjercitosDef()
+                defensa = ciudadDef.obtenerEjercitosDef()
                 if (ataque > defensa):
                     # actualizar ejercitos
                     ciudadDef.perderEjercitosPorDef(defensa)
