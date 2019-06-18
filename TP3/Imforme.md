@@ -55,11 +55,7 @@ Para cada resultado final, cómo de beneficioso me resulta si estamos en MAX o c
 
 El algoritmo explorará los nodos del árbol asignándoles un valor numérico mediante una función de utilidad, empezando por los nodos terminales y subiendo hacia la raíz. La función de utilidad como se ha comentado, definirá lo buena que es la posición para un jugador cuando la alcanza.
 
-Versiones más avanzadas como el minimax con poda alfa beta hacen que se reduzca considerablemente el número de nodos a visitar por lo que el tiempo de cálculo se reduce ampliamente.
-
-Y para terminar comentar un ejemplo cásico, el tres en raya (juego del gato, tatetí, triqui, tres en gallo, michi, la vieja o tic tac toe). Se trata de hacer una fila de tres para ganar y evitar que el oponente la haga antes que tu.
-
-Al aplicar el algoritmo, se suceden una serie de estados que se resumen en la fotografía. Un estado -1 significa que MAX gana, 0 empate o -1 pierde.
+Al aplicar el algoritmo, se suceden una serie de estados que se resumen : -1 significa que MAX gana, 0 empate o -1 pierde.
 
 #### De la recoleccion de especias
 Utilizamos el algoritmo de Ford-Fulkerson para implementar el tema de la recoleccion de especias.
