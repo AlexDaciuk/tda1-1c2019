@@ -206,4 +206,4 @@ Se puede ver que este problema es **NP** ya que se puede comprobar en tiempo pol
 
 Ahora, para ver que es **NP Completo**, nos bastaria con encontrar una reduccion a otro problema que sabemos que es **NP Completo**
 
-Si representamos las tareas en un grafo de intervalos, encontramos que el problema se reduce a encontrar el conjunto independiente de peso maximo y el problema de decision de un set independiente es **NP Completo**
+Si representamos las tareas en un grafo de intervalos, encontramos que el problema se reduce a encontrar el conjunto independiente de peso maximo y el problema de decision de un set independiente es **NP Hard**, entonces, si puedo reducir el problema a uno **NP Hard** este es **NP Completo** (por definicion de NP Hard).
