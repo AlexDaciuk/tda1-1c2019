@@ -152,6 +152,16 @@ En la primera iteracion, se elije la pieza 3, que para esa semana, es la pieza m
 En la segunda iteracion, nuestras opciones se reducen a Pieza 1 y Pieza 2, al tener la misma paga, se elije por defecto Pieza 1
 En la tercera iteracion, solamente podemos elegir entre la Pieza 2 y la Pieza 3, ninguna de estas 2 opciones es la mejor paga en la semana 3, por ende, esta solucion no es optima.
 
+Para que sea optima la solucion greedy, no tendria que haber precios repetidos en las semanas.
+
+### **4) Proponer una solución con programación dinámica. Mostrar el pseudocódigo.**
+
+TODO
+
+### **5) Explicitar la relación de recurrencia y analizar la complejidad del algoritmo.**
+
+TODO
+
 # Parte 3
 
 ### **A) Responda a las siguientes preguntas teóricas. Sea conciso y justifique claramente**
