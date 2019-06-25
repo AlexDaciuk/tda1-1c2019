@@ -14,8 +14,11 @@ def BuscarCiudadesImperio(archivoSeleccion,mapa):
     return ciudades
 
 def generarImperios(archivoSelección1, archivoSelección2, mapa):
-    imperio1 = Imperio(mapa.ciudades[0])
-    imperio2 = Imperio(mapa.ciudades[1])
+    imperio1 = Imperio()    
+    imperio2 = Imperio()
+    
+    imperio1.metropolis = mapa.ciudades[0]
+    imperio2.metropolis = mapa.ciudades[1]
 
     prefsImperio1=BuscarCiudadesImperio(archivoSelección1,mapa)
     prefsImperio2=BuscarCiudadesImperio(archivoSelección2,mapa)
@@ -38,12 +41,16 @@ def generarImperios(archivoSelección1, archivoSelección2, mapa):
 
     return imperio1, imperio2
 
-def guardarImperio(num,imperio):
-    archivo = open(Path("../assets/txt/" + "imperio" + str(num) +".txt"), "w+")
+def guardarImperio(num,imperio, temp = False):
+    nombreArchivo = "../assets/txt/" + "imperio" + str(num) +".txt"
+    if temp:
+        nombreArchivo = "../assets/txt/" + "imperio" + str(num) +"_temp.txt"
+        
+    archivo = open(Path(nombreArchivo), "w+")
 
-    archivo.write(imperio.metropolis.nombre + ',' + str(imperio.metropolis.ejercito) + '\n')
+    archivo.write(imperio.metropolis.nombre + ',' + str(imperio.metropolis.ejercitos) + '\n')
     for ciudad in imperio.ciudades:
-        archivo.write(ciudad.nombre + ',' + str(ciudad.ejercito) + '\n')
+        archivo.write(ciudad.nombre + ',' + str(ciudad.ejercitos) + '\n')
 
     archivo.close()
 

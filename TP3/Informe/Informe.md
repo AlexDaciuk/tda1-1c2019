@@ -27,11 +27,15 @@ Entre estas 3 clases dan forma a un grafo en  listas de adyacencias:
 
 Para ejemplificar el informe, y simular una instancia de los archivos de salida,utilizamos el siguiente mapa:
 
+<<<<<<< HEAD
 ![Mapa Propuesto](Imagenes/mapa.png)
+=======
+![Mapa Propuesto](imagenes/mapa.png)
+>>>>>>> cosecha y produccion terminados
 
 ## Separación del Tablero
 
-## Selección
+### **Selección**
 
 Para este paso utilizamos decidimos asignar prioridades de asignación para cada imperio de acuerdo a dos criterios: primero por proximidad a la metrópolis y luego por cantidad de especia producida.
 
@@ -55,7 +59,7 @@ Ordena la lista de preferencias, que se almacenan en lso archivos de selección.
 
 La complejidad temporal del algoritmo se puede expresar como `O (|V| + |E|)`, donde `|V|` es el número de ciudades y `|E|` es el número de rutas. En el peor caso, cada ciudad y cada ruta será visitada por el algoritmo.
 
-## División
+### **División**
 
 La división se realiza mediante un simple pareo según la reglas establecida, en este caso el mapa queda dividido ed la sigueinte forma:
 
@@ -77,10 +81,17 @@ La siguiente es una idea simple del algoritmo Ford-Fulkerson:
         Añade la recoleccion de la ruta de la ciudad para el flujo.
 3) Devuelve el flujo.
 
+<<<<<<< HEAD
 Ejemplo gráfico:
 
 ![Anexiones](Imagenes/ford_fulkerson1.png)
 ![Anexiones](Imagenes/ford_fulkerson2.png)
+=======
+ejemplo gráfico:
+
+![Anexiones](imagenes/ford_fulkerson1.png)
+![Anexiones](imagenes/ford_fulkerson2.png)
+>>>>>>> cosecha y produccion terminados
 
 En nuestro caso, se utiliza el grafo `Imperio.ciudades` para representar el grafo que une las ciudades del imperio. Para cada una de ellas se aplica el algoritmo y se transporta la cantidad máxima de especia. El procedimiento se repite por cada ciudad y la suma de todas ellas por turno se almacena en `Imperio.cantEspecias` para luego ser guardada en el archivo correspondiente.
 

@@ -1,7 +1,9 @@
 import sys
 from pathlib import Path 
+from functools import reduce
 from collections import defaultdict
 from Juego.Mapa import Mapa
+from Juego.Imperio import Imperio
    
 class FordFulkerson: 
    
@@ -56,20 +58,69 @@ class FordFulkerson:
   
         return max_flow 
 
-def guardarCosecha(num, imperio, mapa):
-    archivo = open(Path("../assets/txt/" + "cosecha" + str(num) +".txt"), "w+")
-    # Para cada ciudad en imperio.ciudades
-        # Guardar la suma de todos los valores devueltos por FordFulkerson.flow(ciudad,imperio.metropolis)
+def armarMatrizGrafo(imperio):
+
+    ciudades = imperio.ciudades
+    # matriz incial de flujo 0
+    #matriz = [[0]*len(ciudades)]*len(ciudades)
+    matriz = [[0 for x in range(len(ciudades))] for y in range(len(ciudades))] 
+
+    #asigno flujos segun conexiones del imperio
+    for ciudad in ciudades:
+        for conex in ciudad.rutas:
+            if conex.destino in ciudades:
+                iorigen = ciudades.index(ciudad)
+                idestino = ciudades.index(conex.destino)
+                matriz[iorigen][idestino]= conex.trafico
     
+    return matriz
+
+def calcularCosecha(imperio):
+
+    flujoMax = 0
+   
+    cflujo = FordFulkerson(armarMatrizGrafo(imperio))        
+    
+    for ciudad in imperio.ciudades:
+        if imperio.ciudades.index(ciudad) != 0:
+            flujoMax += cflujo.flow(0,imperio.ciudades.index(ciudad)) 
+
+    #capacidad cosecha
+    CosechaMaxima = reduce(lambda a,b : a + b, [c.produccion for c in imperio.ciudades])
+
+    if CosechaMaxima > flujoMax:
+        return flujoMax
+    else:
+        return CosechaMaxima
+
+
+def guardarCosecha(numJugador, imperio):
+    cosecha = calcularCosecha(imperio)
+    cosechaAnterior = 0
+
+    # Cargo cosecha anterior si existe archivo
+    try:
+        archivo = open(Path("../assets/txt/cosecha" + str(numJugador) + '.txt'), "r")
+        cosechaAnterior = int(archivo.read())
+        archivo.close()
+    except FileNotFoundError:
+        cosechaAnterior = 0 
+
+    archivo = open(Path("../assets/txt/" + "cosecha" + str(numJugador) +".txt"), "w+")
+    
+    # Guardo cosecha actual + cosecha anterior
+    archivo.write(str(cosecha + cosechaAnterior))    
     archivo.close()
+
 
 if __name__ == "__main__":  
 
     numJugador = sys.argv[1]
     archivoCiudades = sys.argv[2]
-    archivoRutas = sys.argv[2]
-    archivoImperio = sys.argv[3]
+    archivoRutas = sys.argv[3]
+    archivoImperio = sys.argv[4]
 
     mapa = Mapa(archivoCiudades, archivoRutas)
+    imperio = Imperio(archivoImperio,mapa)
     
-    guardarCosecha(numJugador, archivoImperio, mapa)
+    guardarCosecha(numJugador, imperio)
