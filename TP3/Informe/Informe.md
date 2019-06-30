@@ -127,7 +127,7 @@ Guardo en producido_ultima_semana la pieza que se produjo la ultima semana, para
 Recorro cada lista en **semanas** y busco la pieza que tenga el mayor precio en **semana - producido_ultima_semana**
 
 Guardo en otra lista, las piezas a producir, ordenadas por semana.
-
+```
     producido_ultima_semana = -1
 
     Por cada semana en n:
@@ -135,32 +135,64 @@ Guardo en otra lista, las piezas a producir, ordenadas por semana.
       pieza = mayor(precios_actual - producido_ultima_semana)
       a_producir.agregar(pieza)
       producido_ultima_semana = pieza
-
+```
 ### **2) Analizar y justificar la complejidad del algoritmo**
 
 Iterar de 1 a n es `O(n)`
 
 Buscar el mayor en una lista desordenada **semana - producido_ultima_semana** es `O(m - 1)`
 
-=> `O(n + m - 1)` , siendo **n** la cantidad de semanas que se quieren calcular y **m** la cantidad de piezas que se pueden producir
+=> `O(n * m)` , siendo **n** la cantidad de semanas que se quieren calcular y **m** la cantidad de piezas que se pueden producir
 
 ### **3) Determinar si la solución es óptima. En caso negativo, en qué condiciones lo puede ser?**
 
 Se puede ver ya con un ejemplo chico como el del enunciado, que esa solucion no es la optima.
 
-En la primera iteracion, se elije la pieza 3, que para esa semana, es la pieza mejor paga
-En la segunda iteracion, nuestras opciones se reducen a Pieza 1 y Pieza 2, al tener la misma paga, se elije por defecto Pieza 1
+En la primera iteracion, se elije la pieza 3, que para esa semana, es la pieza mejor paga.
+
+En la segunda iteracion, nuestras opciones se reducen a Pieza 1 y Pieza 2, al tener la misma paga, se elije por defecto Pieza 1.
+
 En la tercera iteracion, solamente podemos elegir entre la Pieza 2 y la Pieza 3, ninguna de estas 2 opciones es la mejor paga en la semana 3, por ende, esta solucion no es optima.
 
 Para que sea optima la solucion greedy, no tendria que haber precios repetidos en las semanas.
 
 ### **4) Proponer una solución con programación dinámica. Mostrar el pseudocódigo.**
 
-TODO
+Guardo los precios de cada semana en una lista circular **precios_semana** de tal manera que pueda recorrer la lista las veces que sea necesaria y mantenga el orden de los precios
+
+Guardo en planificacion la pieza a producir en cada semana, estando en planificacion[n] la pieza a producir en la semana n.
+
+Planteo un algoritmo bottom - up
+
+```
+funcion optimizar_produccion(n):
+  semana = precios_semana.obtener()
+
+  planificacion[1] = posicion_maximo(semana)
+
+  pieza_anterior =  semana[planificacion[1]]
+
+  para cada semana entre 2 y n:
+    semana = precios_semana.obtener() - planificacion[semana - 1]
+
+    planificacion[semana] = posicion_maximo( pieza_anterior + semana[1], pieza_anterior + semana[2] )
+
+
+
+  return planificacion
+```
 
 ### **5) Explicitar la relación de recurrencia y analizar la complejidad del algoritmo.**
 
-TODO
+Como no es un algoritmo recursivo, no hay relacion de recurrencia
+
+Con respecto a la complejidad, el loop que recorre las semanas es **O(n - 1)**, siendo **n** el numero de semanas, ya que se omite la primera
+
+Sacar un elemento cualquiera de una lista desordenada es O(m), siendo **m** el tamaño de la lista
+
+Sacar el maximo de una lista es **O(p)** siendo **p** el tamaño de la lista.
+
+**=> O(n-1 * m + p)**
 
 # Parte 3
 
@@ -170,11 +202,13 @@ TODO
 
 Que un problema sea **P** significa que puede resolverse en tiempo polinomico, osea, que su solucion optima tiene un costo temporal de O(n^k), con un k fijo y n siendo el tamaño del input.
 
-La categoria **NP** corresponde a los problemas que dada una posible solucion, se puede comprobar que es valida o no en tiempo polinomico (aunque todavia no exista un algoritmo para encontrar soluciones en tiempo polinomico).
+La categoria **NP** corresponde a los problemas que dada una posible solucion, se puede comprobar que es valida o no en tiempo polinomico y que puede ser resueltos en tiempo polinomial por una maquina de Turing no deterministica.
 
-La categoria **NP Completo** agrupa a los problemas **NP** que pueden ser reducidos en tiempo polinomico a otros de la misma categoria, entonces, de encontrarse una solucion polinomica a cualquier problema de esta categoria, signifca que todos pueden resolverse en tiempo polinomial.
+La categoria **NP Completo** son problemas **NP** que no se conoce un algoritmo que los resuelva en tiempo polinomico y no se pudo probar que no existen tales algoritmos.
 
-La categoria **NP-Hard** son problemas, que son, al menos, tan complejos como los **NP** (sin necesariamente estar en esta cateporia) y que cualquier problema **NP Completo** puede ser reducido a esta categoria en tiempo polinomial
+La categoria **NP-Hard** son problemas, que son, al menos, tan complejos como los **NP** (sin necesariamente estar en esta categoria) y que cualquier problema **NP Completo** puede ser reducido a esta categoria en tiempo polinomial.
+
+Una maquina de Turing no deterministica es una maquina que puede probar varios inputs al mismo tiempo
 
 #### **2. Tenemos un problema A, un problema B y una caja negra NA y NB que resuelven el problema A y B respectivamente. Sabiendo que B es NP**
 
@@ -182,7 +216,7 @@ La categoria **NP-Hard** son problemas, que son, al menos, tan complejos como lo
 
 Siendo que no sabemos la categoria de **A**, **NA** o **NB**
 
-Si existe una reduccion polinomial de **B** a **A** y **B** es **NP** entonces A es **NP**
+Si existe una reduccion polinomial de **B** a **A** y **B** es **NP** entonces A es al menos **NP**
 
 -   Qué podemos decir de A si utilizamos NB para resolver el problema A (asumimos que la reducción realizada para adaptar el problema A al problema B el polinomial)
 
@@ -192,9 +226,9 @@ Si existe una reduccion polinomial de **A** a **B**, entonces, siendo que **B** 
 
 -   Qué pasa con los puntos anteriores si no conocemos la complejidad de B, pero sabemos que A es P?.
 
-En caso de que **A** sea **P**, la reduccion de **B** (**NP**) a **A** (**P**) del primer problema, todavia no tiene solucion y es un problema abierto
+2.1) Si **A** es **P** y si pudimos reducir **B** a **A** de forma polinomial, por ende B tiene que ser **P**
 
-En el segundo caso, si **A** es **P** y se reduce a **B**, **B** podria ser **P** ya que un problema polinomial reducido de forma polinomial a otro problema, sigue siendo polinomial o **NP** ya que todo problema **P** es **NP**
+2.2) Ya sabemos por enunciado que **A** es **P**, entonces, si usamos **NB** para resolver **A**, entonces **B** podria ser **P** o **NP**
 
 ### **B) Demostrar que los siguientes problemas son NPC. Justificar claramente, escribiendo en pseudocódigo los algoritmos si cree conveniente**
 
@@ -204,9 +238,9 @@ Se puede ver que 4-DM es **NP** ya que se puede comprobar en tiempo polinomial O
 
 Ahora, para ver que es **NP Completo**, nos bastaria con encontrar una reduccion a 3-DM que sabemos por enunciado que es **NP Completo**
 
-Si consideramos una instancia de 3-DM con {X,Y,Z} de dimension N y C el conjunto de 3-tuplas que cumplen con la condicion de ser disjuntas
+Si consideramos una instancia de 3-DM con {x,y,z} con X, Y, Z de dimension N y C el conjunto de 3-tuplas que cumplen con la condicion de ser disjuntas.
 
-Armamos nuestro caso de 4-DM con {W,X,Y,Z} de dimension N y C' el conjunto de 4-tuplas definidas de tal manera que (Wi, Xj, Yk, Zl) con (Xj, Yk, Zl) en C y con i en 1 .. n
+Armamos nuestro caso de 4-DM con {w,x,y,z} con W, X, Y, Z de dimension N y C' el conjunto de 4-tuplas definida como (Wi, Xj, Yk, Zl) tal que para cada 3-tupla (Xj, Yk, Zl) existen N 4-tuplas de la forma (Wi, Xj, Yk, Zl), con Wi perteneciente a W y con i entre 1..n
 
 Entonces, si tenemos un conjunto H de las 3-tuplas disjuntas en C, encontrar el conjunto de 4-tuplas disjuntas en C' se resuelve de forma polinomica, agregando los elementos Wi tal que las 4-tuplas sigan siendo disjuntas
 
@@ -216,4 +250,6 @@ Se puede ver que este problema es **NP** ya que se puede comprobar en tiempo pol
 
 Ahora, para ver que es **NP Completo**, nos bastaria con encontrar una reduccion a otro problema que sabemos que es **NP Completo**
 
-Si representamos las tareas en un grafo de intervalos, encontramos que el problema se reduce a encontrar el conjunto independiente de peso maximo y el problema de decision de un set independiente es **NP Hard**, entonces, si puedo reducir el problema a uno **NP Hard** este es **NP Completo** (por definicion de NP Hard).
+Podriamos reducir este problema a un caso del problema de la mochila, exactamente al si tomamos a la cantidad **n** de tareas como objetos, a tiempo de ejecución **ti** como el peso del objeto y la ganancia **vi** como valor del objeto y la fecha limite de finalización **di** como la capacidad de la mochila.
+
+Hay un detalle que no hay que pasar por alto y es el problema de que las tareas pueden tener horarios que se superpongan, para solucionar esto, podemos plantear el problema de la mochila en su variante de "multiple eleccion" separando cada unidad de tiempo disponible en **di** como una categoria y que cada tarea, ocupe la cantidad de categorias que le corresponden.
