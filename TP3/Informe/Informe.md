@@ -27,11 +27,7 @@ Entre estas 3 clases dan forma a un grafo en  listas de adyacencias:
 
 Para ejemplificar el informe, y simular una instancia de los archivos de salida,utilizamos el siguiente mapa:
 
-<<<<<<< HEAD
 ![Mapa Propuesto](Imagenes/mapa.png)
-=======
-![Mapa Propuesto](imagenes/mapa.png)
->>>>>>> cosecha y produccion terminados
 
 ## Separación del Tablero
 
@@ -81,17 +77,10 @@ La siguiente es una idea simple del algoritmo Ford-Fulkerson:
         Añade la recoleccion de la ruta de la ciudad para el flujo.
 3) Devuelve el flujo.
 
-<<<<<<< HEAD
 Ejemplo gráfico:
 
 ![Anexiones](Imagenes/ford_fulkerson1.png)
 ![Anexiones](Imagenes/ford_fulkerson2.png)
-=======
-ejemplo gráfico:
-
-![Anexiones](imagenes/ford_fulkerson1.png)
-![Anexiones](imagenes/ford_fulkerson2.png)
->>>>>>> cosecha y produccion terminados
 
 En nuestro caso, se utiliza el grafo `Imperio.ciudades` para representar el grafo que une las ciudades del imperio. Para cada una de ellas se aplica el algoritmo y se transporta la cantidad máxima de especia. El procedimiento se repite por cada ciudad y la suma de todas ellas por turno se almacena en `Imperio.cantEspecias` para luego ser guardada en el archivo correspondiente.
 
